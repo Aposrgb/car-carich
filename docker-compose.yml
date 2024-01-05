@@ -1,11 +1,4 @@
-version: '3.9'
-
-x-db-env:
-  environment: &env_db
-    POSTGRES_USER: ${POSTGRES_USER:-car}
-    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-car}
-    POSTGRES_DB: ${POSTGRES_DB:-car_carich}
-#    POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
+version: '3.3'
 
 services:
   postgres:
@@ -14,7 +7,9 @@ services:
     ports:
       - 5460:5432
     environment:
-      <<: [*env_db]
+      POSTGRES_USER: ${POSTGRES_USER:-car}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-car}
+      POSTGRES_DB: ${POSTGRES_DB:-car_carich}
     networks:
       - car
   
@@ -24,7 +19,6 @@ services:
       context: ./build/php-fpm
       dockerfile: Dockerfile
     environment:
-      <<: [ *env_db]
       SYMFONY_ENV:
       PHP_IDE_CONFIG: serverName=car.localhost
     ports:

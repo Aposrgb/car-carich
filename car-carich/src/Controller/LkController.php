@@ -25,4 +25,10 @@ class LkController extends AbstractController
     {
         return $this->render('lk/car_detail.html.twig');
     }
+
+     #[Route('/about-us', name: 'about_us', methods: ['GET'])]
+    public function aboutUs(): Response
+    {
+        return $this->render('lk/about_us.html.twig');
+    }
 }

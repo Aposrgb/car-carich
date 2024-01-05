@@ -1,0 +1,23 @@
+{% extends 'lk/base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/about-us.css') }}">
+{% endblock %}
+
+{% block body %}
+    {{ component('header', {nameHidden: false}) }}
+    <div class="mt-6"></div>
+    <div class="width-100 flex-column flex-center">
+        <div class="width-50">
+            <div class="flex-column">
+                <h2 class="black font-gotham-bold m-0">О нас</h2>
+                <h5 class="font-gotham">
+                    Мы занимаемся импортом автомобилей в РФ. <br>
+                    Возим авто из Кореи, Китая, Японии, Америки и других стран.<br>
+                    Работаем по договору: гарантии, сроки, ответственность-все в нем прописано.
+                </h5>
+            </div>
+            <img src="{{ asset('img/deadline-receiving.svg') }}" class="width-100" alt=""/>
+        </div>
+    </div>
+{% endblock %}
