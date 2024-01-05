@@ -1,0 +1,42 @@
+<footer>
+    <div class="flex-row flex-j-center flex-space-between mlr-9">
+        <div class="footer-main-block">
+            <h2 class="white ibm-font">Car-Карыч</h2>
+            <h5 class="white font-gotham weight-0">
+                г. Москва, Улица Вольная 28/4 к2, 105187
+            </h5>
+        </div>
+        <div class="flex-column footer-soc-network-block">
+            <div class="flex-row">
+                <div class="white font-gotham container-img-soc img-vk flex-center">
+                    <img src="{{ asset('img/vk.svg') }}" alt="" class="img-soc-network"/>
+                </div>
+                <div class="white font-gotham ml-1 container-img-soc img-instagram flex-center">
+                    <img src="{{ asset('img/instagram.svg') }}" alt="" class="img-soc-network"/>
+                </div>
+                <div class="white font-gotham ml-1 container-img-soc img-youtube flex-center">
+                    <img src="{{ asset('img/youtube.svg') }}" alt="" class="img-soc-network"/>
+                </div>
+            </div>
+            <h5 class="white font-gotham weight-0 m-0 pt-2">
+                Импорт автомобилей в РФ. Авто из Кореи, Китая, Японии, Америки и
+                других стран.
+            </h5>
+        </div>
+        <div class="white footer-block">
+            <h4 сlass="font-gotham">Навигация</h4>
+            <a href="{{ path('index') }}"><h5 class="font-gotham">Главная</h5></a>
+            <a href="#select-car"><h5 class="font-gotham">Подобрать автомобиль</h5></a>
+            <a href="{{ path('catalog')}}"><h5 class="font-gotham">Каталог</h5></a>
+            <h5 class="font-gotham">О нас</h5>
+        </div>
+        <div class="white footer-last-block">
+            <h4 сlass="font-gotham">Контакты</h4>
+            <h5 class="font-gotham">+7 (999) 000 99-00</h5>
+            <h5 class="font-gotham">car-carich@email.com</h5>
+            <button class="btn btn-transparent border-white" onclick="toggleModal()">
+                Заказать звонок
+            </button>
+        </div>
+    </div>
+</footer>

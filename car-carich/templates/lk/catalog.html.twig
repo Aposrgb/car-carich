@@ -1,0 +1,59 @@
+{% extends 'lk/base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/filters.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('styles/card.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('styles/catalog.css') }}"/>
+
+    {{ component('car') }}
+    {{ component('slider_factory') }}
+    <script src="{{ asset('scripts/catalog.js') }}"></script>
+    <script src="{{ asset('https://code.jquery.com/jquery-3.7.1.min.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {{ component('header', {nameHidden: false}) }}
+    <div class="flex-column mt-7 mlr-8">
+        <div>
+            <h2 class="black font-gotham weight-9">Каталог</h2>
+        </div>
+
+        <div class="flex-row font-gotham">
+            <div class="flex-column">
+                <div>
+                    <label>
+                        Двигатель
+                    </label>
+                    <div class="flex-row grid-3 mt-1">
+                        <button class="btn btn-light btn-selectable" onclick="elementSelectable(this, BUTTON_TYPE)">Электро</button>
+                        <button class="btn btn-light btn-selectable" onclick="elementSelectable(this, BUTTON_TYPE)">Гибрид</button>
+                        <button class="btn btn-light btn-selectable" onclick="elementSelectable(this, BUTTON_TYPE)">Бензин</button>
+                        <button class="btn btn-light btn-selectable" onclick="elementSelectable(this, BUTTON_TYPE)">Дизель</button>
+                    </div>
+                </div>
+                <div class="flex-column li-filter mt-2">
+                    {{ component('filters/country') }}
+                </div>
+                <div class="flex-column li-filter mt-2">
+                    {{ component('filters/multirange', {min: 2000, max: 40000}) }}
+                </div>
+                <div class="flex-column li-filter mt-2">
+                    {{ component('filters/multirange', {min: 1000, max: 100000, label: 'melieage', name: 'Пробег', symbol: 'km'}) }}
+                </div>
+{#                <div class="li-filter mt-2">#}
+{#                    <label>Цвет</label>#}
+{#                    <div class="grid-gap mt-1">#}
+{#                        <div class="circle bg-white color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
+{#                        <div class="circle bg-grey color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
+{#                        <div class="circle bg-black color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
+{#                        <div class="circle bg-red color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
+{#                        <div class="circle bg-blue color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
+{#                    </div>#}
+{#                </div>#}
+            </div>
+            <div class="cars-cards grid-2 ml-4">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

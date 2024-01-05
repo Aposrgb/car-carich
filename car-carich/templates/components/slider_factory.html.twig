@@ -1,0 +1,15 @@
+<script src="{{ asset('libs/noUiSlider/nouislider.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('libs/noUiSlider/nouislider.min.css') }}"/>
+<script>
+    function createSlider({id, min, max}) {
+        return noUiSlider.create(document.getElementById(id), {
+            start: [min, max],
+            step: Math.ceil((max + min) / 2 / 100),
+            connect: true,
+            range: {
+                min: min,
+                max: max,
+            },
+        });
+    }
+</script>

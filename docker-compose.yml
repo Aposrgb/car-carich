@@ -1,0 +1,56 @@
+version: '3.9'
+
+x-db-env:
+  environment: &env_db
+    POSTGRES_USER: ${POSTGRES_USER:-car}
+    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-car}
+    POSTGRES_DB: ${POSTGRES_DB:-car_carich}
+#    POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
+
+services:
+  postgres:
+    container_name: postgres-car
+    image: postgres
+    ports:
+      - 5460:5432
+    environment:
+      <<: [*env_db]
+    networks:
+      - car
+  
+  php-fpm:
+    container_name: php-fpm-car
+    build:
+      context: ./build/php-fpm
+      dockerfile: Dockerfile
+    environment:
+      <<: [ *env_db]
+      SYMFONY_ENV:
+      PHP_IDE_CONFIG: serverName=car.localhost
+    ports:
+      - 9612:9000
+    volumes:
+      - ./car-carich:/var/www/symfony:cached
+      - ./logs/symfony:/var/www/symfony/var/log:cached
+      - ./car-carich/:/var/www/car-carich/:delegated
+    depends_on:
+      - postgres
+    networks:
+      - car
+  
+  nginx:
+    image: nginx:latest
+    container_name: nginx-car
+    ports:
+      - 8560:80
+    depends_on:
+      - php-fpm
+    networks:
+      - car
+    volumes:
+      - ./build/nginx/local:/etc/nginx/conf.d/
+      - ./build/nginx/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf
+      - ./car-carich/public:/var/www/car-carich/public:rw,cached
+
+networks:
+  car:

@@ -1,0 +1,4 @@
+.cars-cards{
+    display:grid;
+    gap: 20px;
+}

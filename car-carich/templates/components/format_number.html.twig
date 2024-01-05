@@ -1,0 +1,14 @@
+<script>
+    let formatterNumber = new Intl.NumberFormat();
+
+    function formatAllNumber() {
+        let numberClasses = document.getElementsByClassName("number");
+        for (let numberClass of numberClasses) {
+            numberClass.innerText = formatNumber(numberClass.innerText);
+        }
+    }
+
+    function formatNumber(el) {
+        return formatterNumber.format(el);
+    }
+</script>

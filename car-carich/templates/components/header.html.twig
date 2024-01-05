@@ -1,0 +1,16 @@
+<header class="fs-13 header header-hidden bg-white black font-gotham-bold weight-9 fixed z3 bt-0 width-100
+    {% if isDisplayNone %}
+    d-none
+    {% endif %}
+">
+    {% if nameHidden %}
+    {% else %}
+        <a href="{{ path('index') }}" class="ml-2 ibm-font absolute">Car-Карыч</a>
+    {% endif %}
+    <div class="flex-j-center flex-end width-100">
+        <a href="{{ path('index') }}">Главная</a>
+        <a href="#select-car">Подобрать автомобиль</a>
+        <a href="{{ path('catalog') }}">Каталог</a>
+        <a href="#">О нас</a>
+    </div>
+</header>

@@ -1,0 +1,141 @@
+
+:root {
+    --default-aspect-ratio: 1.96;
+}
+
+.big-block {
+    aspect-ratio: var(--default-aspect-ratio);
+    width: 90%;
+}
+
+.eight-block {
+    aspect-ratio: var(--default-aspect-ratio);
+    width: 80%;
+}
+
+.seventi-block {
+    aspect-ratio: var(--default-aspect-ratio);
+    width: 70%;
+}
+
+.mini-block {
+    aspect-ratio: var(--default-aspect-ratio);
+    width: 45%;
+}
+
+.half-block {
+    aspect-ratio: var(--default-aspect-ratio);
+    width: 50%;
+}
+
+.third-block {
+    aspect-ratio: var(--default-aspect-ratio);
+    width: 30%;
+}
+
+.last-block {
+    aspect-ratio: 2.34;
+    width: 100%;
+    background-color: #212121;
+}
+
+.main-block {
+    position: absolute;
+    display: block;
+    overflow: hidden;
+}
+
+.img-container {
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+.img-block {
+    width: 100%;
+    position: relative;
+}
+
+.center-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-text {
+    font-size: 2.5vw;
+}
+
+
+.center-sub-block {
+    color: white;
+    text-align: center;
+}
+
+.center-sub-block p {
+    text-align: center;
+    font-size: 0.9vw;
+    margin: 0.3vw;
+}
+
+.pop-model {
+    font-weight: 900;
+    font-size: 24px;
+}
+
+.car-name {
+    font-size: 2vw;
+}
+
+.car-price {
+    font-size: 1.1vw;
+}
+
+.label-description {
+    margin: 0;
+    font-size: 1.1vw;
+}
+
+.label-name {
+    margin: 2px 0px;
+    font-size: 0.9vw;
+}
+
+.montserrat {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+}
+
+
+
+.settings-card {
+    background-color: #323232;
+    padding: 20px 0;
+    border-radius: 3px;
+}
+
+.settings-card > h4 {
+    padding: 0px 40px;
+}
+
+.settings-card > h6 {
+    padding: 0px 40px;
+}
+
+.settings-card:hover {
+    transition: all 0.3s ease;
+    transform: scale(0.9);
+    box-shadow: 0px 0px 4px 1px #5858586b;
+}
+
+@media only screen and (max-width: 768px) {
+    .ibm-font {
+        font-size: 4.3vw;
+    }
+
+    .center-sub-block p {
+        margin: 0.5vw;
+        font-size: 2.5vw;
+    }
+}

@@ -1,0 +1,43 @@
+h5{
+    margin: 5px;
+}
+
+.width-66{
+    width: 66%;
+}
+
+.width-75{
+    width: 75%;
+}
+
+.width-85{
+    width: 85%;
+}
+
+.width-90{
+    width: 90%;
+}
+
+.width-33{
+    width: 33%;
+}
+
+.width-50{
+    width: 50%;
+}
+
+.owl-item{
+}
+
+.flex-baseline{
+    display: flex;
+    align-items: baseline;
+}
+
+.bg-grey-btn{
+    background-color:#F8F8F8;
+}
+
+.primary-text{
+    color: #797979;
+}
