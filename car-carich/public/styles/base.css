@@ -126,6 +126,10 @@ a {
     margin-left: 20px;
 }
 
+.mr-1{
+    margin-right: 10px;
+}
+
 .mr-2 {
     margin-right: 20px;
 }
@@ -223,6 +227,11 @@ a {
 
 .pt-2 {
     padding-top: 20px;
+}
+
+.pr-2{
+    padding-right: 20px;
+
 }
 
 .pr-6 {
@@ -501,6 +510,13 @@ a {
 .width-33{
     width: 33%;
 }
+.width-40{
+    width: 40%;
+}
+
+.width-30{
+    width: 30%;
+}
 
 .width-50{
     width: 50%;
@@ -666,4 +682,37 @@ footer {
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
+}
+
+.invert-img{
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
+
+
+.filters {
+    background-color: #f8f8f8;
+}
+
+.input-filter::placeholder {
+    padding-left: 10px;
+    color: black;
+}
+
+.filter-underline {
+    border: unset;
+    background: linear-gradient(grey, grey) center bottom 1px / calc(100%) 1px no-repeat;
+    padding: 10px 0;
+}
+
+.filter-underline:focus {
+    outline: unset;
+}
+
+.li-filter {
+    width: 180px;
+}
+
+.li-filter label {
+    font-size: 13px;
 }

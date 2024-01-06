@@ -2,14 +2,12 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ asset('styles/styles.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('styles/filters.css') }}"/>
     <link rel="stylesheet" href="{{ asset('styles/card.css') }}"/>
     <link rel="stylesheet" href="{{ asset('libs/owlcarousel/owl.carousel.min.css') }}"/>
 
     {{ component('car') }}
     {{ component('slider_factory') }}
     <script src="{{ asset('scripts/script.js') }}"></script>
-    <script src="{{ asset('scripts/call-modal.js') }}"></script>
     <script src="{{ asset('https://code.jquery.com/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('libs/owlcarousel/owl.carousel.min.js') }}"></script>
     {{ component('owl_carousel', {selectorName: '.pop-cars', classNameNextArrow: 'right-arrow', classNamePrevArrow: 'left-arrow'}) }}
