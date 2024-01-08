@@ -32,18 +32,18 @@
                 </div>
             </div>
         </div>
-        <header class="fs-13 block header header-block white bottom-2 flex-j-center flex-end">
-            <a href="{{ path('index') }}">Главная</a>
+        <header class="fs-13 block header header-block header-text white bottom-2 flex-j-center flex-end">
+            <a href="{{ path('index') }}" class="mobile-none">Главная</a>
             <a href="#select-car">Подобрать автомобиль</a>
             <a href="{{ path('catalog') }}">Каталог</a>
             <a href="{{ path('about_us') }}">О нас</a>
         </header>
         <div class="block">
             <div class="flex-column">
-                <div class="pop-model text-center font-gotham-bold mt-6">
+                <div class="pop-models text-center font-gotham-bold mt-6">
                     Популярные модели
                 </div>
-                <div class="mt-100 relative">
+                <div class="mt-100 relative card-pop-cars">
                     <div class="mt-7 z2 absolute full-width flex-space-between">
                         <img
                                 id="left-arrow"
@@ -57,10 +57,10 @@
             </div>
         </div>
         <div class="filters pb-5">
-            <div id="select-car" class="flex-column fit-content margin-auto">
+            <div id="select-car" class="select-car flex-column fit-content margin-auto">
                 <h2 class="font-gotham-bold mb-4 mt-6">Подобрать автомобиль</h2>
-                <div class="flex-column">
-                    <ul class="list-style-unset flex-row">
+                <div class="flex-column all-filters">
+                    <ul class="list-style-unset flex-row column-filter">
                         <li class="flex-column flex-space-between li-filter">
                             {{ component('filters/country') }}
                         </li>
@@ -76,11 +76,11 @@
                                 <option class="font-gotham">Все</option>
                             </select>
                         </li>
-                        <li class="flex-column flex-space-between ml-4 li-filter">
+                        <li class="flex-column flex-space-between ml-4 li-filter mobile-none">
                             {{ component('filters/multirange') }}
                         </li>
                     </ul>
-                    <ul class="list-style-unset flex-row">
+                    <ul class="list-style-unset flex-row column-filter">
                         <li class="flex-column flex-space-between li-filter">
                             <label for="name" class="font-gotham grey">Ваше имя</label>
                             <input
@@ -101,17 +101,30 @@
                                     class="input-filter filter-underline"
                             />
                         </li>
+                        <li class="mobile-block li-filter">
+                            <label for="name" class="font-gotham grey">Ценовой диапозон</label>
+                            <input
+                                    type="text"
+                                    id="name"
+                                    placeholder="До 7 912 360₽"
+                                    class="input-filter filter-underline"
+                            />
+                        </li>
                         <li class="ml-4">
-                            <button class="btn btn-black btn-w-large font-gotham" onclick="toggleModal()">
+                            <button class="btn btn-black btn-w-large mobile-none font-gotham" onclick="toggleModal()">
                                 Заказать звонок
                             </button>
                         </li>
                     </ul>
                 </div>
+
+                <button class="btn btn-black btn-w-large mobile-btn mobile-block font-gotham" onclick="toggleModal()">
+                    Заказать звонок
+                </button>
             </div>
         </div>
         <div class="block">
-            <div class="flex-row flex-center mt-7">
+            <div class="flex-row flex-center mt-7 mobile-mt-2">
                 <div>
                     <img
                             id="card-arrow-left"
@@ -130,7 +143,7 @@
                 </div>
             </div>
             <div class="flex-j-center mt-4">
-                <button class="btn btn-black btn-full font-gotham" onclick="location.href='/catalog'">
+                <button class="btn btn-black btn-full all-catalog font-gotham" onclick="location.href='/catalog'">
                     Смотреть весь каталог
                 </button>
             </div>
@@ -138,7 +151,7 @@
         <div class="last-block flex-column">
             <div class="mlr-auto mt-6 eight-block">
                 <h2 class="font-gotham-bold white">Наши преимущества</h2>
-                <div class="flex-row">
+                <div class="flex-row our-advantages">
                     <div class="third-block settings-card mr-2">
                         <div class="flex-j-center mt-4 mb-4">
                             <img src="img/settings.svg" class="seventi-block"/>

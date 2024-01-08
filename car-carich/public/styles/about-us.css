@@ -1,3 +1,63 @@
-.map{
+.map {
     height: 350px;
+}
+
+.img-mobile-delivery {
+    display: none;
+}
+
+.blocks-description {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-social-network {
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 768px) {
+    .main-block{
+        width: 85%;
+    }
+
+    .blocks-description {
+        flex-direction: column;
+        margin-top: 30px;
+    }
+
+    .block{
+        width: fit-content;
+    }
+
+    .block-description {
+        margin-left: 0;
+        width: fit-content;
+        margin-top: 20px;
+        padding:0;
+    }
+
+    .btn-mobile {
+        margin-top: 20px;
+        margin-left:0;
+        margin-right:0;
+        width: auto;
+    }
+
+    .button-social-network {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .work-contract{
+        flex-direction: column;
+        margin-top: 35px;
+    }
+
+    .work-contract .btn{
+        width: 100%;
+        margin-top: 20px;
+        padding-left: 0;
+        padding-right: 0;
+    }
 }

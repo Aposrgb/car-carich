@@ -18,47 +18,55 @@
 
         createHtmlForBigSlider() {
             return `
-          <div class="flex-row full-width">
-            <div class="third-block flex-center flex-column ml-9">
-              <div class="fit-content mt-4">
-                <div class="font-gotham-bold car-name">${this.name}</div>
-                <div class="montserrat car-price">
-                  <span class="number">${this.price}</span> ₽
-                </div>
+          <div class="flex-row full-width pop-model">
+    <div class="third-block flex-center flex-column ml-9">
+        <div class="fit-content mt-4">
+            <div class="font-gotham-bold car-name mobile-none">${this.name}</div>
+            <div class="montserrat car-price mobile-none">
+                <span class="number">${this.price}</span> ₽
+            </div>
+            <div class="car-description">
                 <div class="mt-3">
-                  <p class="font-gotham-bold label-description">
-                    Емкость батареи
-                  </p>
-                  <p class="font-gotham label-name">${this.battery}</p>
+                    <p class="font-gotham-bold label-description">
+                        Емкость батареи
+                    </p>
+                    <p class="font-gotham label-name">${this.battery}</p>
                 </div>
                 <div class="mt-1">
-                  <p class="font-gotham-bold label-description">Двигатель</p>
-                  <p class="font-gotham label-name">
-                    ${this.engine}
-                  </p>
+                    <p class="font-gotham-bold label-description">Двигатель</p>
+                    <p class="font-gotham label-name">
+                        ${this.engine}
+                    </p>
                 </div>
                 <div class="mt-1">
-                  <p class="font-gotham-bold label-description">Габариты</p>
-                  <p class="font-gotham label-name">${this.size}</p>
+                    <p class="font-gotham-bold label-description">Габариты</p>
+                    <p class="font-gotham label-name">${this.size}</p>
                 </div>
                 <div class="mt-1">
-                  <p class="font-gotham-bold label-description">Вес</p>
-                  <p class="font-gotham label-name">${this.weight}</p>
+                    <p class="font-gotham-bold label-description">Вес</p>
+                    <p class="font-gotham label-name">${this.weight}</p>
                 </div>
                 <div class="mt-1">
-                  <p class="font-gotham-bold label-description">Год выпуска</p>
-                  <p class="font-gotham label-name">${this.year}</p>
+                    <p class="font-gotham-bold label-description">Год выпуска</p>
+                    <p class="font-gotham label-name">${this.year}</p>
                 </div>
-                <div class="font-gotham flex-row mt-4 p-2">
-                  <a href="/car-detail/1"><button class="btn btn-light mr-1">Подробнее</button></a>
-                  <button class="btn btn-light ml-2">Заказать</button>
-                </div>
-              </div>
             </div>
-            <div class="big-block car-img">
-              <img src="img/honda.svg" class="img-block" />
-            </div>
-            </div>
+            <div class="font-gotham flex-row mobile-btn mt-4">
+                    <a href="/car-detail/1">
+                        <button class="btn btn-light mr-1">Подробнее</button>
+                    </a>
+                    <button class="btn btn-light ml-2">Заказать</button>
+                </div>
+        </div>
+    </div>
+    <div class="big-block car-img">
+        <img src="img/honda.png" class="img-block"/>
+        <h4 class="font-gotham-bold mobile-block text-center m-0">${this.name}</h4>
+        <h5 class="montserrat text-center mobile-block m-0">
+            <span class="number">${this.price}</span> ₽
+        </h5>
+    </div>
+</div>
     `;
         }
 

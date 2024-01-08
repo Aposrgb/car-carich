@@ -1,21 +1,21 @@
 <script>
     {% set index = random() %}
     document.addEventListener('DOMContentLoaded', () => {
+        let items = [], item = {{ items }}, margin = {{ margin }};
+        items[MOBILE] = 1;
+        if(window.screen.width <= MOBILE) {
+            item = items[MOBILE];
+            margin = 0;
+        }
         let owlCarousel{{ index }} = $("{{ selectorName }}").owlCarousel({
-            margin: {{ margin }},
-            items: {{ items }},
+            margin: margin,
+            items: item,
             loop: true,
             mouseDrag: false,
             singleItem: true,
             // autoplayTimeout: 5000,
             // autoplay: true,
             // autoplayHoverPause: true,
-            // responsive: {
-            //     0: {items: 1,},
-            //     400: {items: 1,},
-            //     740: {items: 1,},
-            //     940: {items: 1,},
-            // },
         });
         owlCarousel{{ index }}.data('owl.carousel')._invalidated.width = true;
         owlCarousel{{ index }}.trigger('refresh.owl.carousel');
