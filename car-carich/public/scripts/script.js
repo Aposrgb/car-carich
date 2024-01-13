@@ -12,7 +12,7 @@ let cars = [
         typeEngine: 'Электро',
         stamp: "Хундей",
         mileage: "542 000 км",
-        country: "Кетай"
+        country: "Китай"
     }),
     new Car({
         battery: "53.6 — 68.8 кВт.ч",
@@ -26,7 +26,7 @@ let cars = [
         typeEngine: 'Двигатель',
         stamp: "Tesla",
         mileage: "5 000 км",
-        country: "Рассия"
+        country: "Россия"
     }),
     new Car({
         battery: "53.6 — 68.8 кВт.ч",
@@ -40,7 +40,7 @@ let cars = [
         typeEngine: 'Двигатель',
         stamp: "Tesla",
         mileage: "5 000 км",
-        country: "Рассия"
+        country: "Россия"
     }),
     new Car({
         battery: "53.6 — 68.8 кВт.ч",
@@ -54,7 +54,7 @@ let cars = [
         typeEngine: 'Двигатель',
         stamp: "Tesla",
         mileage: "5 000 км",
-        country: "Рассия"
+        country: "Россия"
     }),
     new Car({
         battery: "53.6 — 68.8 кВт.ч",
@@ -68,7 +68,7 @@ let cars = [
         typeEngine: 'Двигатель',
         stamp: "Tesla",
         mileage: "5 000 км",
-        country: "Рассия"
+        country: "Россия"
     }),
 ];
 

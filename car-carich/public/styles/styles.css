@@ -127,21 +127,21 @@
     box-shadow: 0px 0px 4px 1px #5858586b;
 }
 
-.car-info{
+.car-info {
     margin-left: 200px;
 }
 
 @media only screen and (max-width: 1200px) {
-    .arrow{
+    .arrow {
         width: 9vw;
         height: 9vh;
     }
 
-    .car-info{
+    .car-info {
         margin-left: 140px;
     }
 
-    .arrows{
+    .arrows {
         margin-top: 80px;
     }
 }
@@ -151,7 +151,7 @@
         padding: 15px 250px;
     }
 
-    .arrow{
+    .arrow {
         width: 8vw;
         height: 8vh;
     }
@@ -160,10 +160,9 @@
         width: 100%;
     }
 
-    .card-pop-cars{
+    .card-pop-cars {
         margin-top: 40px;
     }
-
 }
 
 @media only screen and (max-width: 768px) {
@@ -225,7 +224,7 @@
         padding: 15px 0;
     }
 
-    .call-btn{
+    .call-btn {
         width: 85%;
     }
 

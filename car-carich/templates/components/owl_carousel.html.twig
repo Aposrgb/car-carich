@@ -3,7 +3,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         let items = [], item = {{ items }}, margin = {{ margin }};
         items[MOBILE] = 1;
-        if (window.screen.width <= MOBILE) {
+        if(window.screen.width <= MOBILE) {
             item = items[MOBILE];
             margin = 0;
         }
