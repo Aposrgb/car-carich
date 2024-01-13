@@ -1,4 +1,81 @@
-.cars-cards{
-    display:grid;
+.cars-cards {
+    display: grid;
     gap: 20px;
+}
+
+.filters {
+    background: unset;
+}
+
+@media only screen and (max-width: 768px) {
+    .cars-cards {
+        grid-template-columns: repeat(1, 1fr);
+        margin: 40px auto 0;
+        width: 100%;
+    }
+
+    .cards-filters {
+        flex-direction: column;
+    }
+
+    .text-page {
+        margin-top: 30px;
+        width: 80%;
+    }
+
+    .name-page {
+        font-size: 14px;
+    }
+
+    .all-filters {
+        grid-template-columns: 45% 45%;
+        grid-gap: 7px;
+        margin: 10px 0 0;
+        color: black;
+        justify-content: center;
+    }
+
+    .car-card {
+        margin-left: 0;
+    }
+
+    .li-filter {
+        width: 100%;
+    }
+
+    .li-filter > label {
+        color: black;
+    }
+
+    .filters {
+        border: solid 2px black;
+    }
+
+    .toggle-filters {
+        border: unset;
+        color: black;
+    }
+
+    .toggle-filters:hover{
+        background-color: white;
+        color: black;
+    }
+
+    .toggle-filters.btn-selectable{
+        transform: unset;
+    }
+
+    .toggle-filters.btn-selected{
+        background: black;
+        color: white;
+    }
+
+    .toggle-filters.btn-selected:hover{
+        transform: unset;
+    }
+
+    .view-filters {
+        display: none;
+        margin: 20px;
+    }
 }

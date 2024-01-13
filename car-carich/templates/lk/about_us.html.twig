@@ -2,13 +2,16 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ asset('styles/about-us.css') }}">
+
+    <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+    <script src="{{ asset('scripts/about_us.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-    {{ component('header', {nameHidden: false}) }}
+    {{ component('header', {nameHidden: false, aboutUsHidden: true}) }}
     <div class="mt-6"></div>
     <div class="width-100 flex-column flex-center">
-        <div class="width-50">
+        <div class="main-block width-66">
             <div class="flex-column">
                 <h2 class="black font-gotham-bold m-0">О нас</h2>
                 <h5 class="font-gotham">
@@ -17,7 +20,79 @@
                     Работаем по договору: гарантии, сроки, ответственность-все в нем прописано.
                 </h5>
             </div>
-            <img src="{{ asset('img/deadline-receiving.svg') }}" class="width-100" alt=""/>
+            <div class="width-100 mt-4">
+                <img src="{{ asset('img/deadline-receiving.svg') }}" class="mobile-none width-100" alt=""/>
+                <img src="{{ asset('img/mobile-delivery.svg') }}" class="width-66 mobile-block" alt=""/>
+                <img src="{{ asset('img/mobile-period.svg') }}" class="width-66 mt-3 mobile-block" alt=""/>
+            </div>
+            <div class="blocks-description mt-5">
+                <div class="btn btn-light btn-selectable width-30 block-description" >
+                    <div class="block mlr-2 mt-2">
+                        <h4 class="black font-gotham-bold m-0">30%<br> Выгоды</h4>
+                        <h5 class="font-gotham black">
+                            В среднем выгода заказа авто составляет 30 процентов от цены по наличию в городах РФ. (в
+                            некоторых случаях до 50 процентов).</h5>
+                    </div>
+                </div>
+                <div class="btn btn-light btn-selectable width-30 ml-2 block-description">
+                    <div class="mlr-2 mt-2">
+                        <h4 class="black font-gotham-bold m-0">До 2 месяцев<br> ожидания</h4>
+                        <h5 class="font-gotham black">
+                            Сроки ожидания достигает 1.5-2 месяца с момента выкупа авто в салоне или аукционе.</h5>
+                    </div>
+                </div>
+                <div class="btn btn-light btn-selectable width-30 ml-2 block-description">
+                    <div class="mlr-2 mt-2">
+                        <h4 class="black font-gotham-bold m-0">Вы - первый<br> владелец</h4>
+                        <h5 class="font-gotham black">
+                            Растаможиваем авто сразу на клиента, вы первый собственник в РФ.
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="work-contract flex-row flex-space-between mt-6">
+                <div class="flex-column flex-j-center">
+                    <h4 class="black font-gotham-bold m-0">Работаем по договору</h4>
+                    <h6 class="font-gotham m-0">гарантии, сроки, ответственность - все в нем прописано.</h6>
+                </div>
+                <div class="btn btn-black width-40 text-center font-gotham">Скачать договор</div>
+            </div>
+{#            <div class="mt-6">#}
+{#                <h2 class="black font-gotham-bold m-0 text-center">Где нас можно найти?</h2>#}
+{#                <div id="map" class="width-100 mt-4 map"></div>#}
+{#                <div class="mt-4">#}
+{#                    <img src="{{ asset('img/address-phone-worktime.svg') }}"  alt="" class="width-100 mobile-none"/>#}
+{#                    <img src="{{ asset('img/mobile-address-phone.svg') }}"  alt="" class="width-100 mobile-block"/>#}
+{#                </div>#}
+{#            </div>#}
+            <div class="mt-3 flex-column">
+                <div class="button-social-network">
+                    <div class="flex-row btn btn-light btn-transparent btn-mobile width-50 flex-j-center mr-1">
+                        <img src="{{ asset('img/vk.svg') }}" alt="" class="invert-img mr-1"/>
+                        <h5 class="font-gotham black m-0">Группа в ВК</h5>
+                    </div>
+                    <div class="flex-row btn btn-light btn-transparent btn-mobile width-50 flex-j-center ml-1">
+                        <img src="{{ asset('img/instagram.svg') }}" alt="" class="invert-img mr-1"/>
+                        <h5 class="font-gotham black m-0">Instagram</h5>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex-row btn btn-light btn-transparent mt-2 flex-j-center">
+                        <img src="{{ asset('img/youtube.svg') }}" alt="" class="invert-img mr-1"/>
+                        <h5 class="font-gotham black m-0">YouTube</h5>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <img src="{{ asset('img/last-video.svg') }}" class="width-100"/>
+                </div>
+                <div class="mt-4">
+                    <h2 class="black font-gotham-bold m-0 text-center">Остались вопросы?</h2>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-black width-100 font-gotham" onclick="toggleModal()">Заказать звонок</button>
+                </div>
+                <div class="mt-3"></div>
+            </div>
         </div>
     </div>
 {% endblock %}

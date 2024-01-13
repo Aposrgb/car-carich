@@ -11,8 +11,9 @@ class OwlCarousel
         public ?string $classNameNextArrow = null,
         public ?string $classNamePrevArrow = null,
         public ?string $selectorName = null,
-        public ?int $items = 1,
-        public ?int $margin = 0,
+        public ?int    $items = 1,
+        public ?int    $margin = 0,
+        public ?bool   $loop = false,
     )
     {
     }

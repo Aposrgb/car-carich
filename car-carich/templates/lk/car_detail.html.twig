@@ -7,22 +7,32 @@
     <script src="{{ asset('https://code.jquery.com/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('libs/owlcarousel/owl.carousel.min.js') }}"></script>
     {{ component('owl_carousel', {selectorName: '.car-img', classNameNextArrow: 'right-arrow', classNamePrevArrow: 'left-arrow'}) }}
+    {{ component('owl_carousel', {selectorName: '.car-img-mobile', classNameNextArrow: null, classNamePrevArrow: null, loop: true}) }}
 {% endblock %}
 
 {% block body %}
     {{ component('header', {nameHidden: false}) }}
-    <div class="mt-6"></div>
-    <div class="flex-row mlr-8 pb-6">
-        <div class="flex-column width-33">
-            <div class="flex-row" onclick="window.history.back()">
-                <img src="{{ asset('img/back-arrow.svg') }}" />
+    <div class="flex-row mlr-8 pb-6 mt-6 main-block">
+        <div class="flex-column width-33 car-info">
+            <div class="flex-row back" onclick="window.history.back()">
+                <img src="{{ asset('img/back-arrow.svg') }}" alt=""/>
                 <p class="font-gotham ml-1">Назад</p>
             </div>
-            <div class="flex-row flex-baseline">
-                <h2 class="black font-gotham-bold car-name m-0">Honda ENs1</h2>
+            <div class="flex-row flex-baseline car-name">
+                <h2 class="black font-gotham-bold m-0">Honda ENs1</h2>
                 <span class="font-gotham black ml-2 fs-12">2023 г.</span>
             </div>
-            <div class="flex-row mt-4 font-gotham">
+            <div class="relative mobile-block mt-2">
+                <div class="width-100 flex-j-center">
+                    <div class="width-90">
+                        <div class="car-img-mobile owl-carousel owl-theme">
+                            <img src="{{ asset('img/car-detail.svg') }}" class="width-100" alt=""/>
+                            <img src="{{ asset('img/car-detail.svg') }}" class="width-100" alt=""/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row mt-4 font-gotham btn-car-info">
                 <div class="flex-column flex-center width-max">
                     <div class="btn btn-light btn-selectable">Электро</div>
                     <div class="grey fs-12 mt-1">Двигатель</div>
@@ -36,43 +46,54 @@
                     <div class="grey fs-12 mt-1">Страна</div>
                 </div>
             </div>
-            <div class="mt-2 flex-column fit-content">
-                <div class="flex-row">
+            <div class="mt-2 flex-column fit-content text-car-info">
+                <div class="flex-row info">
                     <h5 class="font-gotham-bold">Мощность</h5>
                     <h5 class="font-gotham ml-2">182 — 204 л. с.</h5>
                 </div>
-                <div class="flex-row">
+                <div class="flex-row info">
                     <h5 class="font-gotham-bold">Мощность</h5>
                     <h5 class="font-gotham ml-2">134 — 150 кВт</h5>
                 </div>
-                <div class="flex-row">
+                <div class="flex-row info">
                     <h5 class="font-gotham-bold">Емкость батареи</h5>
                     <h5 class="font-gotham ml-2">53.6 — 68.8 кВт.ч</h5>
                 </div>
-                <div class="flex-row">
+                <div class="flex-row info">
                     <h5 class="font-gotham-bold">Габариты</h5>
                     <h5 class="font-gotham ml-2">4390 × 1790 × 1560 мм</h5>
                 </div>
-                <div class="flex-row">
+                <div class="flex-row info">
                     <h5 class="font-gotham-bold">Вес</h5>
                     <h5 class="font-gotham ml-2">1 679 кг.</h5>
                 </div>
             </div>
+            <div class="mobile-block bg-grey-btn flex-column pt-2 plr-2 flex-center">
+                <div class="flex-row font-gotham-bold">
+                    <h5 class="black">3 300 000 ₽ полная комплектация</h5>
+                    <h5 class="font-gotham primary-text">| 2 549 400 ₽ стандарт</h5>
+                </div>
+                <div class="mt-1 pb-1 width-100">
+                    <button class="btn btn-black width-100" onclick="toggleModal()">
+                        Заказать звонок
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="relative width-75 mt-7 ml-4">
+        <div class="relative width-75 mt-7 ml-4 car-images mobile-none">
             <div class="mt-7 z2 absolute full-width flex-space-between">
                 <img
                         id="left-arrow"
                         src="{{ asset('img/arrow.svg') }}"
                         class="small-arrow transform-mirror"
-                />
-                <img id="right-arrow" src="{{ asset('img/arrow.svg') }}" class="small-arrow"/>
+                 alt=""/>
+                <img id="right-arrow" src="{{ asset('img/arrow.svg') }}" class="small-arrow" alt=""/>
             </div>
             <div class="width-100 flex-j-center">
                 <div class="width-85">
                     <div class="car-img owl-carousel owl-theme">
-                        <img src="{{ asset('img/car-detail.svg') }}"/>
-                        <img src="{{ asset('img/car-detail.svg') }}"/>
+                        <img src="{{ asset('img/car-detail.svg') }}" class="width-100" alt=""/>
+                        <img src="{{ asset('img/car-detail.svg') }}" class="width-100" alt=""/>
                     </div>
                 </div>
             </div>
@@ -82,7 +103,7 @@
                     <h5 class="font-gotham primary-text">| 2 549 400 ₽ стандарт</h5>
                 </div>
                 <div class="mt-1 pb-1 width-100">
-                    <button class="btn btn-black width-100">
+                    <button class="btn btn-black width-100" onclick="toggleModal()">
                         Заказать звонок
                     </button>
                 </div>

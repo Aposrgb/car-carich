@@ -34,7 +34,6 @@
 }
 
 .last-block {
-    aspect-ratio: 2.34;
     width: 100%;
     background-color: #212121;
 }
@@ -79,7 +78,7 @@
     margin: 0.3vw;
 }
 
-.pop-model {
+.pop-models {
     font-weight: 900;
     font-size: 24px;
 }
@@ -108,7 +107,6 @@
 }
 
 
-
 .settings-card {
     background-color: #323232;
     padding: 20px 0;
@@ -129,13 +127,166 @@
     box-shadow: 0px 0px 4px 1px #5858586b;
 }
 
+.car-info{
+    margin-left: 200px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .arrow{
+        width: 9vw;
+        height: 9vh;
+    }
+
+    .car-info{
+        margin-left: 140px;
+    }
+
+    .arrows{
+        margin-top: 80px;
+    }
+}
+
+@media only screen and (max-width: 840px) {
+    .all-catalog {
+        padding: 15px 250px;
+    }
+
+    .arrow{
+        width: 8vw;
+        height: 8vh;
+    }
+
+    .select-car {
+        width: 100%;
+    }
+
+    .card-pop-cars{
+        margin-top: 40px;
+    }
+
+}
+
 @media only screen and (max-width: 768px) {
-    .ibm-font {
-        font-size: 4.3vw;
+    .all-filters {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .column-filter {
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .column-filter li {
+        margin: 10px 0 0;
+        width: 100%;
+    }
+
+    .none-filter {
+        display: none;
+    }
+
+    .all-catalog {
+        padding: 15px 80px;
+        margin-bottom: 20px;
     }
 
     .center-sub-block p {
         margin: 0.5vw;
         font-size: 2.5vw;
+    }
+
+    .all-filters {
+    }
+
+    .column-filter {
+        margin: 0 5px;
+    }
+
+    .li-filter {
+        width: 140px;
+        height: 47px;
+    }
+
+    .li-filter > label {
+        font-size: 11px;
+    }
+
+    .filter-underline {
+        font-size: 12px;
+        width: 100%;
+        padding: 7.7px 0;
+    }
+
+    .mobile-btn {
+        width: 100%;
+        margin: 20px auto 0;
+        padding: 15px 0;
+    }
+
+    .call-btn{
+        width: 85%;
+    }
+
+    .select-car > h2 {
+        font-size: 16px;
+        margin: 45px auto;
+    }
+
+    .pop-models {
+        margin-top: 30px;
+        font-size: 18px;
+    }
+
+    .pop-model {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .pop-model > div {
+        margin: 0;
+    }
+
+    .car-description {
+        display: grid;
+        grid-template-columns: 160px 160px;
+        grid-gap: 10px;
+        justify-content: center;
+        margin-top: 25px;
+    }
+
+    .car-description > div {
+        margin: 0;
+    }
+
+    .label-description {
+        font-size: 10px;
+    }
+
+    .label-name {
+        font-size: 10px;
+    }
+
+    .card-pop-cars {
+        margin-top: 30px
+    }
+
+    .our-advantages {
+        flex-direction: column;
+    }
+
+    .our-advantages > div {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .header-text {
+        font-size: 12px;
+    }
+
+    .main-text {
+        font-size: 16px;
+        margin-bottom: 10px;
     }
 }

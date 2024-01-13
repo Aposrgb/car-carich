@@ -1,7 +1,6 @@
 {% extends 'lk/base.html.twig' %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ asset('styles/filters.css') }}"/>
     <link rel="stylesheet" href="{{ asset('styles/card.css') }}"/>
     <link rel="stylesheet" href="{{ asset('styles/catalog.css') }}"/>
 
@@ -12,47 +11,84 @@
 {% endblock %}
 
 {% block body %}
-    {{ component('header', {nameHidden: false}) }}
-    <div class="flex-column mt-7 mlr-8">
-        <div>
-            <h2 class="black font-gotham weight-9">Каталог</h2>
-        </div>
-
-        <div class="flex-row font-gotham">
-            <div class="flex-column">
-                <div>
-                    <label>
-                        Двигатель
-                    </label>
-                    <div class="flex-row grid-3 mt-1">
-                        <button class="btn btn-light btn-selectable" onclick="elementSelectable(this, BUTTON_TYPE)">Электро</button>
-                        <button class="btn btn-light btn-selectable" onclick="elementSelectable(this, BUTTON_TYPE)">Гибрид</button>
-                        <button class="btn btn-light btn-selectable" onclick="elementSelectable(this, BUTTON_TYPE)">Бензин</button>
-                        <button class="btn btn-light btn-selectable" onclick="elementSelectable(this, BUTTON_TYPE)">Дизель</button>
-                    </div>
-                </div>
-                <div class="flex-column li-filter mt-2">
-                    {{ component('filters/country') }}
-                </div>
-                <div class="flex-column li-filter mt-2">
-                    {{ component('filters/multirange', {min: 2000, max: 40000}) }}
-                </div>
-                <div class="flex-column li-filter mt-2">
-                    {{ component('filters/multirange', {min: 1000, max: 100000, label: 'melieage', name: 'Пробег', symbol: 'km'}) }}
-                </div>
-{#                <div class="li-filter mt-2">#}
-{#                    <label>Цвет</label>#}
-{#                    <div class="grid-gap mt-1">#}
-{#                        <div class="circle bg-white color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
-{#                        <div class="circle bg-grey color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
-{#                        <div class="circle bg-black color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
-{#                        <div class="circle bg-red color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
-{#                        <div class="circle bg-blue color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div>#}
-{#                    </div>#}
-{#                </div>#}
+    {{ component('header', {nameHidden: false, catalogHidden: true}) }}
+    <div class="flex-j-center width-100">
+        <div class="flex-column mt-7 fit-content text-page">
+            <div>
+                <h2 class="black font-gotham weight-9 name-page text-left">Каталог</h2>
             </div>
-            <div class="cars-cards grid-2 ml-4">
+            <div class="flex-row font-gotham cards-filters">
+                <div class="flex-column filters">
+                    <button class="mobile-block btn btn-light btn-selectable toggle-filters white"
+                            onclick="elementSelectable(this, BUTTON_TYPE, toggleFilters)">
+                        Фильтр
+                        <img src="{{ asset('img/parameters.svg') }}" class="toggle-filter-img" alt="">
+                    </button>
+                    <div class="view-filters">
+                        <div>
+                            <div class="li-filter">
+                                <label>
+                                    Двигатель
+                                </label>
+                            </div>
+                            <div class="flex-row grid-3 mt-1 all-filters">
+                                <button class="btn btn-light btn-selectable"
+                                        onclick="elementSelectable(this, BUTTON_TYPE)">Электро
+                                </button>
+                                <button class="btn btn-light btn-selectable"
+                                        onclick="elementSelectable(this, BUTTON_TYPE)">Гибрид
+                                </button>
+                                <button class="btn btn-light btn-selectable"
+                                        onclick="elementSelectable(this, BUTTON_TYPE)">Бензин
+                                </button>
+                                <button class="btn btn-light btn-selectable"
+                                        onclick="elementSelectable(this, BUTTON_TYPE)">Дизель
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex-column li-filter mt-2">
+                            {{ component('filters/country') }}
+                        </div>
+                        <div class="mobile-none flex-column li-filter mt-2">
+                            {{ component('filters/multirange', {min: 2000, max: 40000}) }}
+                        </div>
+                        <div class="mobile-flex flex-column li-filter mt-2">
+                            <label for="name" class="font-gotham grey">Ценовой диапозон</label>
+                            <input
+                                    type="text"
+                                    id="name"
+                                    placeholder="До 7 912 360₽"
+                                    class="input-filter filter-underline"
+                            />
+                        </div>
+                        <div class="mobile-none flex-column li-filter mt-2">
+                            {{ component('filters/multirange', {min: 1000, max: 100000, label: 'melieage', name: 'Пробег', symbol: 'km'}) }}
+                        </div>
+                        <div class="mobile-flex flex-column li-filter mt-2">
+                            <label for="name" class="font-gotham grey">Пробег</label>
+                            <input
+                                    type="text"
+                                    id="name"
+                                    placeholder="До 100 000 km"
+                                    class="input-filter filter-underline"
+                            />
+                        </div>
+                        {#                <div class="li-filter mt-2"> #}
+                        {#                    <label>Цвет</label> #}
+                        {#                    <div class="grid-gap mt-1"> #}
+                        {#                        <div class="circle bg-white color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div> #}
+                        {#                        <div class="circle bg-grey color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div> #}
+                        {#                        <div class="circle bg-black color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div> #}
+                        {#                        <div class="circle bg-red color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div> #}
+                        {#                        <div class="circle bg-blue color-selectable" onclick="elementSelectable(this, COLOR_TYPE)"></div> #}
+                        {#                    </div> #}
+                        {#                </div> #}
+                    </div>
+                    <div onclick="elementSelectable(document.querySelector('.toggle-filters'), BUTTON_TYPE, toggleFilters)" class="mobile-block close-filter d-none btn btn-black white text-center border-none btn-selectable">Свернуть <img src="{{ asset('img/filter-arrow.svg') }}"/></div>
+                </div>
+                <div class="cars-cards grid-2 ml-4">
 
+                </div>
             </div>
         </div>
     </div>

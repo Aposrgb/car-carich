@@ -1,14 +1,6 @@
 <label for="country" class="font-gotham grey">Страна производителя</label>
 <select id="country" class="select-filter filter-underline font-gotham">
-    <option class="font-gotham">Все страны</option>
-    <option class="font-gotham">Россия</option>
-    <option class="font-gotham">Китай</option>
-    <option class="font-gotham">Узбекистан</option>
-    <option class="font-gotham">Узбекистан</option>
-    <option class="font-gotham">Узбекистан</option>
-    <option class="font-gotham">Узбекистан</option>
-    <option class="font-gotham">Узбекистан</option>
-    <option class="font-gotham">Узбекистан</option>
-    <option class="font-gotham">Узбекистан</option>
-    <option class="font-gotham">Узбекистан</option>
+    {% for key,country in countries %}
+        <option class="font-gotham" value="{{ key }}">{{ country }}</option>
+    {% endfor %}
 </select>

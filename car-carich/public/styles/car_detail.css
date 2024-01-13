@@ -1,4 +1,4 @@
-h5{
+.info > h5{
     margin: 5px;
 }
 
@@ -14,4 +14,42 @@ h5{
 
 .primary-text{
     color: #797979;
+}
+
+@media only screen and (max-width: 1200px) {
+    .main-block{
+        margin: 80px 40px;
+    }
+    .car-images{
+        margin: 120px 0 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .back{
+        font-size:10px;
+        margin: 20px 20px 0;
+    }
+    .main-block{
+        width: 90%;
+        margin: auto;
+    }
+    .car-name{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .car-info{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .btn-car-info{
+        display: flex;
+        justify-content: center;
+    }
+    .text-car-info{
+        margin: 15px 35px;
+    }
 }

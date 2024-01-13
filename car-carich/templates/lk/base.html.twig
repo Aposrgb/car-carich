@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ asset('styles/base.css') }}"/>
 
     {{ component('format_number') }}
+    <script src="{{ asset('scripts/call-modal.js') }}"></script>
+
     <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}"/>
     {% block head %}
     {% endblock %}
@@ -17,6 +19,7 @@
 {{ component('call-modal') }}
 {{ component('footer') }}
 <script>
+    let MOBILE = 768;
     document.addEventListener('DOMContentLoaded', () => {
         formatAllNumber();
     })

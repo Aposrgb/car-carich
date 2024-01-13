@@ -1,0 +1,12 @@
+{% extends 'lk/base.html.twig' %}
+
+{% block body%}
+    {{ component('header', {nameHidden: false}) }}
+    <div class="flex-center flex-j-center flex-column width-100 block">
+        <div class="flex-column flex-center">
+            <h1 class="font-gotham">{{ message ?? "Неизвестная ошибка" }}</h1>
+            <h4 class="font-gotham">Код ошибки: {{ code ?? '' }}</h4>
+        </div>
+        <a class="btn btn-black" href="{{ path('index') }}">Вернуться на главную</a>
+    </div>
+{% endblock %}
