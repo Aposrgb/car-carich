@@ -1,0 +1,62 @@
+{{ component('owl_carousel_func') }}
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        let popCarsDiv = document.querySelector(".pop-cars");
+        let carsCardsDiv = document.querySelector(".cars-cards");
+
+        let popCarsData = await Car.fetchCars(POPULAR_CARS, {page: 1, limit: 10});
+        let catalogueCarsData = await Car.fetchCars(CATALOGUE, {page: 1, limit: 10});
+
+        for (let car of popCarsData.data) {
+            popCarsDiv.innerHTML += car.createHtmlForBigSlider();
+        }
+        for (let car of catalogueCarsData.data) {
+            carsCardsDiv.innerHTML += car.createHtmlForCarCard({overflowImg: true});
+        }
+
+        setOwlCarousel();
+
+        let header = document.querySelector(".header-block"),
+            headerHidden = document.querySelector(".header-hidden");
+
+        window.onscroll = () => {
+            if (window.scrollY >= header.offsetHeight) {
+                headerHidden.classList.remove("d-none");
+            } else {
+                headerHidden.classList.add("d-none");
+            }
+        };
+
+        IMask(document.getElementById('phone'), { mask: '+{7} (000) 000-00-00'});
+        IMask(document.getElementById('mobile-price'), {
+            mask: `num ₽`,
+            blocks: {
+                num: {
+                    mask: Number,
+                    thousandsSeparator: ' ',
+                    min: 0,
+                    max: {{ maxPrice }},
+                }
+            }
+        });
+
+        formatAllNumber();
+    });
+
+
+
+    function setOwlCarousel(){
+        createOwlCarousel({
+            selectorName: '.pop-cars',
+            nextArrow: 'right-arrow',
+            prevArrow: 'left-arrow'
+        })
+        createOwlCarousel({
+            selectorName: '.cars-cards',
+            nextArrow: 'card-arrow-right',
+            prevArrow: 'card-arrow-left',
+            item: 3,
+            margin: 5
+        })
+    }
+</script>

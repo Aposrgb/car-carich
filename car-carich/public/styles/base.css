@@ -305,6 +305,10 @@ a {
     z-index: 3;
 }
 
+.z4{
+    z-index: 4;
+}
+
 .p-2 {
     padding: 20px;
 }
@@ -379,6 +383,16 @@ a {
 .btn-black:hover {
     background-color: white;
     color: black;
+}
+
+.btn-red{
+    background-color: white;
+    color: black;
+}
+
+.btn-red:hover {
+    background-color: red;
+    color: white;
 }
 
 .btn-transparent {
@@ -503,6 +517,9 @@ a {
 .bottom-2 {
     bottom: 20px;
 }
+.width-135{
+    width: 135% !important;
+}
 
 .width-100 {
     width: 100%;
@@ -578,6 +595,10 @@ a {
 
 .fs-13 {
     font-size: 13px;
+}
+
+.fs-15{
+    font-size: 15px;
 }
 
 .ibm-font {
@@ -769,6 +790,17 @@ footer {
 .mobile-flex{
     display: none;
 }
+
+.triangle{
+    border: 20px solid transparent;
+    border-left: 20px solid #EEEEEE;
+    border-top: 20px solid #EEEEEE;
+}
+
+.overflow-hidden{
+    overflow: hidden;
+}
+
 @media only screen and (max-width: 1200px) {
     .footer{
         margin: 0 100px;

@@ -7,11 +7,9 @@
 
     {{ component('car') }}
     {{ component('slider_factory') }}
-    <script src="{{ asset('scripts/script.js') }}"></script>
     <script src="{{ asset('https://code.jquery.com/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('libs/owlcarousel/owl.carousel.min.js') }}"></script>
-    {{ component('owl_carousel', {selectorName: '.pop-cars', classNameNextArrow: 'right-arrow', classNamePrevArrow: 'left-arrow'}) }}
-    {{ component('owl_carousel', {selectorName: '.cars-cards', classNameNextArrow: 'card-arrow-right', classNamePrevArrow: 'card-arrow-left', items: 3, margin: 5}) }}
+    {{ component('scripts/index', { maxPrice: LkFilter.maxPriceFilter }) }}
 {% endblock %}
 
 {% block body %}
@@ -68,17 +66,23 @@
                         <li class="flex-column flex-space-between ml-4 li-filter">
                             <label for="stamp" class="font-gotham grey">Марка</label>
                             <select id="stamp" class="select-filter filter-underline font-gotham">
-                                <option class="font-gotham">Все марки</option>
+                                <option class="font-gotham" value="">Все марки</option>
+                                {% for id, stamp in LkFilter.stampFilter %}
+                                    <option class="font-gotham" value="{{ id }}">{{ stamp }}</option>
+                                {% endfor %}
                             </select>
                         </li>
                         <li class="flex-column flex-space-between ml-4 li-filter">
                             <label for="year" class="font-gotham grey">Год выпуска</label>
                             <select id="year" class="select-filter filter-underline font-gotham">
-                                <option class="font-gotham">Все</option>
+                                <option value="all" class="font-gotham">Все</option>
+                                {% for year in LkFilter.yearsFilter %}
+                                    <option value="{{ year }}" class="font-gotham">{{ year }}</option>
+                                {% endfor %}
                             </select>
                         </li>
                         <li class="flex-column flex-space-between ml-4 li-filter mobile-none">
-                            {{ component('filters/multirange') }}
+                            {{ component('filters/multirange', {min: LkFilter.minPriceFilter, max: LkFilter.maxPriceFilter}) }}
                         </li>
                     </ul>
                     <ul class="list-style-unset flex-row column-filter">
@@ -96,18 +100,18 @@
                             >Номер телефона</label
                             >
                             <input
-                                    type="phone"
+                                    type="text"
                                     id="phone"
                                     placeholder="+7 (000) 000 00-00"
                                     class="input-filter filter-underline"
                             />
                         </li>
                         <li class="mobile-block li-filter">
-                            <label for="name" class="font-gotham grey">Ценовой диапозон</label>
+                            <label for="mobile-price" class="font-gotham grey">Ценовой диапозон</label>
                             <input
                                     type="text"
-                                    id="name"
-                                    placeholder="До 7 912 360₽"
+                                    id="mobile-price"
+                                    placeholder="До {{ LkFilter.maxPriceFilter|number_format(0, ',', ' ') }}₽"
                                     class="input-filter filter-underline"
                             />
                         </li>

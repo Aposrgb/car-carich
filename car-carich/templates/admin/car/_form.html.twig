@@ -1,0 +1,121 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.typeEngine) }}
+    {{ form_row(form.weight) }}
+    {{ form_row(form.size) }}
+    {{ form_row(form.year) }}
+    {{ form_row(form.battery) }}
+    {{ form_row(form.power) }}
+    {{ form_row(form.mileage) }}
+    {{ form_row(form.fullPrice) }}
+    {{ form_row(form.standardPrice) }}
+    {{ form_row(form.stamp) }}
+    {{ form_row(form.country) }}
+    {{ form_row(form.isPopular) }}
+
+{{ form_label(form.images) }}
+<ul class="images" data-prototype-files="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+    {% for image in car.images %}
+        {% if image %}
+            <div class="flex-column fit-content">
+                <img alt="" onclick="window.location.href='{{ image }}'" class="images{{ loop.index-1 }}"
+                     src="{{ image }}" style="max-width: 250px;">
+                <p>{{ car.images[loop.index-1]|split('/')|last }}</p>
+                <input value="Удалить" class="images{{ loop.index-1 }} btn btn-red font-gotham-bold"
+                       type="button"/>
+            </div>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<div hidden>
+    {{ form_rest(form) }}
+</div>
+<button class="btn">{{ button_label|default('Сохранить') }}</button>
+{{ form_end(form) }}
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const addBlockButton = document.createElement('button')
+        addBlockButton.className = 'btn btn-black px-7 py-2 my-3'
+        addBlockButton.type = 'button'
+        addBlockButton.innerText = 'Добавить файл'
+        addBlockButton.setAttribute('id', 'addBlockButton')
+        addBlockButton.addEventListener('click', addNewBlockImages)
+        document.querySelector('.images').append(addBlockButton)
+
+        let blocksCounter = document.querySelectorAll('.images').length
+
+        function addNewBlockImages(withDeleteButton = true) {
+            const li = document.createElement('li')
+            li.className = 'mt-4'
+            li.style = 'list-style-type: none;'
+            const files = document.createElement('input')
+            files.type = 'file'
+            files.className = 'images form-control'
+            files.setAttribute('name', `car[images][${blocksCounter}]`)
+            files.setAttribute('id', `car_images_${blocksCounter}`)
+            li.append(files)
+            document.querySelector('.images').append(li)
+            document.querySelector('.images').append(document.getElementById('addBlockButton'))
+
+            if(withDeleteButton){
+                const deleteBlockButton = document.createElement('button')
+                deleteBlockButton.className = 'btn btn btn-outline-danger px-7 py-2 my-3'
+                deleteBlockButton.innerText = 'Удалить'
+                deleteBlockButton.addEventListener('click', () => {
+                    files.remove()
+                    li.remove()
+                })
+                li.append(deleteBlockButton)
+            }
+            blocksCounter++
+        }
+
+        function deleteFiles(block, count) {
+            for (let i = 0; i < count; i++) {
+                const deleteBlocks = document.querySelectorAll('.' + block + i);
+                deleteBlocks.forEach((item) => {
+                    item.addEventListener('click', () => {
+                        const isOk = confirm('Вы уверены, что хотите удалить файл?')
+                        if (isOk) {
+                            fetch("{{ path('car_delete_image',  {car: car.id ?? 0}) }}?index=" + i, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-type': 'application/json'
+                                }
+                            });
+                            window.location.href = '{{ path('app_car_edit', {id: car.id ?? 0}) }}';
+                            location.reload()
+                        } else {
+                            return false
+                        }
+                    })
+                })
+            }
+        }
+
+        const initialBlocks = () => {
+            const files = document.querySelectorAll('.images')
+            files.forEach((block, index) => {
+                if (index < 1) return;
+                const deleteBlockButton = document.createElement('button')
+                deleteBlockButton.className = 'btn btn btn-outline-danger px-7 py-2 my-3'
+                deleteBlockButton.innerText = 'Удалить'
+                deleteBlockButton.addEventListener('click', () => {
+                    block.parentElement.remove()
+                })
+
+                block.parentElement.append(deleteBlockButton)
+            })
+        }
+        initialBlocks()
+        let id = {{ car.id ?? "null" }};
+        if (id != null) {
+            deleteFiles("images",{{ car.images|length }})
+        } else {
+            addNewBlockImages(false)
+        }
+    })
+
+</script>

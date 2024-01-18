@@ -1,0 +1,220 @@
+<script>
+    const MAX_PRICE = {{ maxPrice }},
+        MIN_PRICE = {{ minPrice }},
+        MAX_MILEAGE = {{ maxMileage }},
+        MIN_MILEAGE = {{ minMileage }};
+
+    class Filter {
+        constructor({
+                        typeEnginesSelected = [],
+                        country = '',
+                        priceRange = {min: 0, max: 0},
+                        mileageRange = {min: 0, max: 0},
+                        page = 1,
+                        limit = 10,
+                    }) {
+            this.typeEnginesSelected = typeEnginesSelected;
+            this.country = country;
+            this.priceRange = priceRange;
+            this.mileageRange = mileageRange;
+            this.page = page;
+            this.limit = limit;
+        }
+    }
+
+    let filter = new Filter({
+        priceRange: {
+            min: MIN_PRICE,
+            max: MAX_PRICE,
+        },
+        mileageRange: {
+            min: MIN_MILEAGE,
+            max: MAX_MILEAGE,
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        let selectElement = document.getElementById('country');
+        selectElement.addEventListener("change", (e) => setCountry(e.target.value));
+
+        setMultiRangeInput({
+            label: 'multi',
+            symbol: '₽',
+            min: filter.priceRange.min,
+            max: filter.priceRange.max,
+        });
+        setMultiRangeInput({
+            label: 'mileage',
+            symbol: 'km',
+            min: filter.mileageRange.min,
+            max: filter.mileageRange.max,
+        });
+
+        let priceRangeElement = document.getElementById('multi-range-price');
+        priceRangeElement.noUiSlider.on('change', (e) => {
+            filter.priceRange = getMultiRangeValueByValues(e);
+            setCarsCard(filter)
+        });
+
+        let mileageRangeElement = document.getElementById('mileage-range-price');
+        mileageRangeElement.noUiSlider.on('change', (e) => {
+            filter.mileageRange = getMultiRangeValueByValues(e);
+            setCarsCard(filter)
+        });
+
+        let mobileMaxPrice = document.getElementById('mobile-max-price');
+        setMobileInput({
+            mobileElement: mobileMaxPrice,
+            maxValue: MAX_PRICE,
+            filterKeyName: "priceRange",
+            symbol: " ₽",
+        });
+
+        let mobileMaxMileage = document.getElementById('mobile-max-mileage');
+        setMobileInput({
+            mobileElement: mobileMaxMileage,
+            maxValue: MAX_MILEAGE,
+            filterKeyName: "mileageRange",
+            symbol: ' km',
+        });
+
+        await setCarsCard(filter);
+    });
+
+    /** @param {Filter} filter
+     * @param {boolean} isAddPage
+     */
+    async function setCarsCard(filter, isAddPage = false) {
+        let carsCardsDiv = document.querySelector(".cars-cards"), html = '';
+        if (isAddPage) {
+            filter.page++;
+        }
+        let data = await Car.fetchCars(
+            CATALOGUE,
+            {
+                type: filter.typeEnginesSelected.join(),
+                country: filter.country,
+                minPrice: filter.priceRange.min,
+                maxPrice: filter.priceRange.max,
+                minMileage: filter.mileageRange.min,
+                maxMileage: filter.mileageRange.max,
+                page: filter.page,
+                limit: filter.limit
+            }
+        );
+        for (let car of data.data) {
+            html += car.createHtmlForCarCard({hasButtonDetail: true, overflowImg: false});
+        }
+        if(isAddPage){
+            carsCardsDiv.innerHTML += html;
+        } else {
+            carsCardsDiv.innerHTML = html;
+        }
+        formatAllNumber();
+        setButtonMoreCars(data.pageCount > filter.page);
+    }
+
+    function setMobileInput({mobileElement, maxValue, filterKeyName, symbol}) {
+        let mask = IMask(mobileElement, {
+            mask: `num ${symbol}`,
+            blocks: {
+                num: {
+                    mask: Number,
+                    thousandsSeparator: ' ',
+                    min: 0,
+                    max: maxValue,
+                }
+            }
+        });
+        mask.on('accept', () => {
+            filter[filterKeyName].max = mask.unmaskedValue;
+            filter[filterKeyName].min = 0;
+            setCarsCard(filter);
+        });
+    }
+
+    function setMultiRangeInput({label, min, max, symbol}) {
+        createSlider({id: `${label}-range-price`, min: min, max: max}).on("update", (values) => {
+            document.getElementById(`${label}-range-price-min`).innerText =
+                formatNumber(values[0]) + ` ${symbol}`;
+            document.getElementById(`${label}-range-price-max`).innerText =
+                formatNumber(values[1]) + ` ${symbol}`;
+        });
+    }
+
+    const COLOR_TYPE = 1, BUTTON_TYPE = 2;
+    let selectableClasses = {
+        [COLOR_TYPE]: {
+            selected: "color-selected",
+            selectable: "color-selectable",
+        },
+        [BUTTON_TYPE]: {
+            selected: "btn-selected",
+            selectable: "btn-selectable"
+        }
+    };
+
+
+    function elementSelectable(el, type, funcAfterSelected = () => {
+    }) {
+        let selectableClass = selectableClasses[type];
+        el.classList.toggle(selectableClass.selected);
+        el.classList.toggle(selectableClass.selectable);
+        funcAfterSelected();
+    }
+
+    function toggleFilters() {
+        let filters = document.querySelector(".view-filters");
+        let display = filters.style.display;
+        if (display === "none" || display === "") {
+            filters.style.display = "block";
+            document.querySelector(".close-filter").classList.toggle('d-none');
+            document.querySelector('.toggle-filter-img').classList.toggle('invert-img');
+        } else {
+            document.querySelector('.toggle-filter-img').classList.toggle('invert-img');
+            document.querySelector(".close-filter").classList.toggle('d-none');
+            filters.style.display = "none";
+        }
+    }
+
+    async function setTypeEngine() {
+        let collectionEngineFilters = document.getElementsByClassName('filter-engine');
+        for (let engineFilter of collectionEngineFilters) {
+            let filterIndex = filter.typeEnginesSelected.findIndex(el => el === engineFilter.value);
+            if (engineFilter.classList.contains(selectableClasses[BUTTON_TYPE].selected) && filterIndex === -1) {
+                filter.typeEnginesSelected.push(engineFilter.value);
+            } else if (filterIndex !== -1 && engineFilter.classList.contains(selectableClasses[BUTTON_TYPE].selectable)) {
+                filter.typeEnginesSelected.splice(filterIndex, 1);
+            }
+        }
+        await setCarsCard(filter);
+    }
+
+    async function setCountry(value) {
+        filter.country = value;
+        await setCarsCard(filter);
+    }
+
+    function setButtonMoreCars(value) {
+        if (value) {
+            document.getElementById('load-cars-card').classList.remove('d-none');
+        } else {
+            document.getElementById('load-cars-card').classList.add('d-none');
+        }
+    }
+
+    function getMultiRangeValueByValues(values) {
+        return {
+            min: parseInt(values[0]),
+            max: parseInt(values[1])
+        };
+    }
+
+    function setLoading(isLoad) {
+        if (isLoad) {
+            document.getElementById('loader').classList.remove('d-none')
+        } else {
+            document.getElementById('loader').classList.add('d-none')
+        }
+    }
+</script>

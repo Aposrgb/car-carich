@@ -13,6 +13,7 @@ class MultiRangeSlider
         public string $label = 'multi',
         public int $min = 0,
         public int $max = 100,
+        public bool $createSlider = true,
     )
     {
     }

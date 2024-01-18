@@ -1,0 +1,35 @@
+<script>
+    function createOwlCarousel({item = 1, margin = 0, selectorName, loop = false, nextArrow = null, prevArrow = null}) {
+        let items = [];
+        items[MOBILE] = 1;
+        if (window.screen.width <= MOBILE) {
+            item = items[MOBILE];
+            margin = 0;
+        }
+        let owlCarouselConfig = {
+            margin: margin,
+            items: item,
+            loop: true,
+            mouseDrag: false,
+            singleItem: true,
+            // autoplayHoverPause: true,
+        }
+        if (loop) {
+            owlCarouselConfig["autoplayTimeout"] = 3000;
+            owlCarouselConfig["autoplay"] = true;
+        }
+        let owlCarousel = $(selectorName).owlCarousel(owlCarouselConfig);
+        owlCarousel.data('owl.carousel')._invalidated.width = true;
+        owlCarousel.trigger('refresh.owl.carousel');
+        if (nextArrow) {
+            document.getElementById(nextArrow).addEventListener("click", () => {
+                owlCarousel.trigger("next.owl.carousel", [600]);
+            });
+        }
+        if (prevArrow) {
+            document.getElementById(prevArrow).addEventListener("click", () => {
+                owlCarousel.trigger("prev.owl.carousel", [600]);
+            });
+        }
+    }
+</script>

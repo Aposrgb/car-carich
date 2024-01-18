@@ -3,17 +3,23 @@
 {% block head %}
     <link rel="stylesheet" href="{{ asset('styles/card.css') }}"/>
     <link rel="stylesheet" href="{{ asset('styles/catalog.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('styles/loader.css') }}"/>
 
     {{ component('car') }}
     {{ component('slider_factory') }}
-    <script src="{{ asset('scripts/catalog.js') }}"></script>
+    {{ component('scripts/catalog', {
+        maxPrice: LkFilter.maxPriceFilter,
+        minPrice: LkFilter.minPriceFilter,
+        minMileage: LkFilter.minMileAge,
+        maxMileage: LkFilter.maxMileAge
+    }) }}
     <script src="{{ asset('https://code.jquery.com/jquery-3.7.1.min.js') }}"></script>
 {% endblock %}
 
 {% block body %}
     {{ component('header', {nameHidden: false, catalogHidden: true}) }}
     <div class="flex-j-center width-100">
-        <div class="flex-column mt-7 fit-content text-page">
+        <div class="flex-column mt-7 mb-4 fit-content main-block">
             <div>
                 <h2 class="black font-gotham weight-9 name-page text-left">Каталог</h2>
             </div>
@@ -32,44 +38,37 @@
                                 </label>
                             </div>
                             <div class="flex-row grid-3 mt-1 all-filters">
-                                <button class="btn btn-light btn-selectable"
-                                        onclick="elementSelectable(this, BUTTON_TYPE)">Электро
-                                </button>
-                                <button class="btn btn-light btn-selectable"
-                                        onclick="elementSelectable(this, BUTTON_TYPE)">Гибрид
-                                </button>
-                                <button class="btn btn-light btn-selectable"
-                                        onclick="elementSelectable(this, BUTTON_TYPE)">Бензин
-                                </button>
-                                <button class="btn btn-light btn-selectable"
-                                        onclick="elementSelectable(this, BUTTON_TYPE)">Дизель
-                                </button>
+                                {% for value, type in LkFilter.carTypes %}
+                                    <button class="btn btn-light btn-selectable filter-engine" value="{{ value }}"
+                                            onclick="elementSelectable(this, BUTTON_TYPE, setTypeEngine)">{{ type }}
+                                    </button>
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="flex-column li-filter mt-2">
                             {{ component('filters/country') }}
                         </div>
                         <div class="mobile-none flex-column li-filter mt-2">
-                            {{ component('filters/multirange', {min: 2000, max: 40000}) }}
+                            {{ component('filters/multirange', {createSlider: false}) }}
                         </div>
                         <div class="mobile-flex flex-column li-filter mt-2">
-                            <label for="name" class="font-gotham grey">Ценовой диапозон</label>
+                            <label for="mobile-max-price" class="font-gotham grey">Ценовой диапозон</label>
                             <input
                                     type="text"
-                                    id="name"
-                                    placeholder="До 7 912 360₽"
+                                    id="mobile-max-price"
+                                    placeholder="До {{ LkFilter.maxPriceFilter|number_format(0, ',', ' ') }} ₽"
                                     class="input-filter filter-underline"
                             />
                         </div>
                         <div class="mobile-none flex-column li-filter mt-2">
-                            {{ component('filters/multirange', {min: 1000, max: 100000, label: 'melieage', name: 'Пробег', symbol: 'km'}) }}
+                            {{ component('filters/multirange', {createSlider: false, label: 'mileage', name: 'Пробег'}) }}
                         </div>
                         <div class="mobile-flex flex-column li-filter mt-2">
-                            <label for="name" class="font-gotham grey">Пробег</label>
+                            <label for="mobile-max-mileage" class="font-gotham grey">Пробег</label>
                             <input
                                     type="text"
-                                    id="name"
-                                    placeholder="До 100 000 km"
+                                    id="mobile-max-mileage"
+                                    placeholder="До {{ LkFilter.maxMileAge|number_format(0, ',', ' ') }} km"
                                     class="input-filter filter-underline"
                             />
                         </div>
@@ -84,10 +83,24 @@
                         {#                    </div> #}
                         {#                </div> #}
                     </div>
-                    <div onclick="elementSelectable(document.querySelector('.toggle-filters'), BUTTON_TYPE, toggleFilters)" class="mobile-block close-filter d-none btn btn-black white text-center border-none btn-selectable">Свернуть <img src="{{ asset('img/filter-arrow.svg') }}"/></div>
+                    <div onclick="elementSelectable(document.querySelector('.toggle-filters'), BUTTON_TYPE, toggleFilters)"
+                         class="mobile-block close-filter d-none btn btn-black white text-center border-none btn-selectable">
+                        Свернуть <img src="{{ asset('img/filter-arrow.svg') }}" alt=""/></div>
                 </div>
-                <div class="cars-cards grid-2 ml-4">
+                <div id="loader" class="absolute z4 d-none">
+                    <div class="loader">
+                        <div class="inner one"></div>
+                        <div class="inner two"></div>
+                        <div class="inner three"></div>
+                    </div>
+                </div>
+                <div class="flex-column ml-4">
+                    <div class="cars-cards grid-2">
 
+                    </div>
+                    <div id="load-cars-card" class="mt-4 d-none">
+                        <button class="btn btn-light btn-w-large width-100 fs-13" onclick="setCarsCard(filter, true)">Показать еще</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,6 +9,21 @@
     }
 
     function formatNumber(el) {
-        return formatterNumber.format(el);
+        if (Number.isInteger(tryParseInt(el))) {
+            return formatterNumber.format(el);
+        }
+        return el;
+    }
+
+    function tryParseInt(str, defaultValue) {
+        let retValue = defaultValue;
+        if (str !== null) {
+            if (str.length > 0) {
+                if (!isNaN(str)) {
+                    retValue = parseInt(str);
+                }
+            }
+        }
+        return retValue;
     }
 </script>

@@ -19,59 +19,56 @@
                 <p class="font-gotham ml-1">Назад</p>
             </div>
             <div class="flex-row flex-baseline car-name">
-                <h2 class="black font-gotham-bold m-0">Honda ENs1</h2>
-                <span class="font-gotham black ml-2 fs-12">2023 г.</span>
+                <h2 class="black font-gotham-bold m-0">{{ car.name }}</h2>
+                <span class="font-gotham black ml-2 fs-12">{{ car.year}} г.</span>
             </div>
             <div class="relative mobile-block mt-2">
                 <div class="width-100 flex-j-center">
                     <div class="width-90">
                         <div class="car-img-mobile owl-carousel owl-theme">
-                            <img src="{{ asset('img/car-detail.svg') }}" class="width-100" alt=""/>
-                            <img src="{{ asset('img/car-detail.svg') }}" class="width-100" alt=""/>
+                            {% for img in car.images %}
+                                <img src="{{ asset(img) }}" class="width-100" alt=""/>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="flex-row mt-4 font-gotham btn-car-info">
                 <div class="flex-column flex-center width-max">
-                    <div class="btn btn-light btn-selectable">Электро</div>
+                    <div class="btn btn-light btn-selectable">{{ car.typeEngine }}</div>
                     <div class="grey fs-12 mt-1">Двигатель</div>
                 </div>
                 <div class="flex-column flex-center ml-2 width-max">
-                    <div class="btn btn-light btn-selectable" style="width: max-content"><span class="number">69000</span> km</div>
+                    <div class="btn btn-light btn-selectable" style="width: max-content"><span class="number">{{ car.mileage }}</span> km</div>
                     <div class="grey fs-12 mt-1">Пробег</div>
                 </div>
                 <div class="flex-column flex-center ml-2 width-max">
-                    <div class="btn btn-light btn-selectable">Китай</div>
+                    <div class="btn btn-light btn-selectable">{{ car.country }}</div>
                     <div class="grey fs-12 mt-1">Страна</div>
                 </div>
             </div>
             <div class="mt-2 flex-column fit-content text-car-info">
                 <div class="flex-row info">
                     <h5 class="font-gotham-bold">Мощность</h5>
-                    <h5 class="font-gotham ml-2">182 — 204 л. с.</h5>
-                </div>
-                <div class="flex-row info">
-                    <h5 class="font-gotham-bold">Мощность</h5>
-                    <h5 class="font-gotham ml-2">134 — 150 кВт</h5>
+                    <h5 class="font-gotham ml-2">{{ car.power }}</h5>
                 </div>
                 <div class="flex-row info">
                     <h5 class="font-gotham-bold">Емкость батареи</h5>
-                    <h5 class="font-gotham ml-2">53.6 — 68.8 кВт.ч</h5>
+                    <h5 class="font-gotham ml-2">{{ car.battery }}</h5>
                 </div>
                 <div class="flex-row info">
                     <h5 class="font-gotham-bold">Габариты</h5>
-                    <h5 class="font-gotham ml-2">4390 × 1790 × 1560 мм</h5>
+                    <h5 class="font-gotham ml-2">{{ car.size }}</h5>
                 </div>
                 <div class="flex-row info">
                     <h5 class="font-gotham-bold">Вес</h5>
-                    <h5 class="font-gotham ml-2">1 679 кг.</h5>
+                    <h5 class="font-gotham ml-2">{{ car.weight }}</h5>
                 </div>
             </div>
             <div class="mobile-block bg-grey-btn flex-column pt-2 plr-2 flex-center">
                 <div class="flex-row font-gotham-bold">
-                    <h5 class="black">3 300 000 ₽ полная комплектация</h5>
-                    <h5 class="font-gotham primary-text">| 2 549 400 ₽ стандарт</h5>
+                    <h5 class="black"><span class="number">{{ car.fullPrice }}</span> ₽ полная комплектация</h5>
+                    <h5 class="font-gotham primary-text">| <span class="number">{{ car.standardPrice }}</span> ₽ стандарт</h5>
                 </div>
                 <div class="mt-1 pb-1 width-100">
                     <button class="btn btn-black width-100" onclick="toggleModal()">
@@ -92,15 +89,16 @@
             <div class="width-100 flex-j-center">
                 <div class="width-85">
                     <div class="car-img owl-carousel owl-theme">
-                        <img src="{{ asset('img/car-detail.svg') }}" class="width-100" alt=""/>
-                        <img src="{{ asset('img/car-detail.svg') }}" class="width-100" alt=""/>
+                        {% for img in car.images %}
+                            <img src="{{ asset(img) }}" class="width-100" alt=""/>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
             <div class="bg-grey-btn flex-column mlr-6 pt-2 plr-5 flex-center">
                 <div class="flex-row font-gotham-bold">
-                    <h5 class="black">3 300 000 ₽ полная комплектация</h5>
-                    <h5 class="font-gotham primary-text">| 2 549 400 ₽ стандарт</h5>
+                    <h5 class="black"><span class="number">{{ car.fullPrice }}</span> ₽ полная комплектация</h5>
+                    <h5 class="font-gotham primary-text">| <span class="number">{{ car.standardPrice }}</span> ₽ стандарт</h5>
                 </div>
                 <div class="mt-1 pb-1 width-100">
                     <button class="btn btn-black width-100" onclick="toggleModal()">

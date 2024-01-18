@@ -1,19 +1,57 @@
 <script>
+    const POPULAR_CARS = '/api/popular/cars', CATALOGUE = '/api/catalogue';
+
     class Car {
-        constructor({battery, engine, size, weight, price, name, year, img, typeEngine, country, mileage, stamp, id}) {
+        constructor({battery, size, weight, price, name, year, img, typeEngine, country, mileage, stamp, id, images, stampImg}) {
             this.id = id
             this.battery = battery;
-            this.engine = engine;
             this.size = size;
             this.weight = weight;
             this.year = year;
             this.img = img;
+            this.images = images;
             this.price = price;
             this.name = name;
             this.typeEngine = typeEngine;
             this.country = country;
             this.mileage = mileage;
             this.stamp = stamp;
+            this.stampImg = stampImg;
+        }
+
+        static async fetchCars(url, queryParams = { page: 1, limit: 10 }) {
+            queryParams = new URLSearchParams(queryParams).toString();
+            let cars = [];
+            let data = await fetch(`${url}?${queryParams}`)
+                .then(data => data.json());
+
+            for (let car of data.data) {
+                cars.push(Car.createCarFromData(car))
+            }
+            return {
+                data: cars,
+                pageCount: data.pageCount,
+            };
+        }
+
+        static createCarFromData(data) {
+            return new Car({
+                id: data.id,
+                name: data.name,
+                typeEngine: data.typeEngine,
+                country: data.country,
+                weight: data.weight,
+                price: data.fullPrice,
+                img: data.images[0],
+                images: data.images,
+                cardImg: data.cardImg,
+                battery: data.battery,
+                mileage: data.mileage,
+                stamp: data.stamp,
+                size: data.size,
+                year: data.year,
+                stampImg: data.stampImg
+            })
         }
 
         createHtmlForBigSlider() {
@@ -35,7 +73,7 @@
                 <div class="mt-1">
                     <p class="font-gotham-bold label-description">Двигатель</p>
                     <p class="font-gotham label-name">
-                        ${this.engine}
+                        ${this.typeEngine}
                     </p>
                 </div>
                 <div class="mt-1">
@@ -52,7 +90,7 @@
                 </div>
             </div>
             <div class="font-gotham flex-row mobile-btn mt-4">
-                    <a href="/car-detail/1">
+                    <a href="/car-detail/${this.id}">
                         <button class="btn btn-light mr-1">Подробнее</button>
                     </a>
                     <button class="btn btn-light ml-2">Заказать</button>
@@ -60,7 +98,7 @@
         </div>
     </div>
     <div class="big-block car-img">
-        <img src="img/honda.png" class="img-block" alt=""/>
+        <img src="${this.img}" class="img-block" alt=""/>
         <h4 class="font-gotham-bold mobile-block text-center m-0">${this.name}</h4>
         <h5 class="montserrat text-center mobile-block m-0">
             <span class="number">${this.price}</span> ₽
@@ -70,13 +108,23 @@
     `;
         }
 
-        createHtmlForCarCard({hasButtonDetail = false}) {
-            let buttonDetail = hasButtonDetail ? `
-                <button class="btn btn-light mt-2 bg-unset" onclick="location.href = '/car-detail/1'">Подробнее</button>
-            ` : ``;
+        createHtmlForCarCard({hasButtonDetail = false, overflowImg = false}) {
+            let buttonDetail = '', cardImgClasses = 'width-100';
+            if(hasButtonDetail){
+                buttonDetail =`<button class="btn btn-light mt-2 bg-unset" onclick="location.href = '/car-detail/${this.id}'">Подробнее</button>`
+            }
+            if(overflowImg){
+                cardImgClasses = 'width-135'
+            }
             return `
-                <div class="car-card big-block" onclick="location.href = '/car-detail/1'">
-                    <img src="${this.img}" alt="" class="width-100"/>
+                <div class="car-card big-block relative" onclick="location.href = '/car-detail/${this.id}'">
+                    <div class="absolute z3">
+                        <div class="triangle absolute z-1"></div>
+                        <img src="${this.stampImg}" alt="" class="width-50" style="margin: 4px"/>
+                    </div>
+                    <div class="overflow-hidden">
+                        <img src="${this.img}" alt="" class="pt-2 card-img ${cardImgClasses}"/>
+                    </div>
                     <div class="flex-column m-2 pb-1">
                         <div>
                             <h3 class="font-gotham-bold m-0">${this.name}</h3>
@@ -94,7 +142,7 @@
                             <div class="flex-column flex-end font-gotham mt-1">
                                 <div class="m-33 card-text">${this.country}</div>
                                 <div class="m-33 card-text">${this.stamp}</div>
-                                <div class="m-33 card-text">${this.mileage}</div>
+                                <div class="m-33 card-text"><span class="number">${this.mileage}</span> km</div>
                                 <div class="m-33 card-text">${this.typeEngine}</div>
                             </div>
                         </div>

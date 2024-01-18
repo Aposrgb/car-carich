@@ -2,20 +2,18 @@
 
 namespace App\Helper\Components;
 
+use App\Repository\CountryRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('filters/country')]
 class CountryFilter
 {
     public function __construct(
-        public array $countries = [
-            '0' => 'Все страны',
-            '1' => 'Россия',
-            '2' => 'Китай',
-            '3' => 'Узбекистан',
-        ],
+        private readonly CountryRepository $countryRepository,
+        public array                       $countries = [],
     )
     {
+        $this->countries = $this->countryRepository->findAll();
     }
 
 }

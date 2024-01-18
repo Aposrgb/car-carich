@@ -9,8 +9,12 @@
     background-color: white;
 }
 
+.card-img{
+    transform: scale(0.9);
+}
+
 .card-img:hover{
-    transform: scale(1.1);
+    transform: scale(1);
 }
 
 @media only screen and (max-width: 768px) {

@@ -7,6 +7,7 @@
 
     {{ component('format_number') }}
     <script src="{{ asset('scripts/call-modal.js') }}"></script>
+    <script src="{{ asset('libs/imask/imask.js') }}"></script>
 
     <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}"/>
     {% block head %}
@@ -22,6 +23,9 @@
     let MOBILE = 768;
     document.addEventListener('DOMContentLoaded', () => {
         formatAllNumber();
+        IMask(document.getElementById('phone-modal'), {
+            mask: '+{7} (000) 000-00-00'
+        });
     })
 </script>
 </body>
