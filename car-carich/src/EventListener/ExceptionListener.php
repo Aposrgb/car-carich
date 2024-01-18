@@ -21,7 +21,6 @@ final readonly class ExceptionListener
 
     public function onKernelException(ExceptionEvent $event): void
     {
-        return;
         $exception = $event->getThrowable();
         $this->logger->error($exception->getMessage(), $exception->getTrace());
         $message = $exception->getMessage();
