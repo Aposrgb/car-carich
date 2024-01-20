@@ -7,16 +7,23 @@
             </h5>
         </div>
         <div class="flex-column footer-soc-network-block">
-            <div class="flex-row">
-                <div class="white font-gotham container-img-soc img-vk flex-center">
-                    <img src="{{ asset('img/vk.svg') }}" alt=""/>
-                </div>
-                <div class="white font-gotham ml-1 container-img-soc img-instagram flex-center">
-                    <img src="{{ asset('img/instagram.svg') }}" alt=""/>
-                </div>
-                <div class="white font-gotham ml-1 container-img-soc img-youtube flex-center">
-                    <img src="{{ asset('img/youtube.svg') }}" alt=""/>
-                </div>
+            <div class="grid-gap-social">
+                {% set settingsImg = {
+                    2:{
+                        img: 'img/vk.svg',
+                        class: 'img-vk',
+                    }, 3:{
+                        img: 'img/instagram.svg',
+                        class: 'img-instagram',
+                    }, 4:{
+                        img: 'img/youtube.svg',
+                        class: 'img-youtube',
+                    }} %}
+                {% for setting in settings|filter(setting => setting.type != 1) -%}
+                    <div class="white font-gotham container-img-soc {{ settingsImg[setting.type].class }} flex-center">
+                        <a class="p-0-im" href="{{ setting.value }}"><img src="{{ asset(settingsImg[setting.type].img) }}" alt=""/></a>
+                    </div>
+                {% endfor %}
             </div>
             <h5 class="white font-gotham weight-0 m-0 pt-2">
                 Импорт автомобилей в РФ. Авто из Кореи, Китая, Японии, Америки и

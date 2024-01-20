@@ -4,6 +4,9 @@
 
 .car-card {
     background-color: #f8f8f8;
+    height: 455px;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
 }
 .car-card:hover {
     background-color: white;
@@ -17,8 +20,42 @@
     transform: scale(1);
 }
 
+@media only screen and (min-width: 1800px){
+    .car-card{
+        height: calc(100svw / 4) ;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    .car-card{
+        height: calc(100svw / 2.5) ;
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .car-card{
         margin-left: 10px;
+        height: 80svw;
+    }
+    .car-card-with-btn{
+        height: calc(100svw/1.3);
+    }
+}
+@media only screen and (max-width: 650px) {
+    .car-card-with-btn{
+        height: calc(100svw/1.2);
+    }
+}
+@media only screen and (max-width: 540px) {
+    .car-card{
+        height: 90svw;
+    }
+    .car-card-with-btn{
+        height: 100svw;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .car-card-with-btn{
+        height: 120svw;
     }
 }

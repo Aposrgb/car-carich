@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Car;
+use App\Helper\Enum\Type\Settings as EnumSettingsType;
 use App\Helper\DTO\Car\CarLkResponse;
 use App\Helper\Mapper\Mapper;
+use App\Repository\SettingsRepository;
 use App\Service\LkService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,8 +46,20 @@ class LkController extends AbstractController
     }
 
     #[Route('/about-us', name: 'about_us', methods: ['GET'])]
-    public function aboutUs(): Response
+    public function aboutUs(SettingsRepository $settingsRepository): Response
     {
-        return $this->render('lk/about_us.html.twig');
+        $settings = $settingsRepository->findBy([], ['type' => 'ASC']);
+        $socialNetworks = [];
+        foreach ($settings as $setting) {
+            if ($setting->getType() == EnumSettingsType::CONTRACT->value) {
+                $contract = $setting->getImg();
+                continue;
+            }
+            $socialNetworks[] = $setting;
+        }
+        return $this->render('lk/about_us.html.twig', [
+            'contract' => $contract ?? null,
+            'socialNetworks' => $socialNetworks
+        ]);
     }
 }

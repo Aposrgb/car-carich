@@ -3,6 +3,7 @@
     document.addEventListener("DOMContentLoaded", async () => {
         let popCarsDiv = document.querySelector(".pop-cars");
         let carsCardsDiv = document.querySelector(".cars-cards");
+        let mobileCarsCardsDiv = document.querySelector(".cars-cards-mobile");
 
         let popCarsData = await Car.fetchCars(POPULAR_CARS, {page: 1, limit: 10});
         let catalogueCarsData = await Car.fetchCars(CATALOGUE, {page: 1, limit: 10});
@@ -10,9 +11,12 @@
         for (let car of popCarsData.data) {
             popCarsDiv.innerHTML += car.createHtmlForBigSlider();
         }
+        let cardHtml = '';
         for (let car of catalogueCarsData.data) {
-            carsCardsDiv.innerHTML += car.createHtmlForCarCard({overflowImg: true});
+            cardHtml+= car.createHtmlForCarCard({overflowImg: true});
         }
+        mobileCarsCardsDiv.innerHTML = cardHtml;
+        carsCardsDiv.innerHTML = cardHtml;
 
         setOwlCarousel();
 
@@ -50,13 +54,20 @@
             selectorName: '.pop-cars',
             nextArrow: 'right-arrow',
             prevArrow: 'left-arrow'
-        })
+        });
         createOwlCarousel({
             selectorName: '.cars-cards',
             nextArrow: 'card-arrow-right',
             prevArrow: 'card-arrow-left',
             item: 3,
             margin: 5
+        });
+        createOwlCarousel({
+            selectorName: '.cars-cards-mobile',
+            nextArrow: 'card-arrow-right-mobile',
+            prevArrow: 'card-arrow-left-mobile',
+            item: 1,
+            margin: 0
         })
     }
 </script>

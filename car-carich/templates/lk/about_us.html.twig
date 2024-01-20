@@ -26,7 +26,7 @@
                 <img src="{{ asset('img/mobile-period.svg') }}" class="width-66 mt-3 mobile-block" alt=""/>
             </div>
             <div class="blocks-description mt-5">
-                <div class="btn btn-light btn-selectable width-30 block-description" >
+                <div class="btn btn-light btn-selectable width-30 block-description">
                     <div class="block mlr-2 mt-2">
                         <h4 class="black font-gotham-bold m-0">30%<br> Выгоды</h4>
                         <h5 class="font-gotham black">
@@ -55,32 +55,41 @@
                     <h4 class="black font-gotham-bold m-0">Работаем по договору</h4>
                     <h6 class="font-gotham m-0">гарантии, сроки, ответственность - все в нем прописано.</h6>
                 </div>
-                <div class="btn btn-black width-40 text-center font-gotham">Скачать договор</div>
+                <a href="{{ contract }}" class="btn btn-black width-40 text-center font-gotham">Скачать договор</a>
             </div>
-{#            <div class="mt-6">#}
-{#                <h2 class="black font-gotham-bold m-0 text-center">Где нас можно найти?</h2>#}
-{#                <div id="map" class="width-100 mt-4 map"></div>#}
-{#                <div class="mt-4">#}
-{#                    <img src="{{ asset('img/address-phone-worktime.svg') }}"  alt="" class="width-100 mobile-none"/>#}
-{#                    <img src="{{ asset('img/mobile-address-phone.svg') }}"  alt="" class="width-100 mobile-block"/>#}
-{#                </div>#}
-{#            </div>#}
+            {#            <div class="mt-6"> #}
+            {#                <h2 class="black font-gotham-bold m-0 text-center">Где нас можно найти?</h2> #}
+            {#                <div id="map" class="width-100 mt-4 map"></div> #}
+            {#                <div class="mt-4"> #}
+            {#                    <img src="{{ asset('img/address-phone-worktime.svg') }}"  alt="" class="width-100 mobile-none"/> #}
+            {#                    <img src="{{ asset('img/mobile-address-phone.svg') }}"  alt="" class="width-100 mobile-block"/> #}
+            {#                </div> #}
+            {#            </div> #}
             <div class="mt-3 flex-column">
                 <div class="button-social-network">
-                    <div class="flex-row btn btn-light btn-transparent btn-mobile width-50 flex-j-center mr-1">
-                        <img src="{{ asset('img/vk.svg') }}" alt="" class="invert-img mr-1"/>
-                        <h5 class="font-gotham black m-0">Группа в ВК</h5>
-                    </div>
-                    <div class="flex-row btn btn-light btn-transparent btn-mobile width-50 flex-j-center ml-1">
-                        <img src="{{ asset('img/instagram.svg') }}" alt="" class="invert-img mr-1"/>
-                        <h5 class="font-gotham black m-0">Instagram</h5>
-                    </div>
+                    {% for socialNetwork in socialNetworks %}
+                        {% if socialNetwork.type == 2 %}
+                            <a href="{{ socialNetwork.value }}" class="flex-row btn btn-light btn-transparent btn-mobile width-50 flex-j-center mr-1">
+                                <img src="{{ asset('img/vk.svg') }}" alt="" class="invert-img mr-1"/>
+                                <h5 class="font-gotham black m-0">Группа в ВК</h5>
+                            </a>
+                        {% elseif socialNetwork.type == 3 %}
+                            <a href="{{ socialNetwork.value }}" class="flex-row btn btn-light btn-transparent btn-mobile width-50 flex-j-center ml-1">
+                                <img src="{{ asset('img/instagram.svg') }}" alt="" class="invert-img mr-1"/>
+                                <h5 class="font-gotham black m-0">Instagram</h5>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div>
-                    <div class="flex-row btn btn-light btn-transparent mt-2 flex-j-center">
-                        <img src="{{ asset('img/youtube.svg') }}" alt="" class="invert-img mr-1"/>
-                        <h5 class="font-gotham black m-0">YouTube</h5>
-                    </div>
+                    {% for socialNetwork in socialNetworks %}
+                        {% if socialNetwork.type == 4 %}
+                            <a href="{{ socialNetwork.value }}" class="flex-row btn btn-light btn-transparent mt-2 flex-j-center">
+                                <img src="{{ asset('img/youtube.svg') }}" alt="" class="invert-img mr-1"/>
+                                <h5 class="font-gotham black m-0">YouTube</h5>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="mt-4">
                     <img src="{{ asset('img/last-video.svg') }}" class="width-100"/>

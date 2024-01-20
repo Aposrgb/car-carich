@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Редактирование настроек{% endblock %}
+
+{% block body %}
+    <h1>Редактирование настроек</h1>
+
+    {{ include('admin/settings/_form.html.twig', {'button_label': 'Обновить'}) }}
+
+    <a href="{{ path('app_settings_index') }}" class="btn btn-light">Вернуться к списку</a>
+{% endblock %}

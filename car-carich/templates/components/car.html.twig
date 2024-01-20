@@ -109,23 +109,26 @@
         }
 
         createHtmlForCarCard({hasButtonDetail = false, overflowImg = false}) {
-            let buttonDetail = '', cardImgClasses = 'width-100';
+            let buttonDetail = '', cardImgClasses = 'width-100', carCardClasses = '';
             if(hasButtonDetail){
+                carCardClasses = `car-card-with-btn`;
                 buttonDetail =`<button class="btn btn-light mt-2 bg-unset" onclick="location.href = '/car-detail/${this.id}'">Подробнее</button>`
             }
             if(overflowImg){
                 cardImgClasses = 'width-135'
             }
             return `
-                <div class="car-card big-block relative" onclick="location.href = '/car-detail/${this.id}'">
-                    <div class="absolute z3">
-                        <div class="triangle absolute z-1"></div>
-                        <img src="${this.stampImg}" alt="" class="width-50" style="margin: 4px"/>
+                <div class="car-card ${carCardClasses} big-block relative" onclick="location.href = '/car-detail/${this.id}'">
+                    <div class="relative">
+                        <div class="absolute z3">
+                            <div class="triangle absolute z-1"></div>
+                            <img src="${this.stampImg}" alt="" class="width-50" style="margin: 4px"/>
+                        </div>
+                        <div class="overflow-hidden">
+                            <img src="${this.img}" alt="" class="pt-2 card-img ${cardImgClasses}"/>
+                        </div>
                     </div>
-                    <div class="overflow-hidden">
-                        <img src="${this.img}" alt="" class="pt-2 card-img ${cardImgClasses}"/>
-                    </div>
-                    <div class="flex-column m-2 pb-1">
+                    <div class="flex-column mlr-2 pb-1">
                         <div>
                             <h3 class="font-gotham-bold m-0">${this.name}</h3>
                             <h5 class="font-gotham-bold weight-9 m-0">

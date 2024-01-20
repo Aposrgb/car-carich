@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+    <div style="display:flex; flex-direction: column; margin-bottom: 10px">
+        <label for="type" class="form-label">Тип настройки</label>
+        <input class="form-control" disabled type="text" id="type" value="{{ setting.typeName }}">
+    </div>
+    {% if setting.type == 1 %}
+        {% if setting.img %}
+            <p>Текущий договор по данной <a style="color: #1E7EF4" href="{{ asset(setting.img) }}">ссылке</a></p>
+        {% endif %}
+        {{ form_row(form.img) }}
+    {% else %}
+        {{ form_row(form.value) }}
+    {% endif %}
+
+<div hidden>
+    {{ form_rest(form) }}
+</div>
+<button class="btn">{{ button_label|default('Сохранить') }}</button>
+{{ form_end(form) }}

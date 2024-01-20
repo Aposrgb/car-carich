@@ -11,6 +11,8 @@ class FileUploadService
 {
     public const CAR_IMAGES_PATH = '/uploads/car/images/';
     public const STAMP_ICON_PATH = '/uploads/stamp/icon/';
+    public const CONTRACT_PATH = '/uploads/contract/';
+
     public function __construct(
         protected SluggerInterface $slugger,
         protected Filesystem       $fileSystem,
