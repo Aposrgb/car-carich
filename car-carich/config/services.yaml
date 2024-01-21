@@ -4,7 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    TELEGRAM_API: '%env(TELEGRAM_API)%'
+    TELEGRAM_SEND_MESSAGE: '%env(TELEGRAM_SEND_MESSAGE)%'
+    TELEGRAM_TOKEN: '%env(TELEGRAM_TOKEN)%'
+    TELEGRAM_CHAT_ID: '%env(TELEGRAM_CHAT_ID)%'
 services:
     # default configuration for services in *this* file
     _defaults:

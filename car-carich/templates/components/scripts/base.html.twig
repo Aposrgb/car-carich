@@ -1,0 +1,22 @@
+<script>
+    const MOBILE = 768, DEFAULT_CALL_TYPE = 1, CAR_DETAIL_TYPE = 2, PICK_UP_TYPE = 3;
+    document.addEventListener('DOMContentLoaded', () => {
+        formatAllNumber();
+        IMask(document.getElementById('phone-modal'), {
+            mask: '+{7} (000) 000-00-00'
+        });
+    });
+
+    function sendMessage(message) {
+        fetch('{{ path('app_send_tg_message') }}', {
+            method: 'POST',
+            body: JSON.stringify({
+                message: getBaseText() + message
+            })
+        });
+    }
+
+    function getBaseText() {
+        return `Заказ звонка\n`;
+    }
+</script>

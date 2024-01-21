@@ -1,12 +1,14 @@
+{{ component('scripts/call-modal') }}
 <div class="fixed modal d-none">
     <dialog open class="call-modal flex-column font-gotham">
         <div class="width-100 flex-j-end">
             <div class="absolute close-modal p-2" selected="n" onclick="toggleModal()">x</div>
         </div>
-        <div class="mlr-4 mt-4">
+        <form id="call-modal-form" class="mlr-4 mt-4">
             <div class="flex-column">
                 <label for="name-modal" class="font-gotham grey">Ваше имя</label>
                 <input
+                        required
                         type="text"
                         id="name-modal"
                         placeholder="Имя"
@@ -15,7 +17,7 @@
             </div>
             <div class="flex-column mt-2">
                 <label for="phone-modal" class="font-gotham grey">Номер телефона</label>
-                <input
+                <input  required
                         type="text"
                         id="phone-modal"
                         placeholder="+7 (000) 000 00-00"
@@ -23,13 +25,13 @@
                 />
             </div>
             <div class="mt-4">
-                <button class="btn btn-black width-100 font-gotham">Заказать звонок</button>
+                <button type="submit" class="btn btn-black width-100 font-gotham">Заказать звонок</button>
             </div>
             <div class="flex-row mt-1 flex-start">
-                <input type="checkbox" id="agree-data-processing" class="m-0"/>
+                <input required type="checkbox" id="agree-data-processing" class="m-0"/>
                 <label for="agree-data-processing" class="fs-10 ml-1"><span class="grey">Я согласен</span> с <a href="">политикой
                         обработки персональных данных</a></label>
             </div>
-        </div>
+        </form>
     </dialog>
 </div>
