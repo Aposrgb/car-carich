@@ -36,7 +36,8 @@ services:
     image: nginx:latest
     container_name: nginx-car
     ports:
-      - 8560:80
+      - 80:80
+      - 443:443
     depends_on:
       - php-fpm
     networks:

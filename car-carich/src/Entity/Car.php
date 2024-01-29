@@ -56,6 +56,13 @@ class Car
     #[ORM\ManyToOne(inversedBy: 'cars')]
     private ?Stamp $stamp = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $volume;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mileageOneCharge;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -226,4 +233,41 @@ class Car
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getVolume(): ?string
+    {
+        return $this->volume;
+    }
+
+    /**
+     * @param string|null $volume
+     * @return Car
+     */
+    public function setVolume(?string $volume): Car
+    {
+        $this->volume = $volume;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMileageOneCharge(): ?string
+    {
+        return $this->mileageOneCharge;
+    }
+
+    /**
+     * @param string|null $mileageOneCharge
+     * @return Car
+     */
+    public function setMileageOneCharge(?string $mileageOneCharge): Car
+    {
+        $this->mileageOneCharge = $mileageOneCharge;
+        return $this;
+    }
+
 }

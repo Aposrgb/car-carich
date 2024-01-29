@@ -1,9 +1,12 @@
 {{ form_start(form) }}
     {{ form_row(form.name) }}
+
     {{ form_row(form.typeEngine) }}
     {{ form_row(form.weight) }}
     {{ form_row(form.size) }}
     {{ form_row(form.year) }}
+    {{ form_row(form.mileageOneCharge) }}
+    {{ form_row(form.volume) }}
     {{ form_row(form.battery) }}
     {{ form_row(form.power) }}
     {{ form_row(form.mileage) }}
@@ -59,7 +62,7 @@
             document.querySelector('.images').append(li)
             document.querySelector('.images').append(document.getElementById('addBlockButton'))
 
-            if(withDeleteButton){
+            if (withDeleteButton) {
                 const deleteBlockButton = document.createElement('button')
                 deleteBlockButton.className = 'btn btn btn-outline-danger px-7 py-2 my-3'
                 deleteBlockButton.innerText = 'Удалить'
@@ -116,6 +119,28 @@
         } else {
             addNewBlockImages(false)
         }
+
+        function setRequiredInputByType(value){
+            if (value === 1) {
+                document.querySelector('#car_battery').setAttribute('required', 'required');
+                document.querySelector('#car_mileageOneCharge').setAttribute('required', 'required');
+            } else {
+                document.querySelector('#car_battery').removeAttribute('required');
+                document.querySelector('#car_mileageOneCharge').removeAttribute('required');
+            }
+            if ([3, 4].includes(value)) {
+                document.querySelector('#car_volume').setAttribute('required', 'required');
+            } else {
+                document.querySelector('#car_volume').removeAttribute('required');
+            }
+        }
+
+        let type = document.querySelector('#car_typeEngine');
+        setRequiredInputByType(parseInt(type.options[type.selectedIndex].value));
+        type.addEventListener(
+            "change",
+            (e) => setRequiredInputByType(parseInt(e.target.value))
+        );
     })
 
 </script>

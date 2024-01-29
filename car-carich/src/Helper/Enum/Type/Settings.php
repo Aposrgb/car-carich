@@ -8,6 +8,10 @@ enum Settings: int
     case VK_URL = 2;
     case INST_URL = 3;
     case YOU_URL = 4;
+    case WHATSAPP = 5;
+    case ADDRESS = 6;
+    case PHONE = 7;
+    case EMAIL = 8;
 
     public static function getNamesForFormType(): array
     {
@@ -26,6 +30,10 @@ enum Settings: int
             self::VK_URL => 'Ссылка на ВК',
             self::INST_URL => 'Ссылка на Instagram',
             self::YOU_URL => 'Ссылка на Youtube',
+            self::WHATSAPP => 'Ссылка на WhatsApp',
+            self::ADDRESS => 'Адрес',
+            self::PHONE => 'Телефон',
+            self::EMAIL => 'Почта',
         };
     }
 }

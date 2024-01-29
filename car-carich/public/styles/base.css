@@ -363,6 +363,7 @@ a {
     transition: all 0.3s ease;
 }
 
+
 .btn-w-large {
     padding: 15px 150px;
     font-size: 14px;
@@ -433,6 +434,35 @@ a {
     color: white;
     padding: 5px 15px;
 }
+
+.btn-circle{
+    border: unset;
+    border-radius: 150px 150px 0 0;
+    background: black;
+    padding-bottom: 10px;
+    animation: pb-2 7s normal infinite;
+}
+
+@keyframes pb-2 {
+    0% {
+        padding-bottom: 10px;
+    }
+
+    20%{
+        padding-bottom: 30px;
+    }
+
+    40%{
+        padding-bottom: 10px;
+    }
+}
+
+.btn-circle:hover{
+    background: #161616;
+    padding-bottom: 30px;
+    transform: scale(1);
+}
+
 
 .border-white {
     border: solid 1px white;
@@ -617,6 +647,12 @@ a {
     font-family: "IBM Plex Mono", monospace;
 }
 
+.modal-social{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1111;
+}
 
 footer {
     background-color: #212121;

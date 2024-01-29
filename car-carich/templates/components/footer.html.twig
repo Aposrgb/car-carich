@@ -3,7 +3,9 @@
         <div class="footer-main-block">
             <h2 class="white ibm-font">Car-Карыч</h2>
             <h5 class="white font-gotham weight-0">
-                г. Москва, Улица Вольная 28/4 к2, 105187
+                {% for setting in settings|filter(setting => setting.type in [6]) -%}
+                    {{ setting.value }}
+                {% endfor %}
             </h5>
         </div>
         <div class="flex-column footer-soc-network-block">
@@ -19,7 +21,7 @@
                         img: 'img/youtube.svg',
                         class: 'img-youtube',
                     }} %}
-                {% for setting in settings|filter(setting => setting.type != 1) -%}
+                {% for setting in settings|filter(setting => setting.type in [2,3,4]) -%}
                     <div class="white font-gotham container-img-soc {{ settingsImg[setting.type].class }} flex-center">
                         <a class="p-0-im" href="{{ setting.value }}"><img src="{{ asset(settingsImg[setting.type].img) }}" alt=""/></a>
                     </div>
@@ -42,8 +44,12 @@
         <div class="mobile-footer-block">
             <h4 class="font-gotham-bold m-0 white">Контакты</h4>
             <div class="white footer-last-block">
-                <a href="tel:+7 (999) 000 99-00"><h5 class="font-gotham">+7 (999) 000 99-00</h5></a>
-                <a href="mailto:car-carich@email.com"><h5 class="font-gotham email-footer">car-carich@email.com</h5></a>
+                {% for setting in settings|filter(setting => setting.type in [7]) -%}
+                    <a href="tel:{{ setting.value }}"><h5 class="font-gotham">{{ setting.value }}</h5></a>
+                {% endfor %}
+                {% for setting in settings|filter(setting => setting.type in [8]) -%}
+                    <a href="mailto:{{ setting.value }}"><h5 class="font-gotham email-footer">{{ setting.value }}</h5></a>
+                {% endfor %}
                 <button class="btn btn-transparent border-white mobile-none" onclick="toggleModal()">
                     Заказать звонок
                 </button>

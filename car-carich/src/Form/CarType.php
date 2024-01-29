@@ -40,14 +40,27 @@ class CarType extends AbstractType
             ->add('weight', TextType::class, [
                 'label' => 'Вес',
                 'attr' => ['maxlength' => 255, 'placeholder' => '2 000 кг'],
+                'required' => false,
             ])
             ->add('size', TextType::class, [
                 'label' => 'Габариты',
                 'attr' => ['maxlength' => 255, 'placeholder' => '4390 × 1790 × 1560 мм'],
+                'required' => false,
             ])
             ->add('power', TextType::class, [
                 'label' => 'Мощность',
                 'attr' => ['maxlength' => 255, 'placeholder' => '134 — 150 кВт'],
+                'required' => true,
+            ])
+            ->add('mileageOneCharge', TextType::class, [
+                'label' => 'Пробег на 1 заряде',
+                'attr' => ['maxlength' => 255],
+                'required' => false,
+            ])
+            ->add('volume', TextType::class, [
+                'label' => 'Объем двигателя',
+                'attr' => ['maxlength' => 255],
+                'required' => false,
             ])
             ->add('year', IntegerType::class, [
                 'label' => 'Год выпуска',
@@ -60,6 +73,7 @@ class CarType extends AbstractType
             ->add('battery', TextType::class, [
                 'label' => 'Емкость батареи',
                 'attr' => ['maxlength' => 255, 'placeholder' => '53.6 — 68.8 кВт.ч'],
+                'required' => false,
             ])
             ->add('mileage', IntegerType::class, [
                 'label' => 'Пробег',

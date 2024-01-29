@@ -30,7 +30,7 @@
                     img: 'img/youtube.svg',
                     class: 'img-youtube',
                 }} %}
-            {% for setting in settings|filter(setting => setting.type != 1) -%}
+            {% for setting in settings|filter(setting => setting.type in [2,3,4]) -%}
                 <div class="white font-gotham container-img-soc {{ settingsImg[setting.type].class }} flex-center">
                     <a class="p-0-im" href="{{ setting.value }}"><img src="{{ asset(settingsImg[setting.type].img) }}" alt=""/></a>
                 </div>

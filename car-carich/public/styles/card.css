@@ -13,7 +13,13 @@
 }
 
 .card-img{
+    aspect-ratio: 1.8;
     transform: scale(0.9);
+}
+
+.car-stamp{
+    margin: 3px;
+    width: 17px;
 }
 
 .card-img:hover{

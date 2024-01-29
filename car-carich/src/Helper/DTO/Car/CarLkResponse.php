@@ -19,16 +19,20 @@ final readonly class CarLkResponse implements DTOInterface
     public ?int $mileage;
     public ?int $fullPrice;
     public ?int $standardPrice;
+    public ?int $type;
     public ?string $stamp;
     public ?array $images;
     public ?string $power;
     public ?string $stampImg;
+    public ?string $volume;
+    public ?string $mileageOneCharge;
 
     public function __construct(Car $car)
     {
         $this->id = $car->getId();
         $this->name = $car->getName();
         $this->typeEngine = EnumCarType::tryFrom($car->getTypeEngine())?->getName();
+        $this->type = $car->getTypeEngine();
         $this->country = $car->getCountry()?->getName();
         $this->weight = $car->getWeight();
         $this->size = $car->getSize();
@@ -41,5 +45,7 @@ final readonly class CarLkResponse implements DTOInterface
         $this->images = $car->getImages();
         $this->power = $car->getPower();
         $this->stampImg = $car->getStamp()?->getIcon();
+        $this->volume = $car->getVolume();
+        $this->mileageOneCharge = $car->getMileageOneCharge();
     }
 }

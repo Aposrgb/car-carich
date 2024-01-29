@@ -52,18 +52,34 @@
                     <h5 class="font-gotham-bold">Мощность</h5>
                     <h5 class="font-gotham ml-2">{{ car.power }}</h5>
                 </div>
-                <div class="flex-row info">
-                    <h5 class="font-gotham-bold">Емкость батареи</h5>
-                    <h5 class="font-gotham ml-2">{{ car.battery }}</h5>
-                </div>
-                <div class="flex-row info">
-                    <h5 class="font-gotham-bold">Габариты</h5>
-                    <h5 class="font-gotham ml-2">{{ car.size }}</h5>
-                </div>
-                <div class="flex-row info">
-                    <h5 class="font-gotham-bold">Вес</h5>
-                    <h5 class="font-gotham ml-2">{{ car.weight }}</h5>
-                </div>
+                {% if car.battery %}
+                    <div class="flex-row info">
+                        <h5 class="font-gotham-bold">Емкость батареи</h5>
+                        <h5 class="font-gotham ml-2">{{ car.battery }}</h5>
+                    </div>
+                {% endif %}
+
+                {% if car.weight %}
+                    <div class="flex-row info">
+                        <h5 class="font-gotham-bold">Вес</h5>
+                        <h5 class="font-gotham ml-2">{{ car.weight }}</h5>
+                    </div>
+                {% endif %}
+
+                {% if car.volume %}
+                    <div class="flex-row info">
+                        <h5 class="font-gotham-bold">Объем двигателя</h5>
+                        <h5 class="font-gotham ml-2">{{ car.volume }}</h5>
+                    </div>
+                {% endif %}
+
+                {% if car.mileageOneCharge %}
+                    <div class="flex-row info">
+                        <h5 class="font-gotham-bold">Пробег на 1 заряде</h5>
+                        <h5 class="font-gotham ml-2">{{ car.mileageOneCharge }}</h5>
+                    </div>
+                {% endif %}
+
             </div>
             <div class="mobile-block bg-grey-btn flex-column pt-2 plr-2 flex-center">
                 <div class="flex-row font-gotham-bold">
