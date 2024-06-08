@@ -6,12 +6,17 @@
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
+        "ext-dom": "*",
         "ext-iconv": "*",
+        "ext-libxml": "*",
+        "dimabdc/php-fast-simple-html-dom-parser": "^1.4",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
+        "guzzlehttp/guzzle": "*",
         "symfony/asset": "7.0.*",
         "symfony/console": "7.0.*",
+        "symfony/dom-crawler": "7.0.*",
         "symfony/dotenv": "7.0.*",
         "symfony/flex": "^2",
         "symfony/form": "7.0.*",
@@ -79,6 +84,8 @@
         }
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.52"
+        "symfony/maker-bundle": "^1.52",
+        "symfony/stopwatch": "7.0.*",
+        "symfony/web-profiler-bundle": "7.0.*"
     }
 }

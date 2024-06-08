@@ -20,5 +20,41 @@
 {{ component('call-modal') }}
 {{ component('social-network-modal') }}
 {{ component('footer') }}
+<div class="fixed modal d-none">
+    <dialog open class="call-modal flex-column font-gotham">
+        <div class="width-100 flex-j-end">
+            <div class="absolute close-modal p-2" selected="n" onclick="toggleModal()">x</div>
+        </div>
+        <form id="call-modal-form" class="mlr-4 mt-4">
+            <div class="flex-column">
+                <label for="name-modal" class="font-gotham grey">Ваше имя</label>
+                <input
+                        required
+                        type="text"
+                        id="name-modal"
+                        placeholder="Имя"
+                        class="input-filter filter-underline fs-12"
+                />
+            </div>
+            <div class="flex-column mt-2">
+                <label for="phone-modal" class="font-gotham grey">Номер телефона</label>
+                <input  required
+                        type="text"
+                        id="phone-modal"
+                        placeholder="+7 (000) 000 00-00"
+                        class="input-filter filter-underline fs-12"
+                />
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-black width-100 font-gotham">Заказать звонок</button>
+            </div>
+            <div class="flex-row mt-1 flex-start">
+                <input required type="checkbox" id="agree-data-processing" class="m-0"/>
+                <label for="agree-data-processing" class="fs-10 ml-1"><span class="grey">Я согласен</span> с <a href="">политикой
+                        обработки персональных данных</a></label>
+            </div>
+        </form>
+    </dialog>
+</div>
 </body>
 </html>

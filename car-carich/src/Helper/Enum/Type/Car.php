@@ -9,6 +9,17 @@ enum Car: int
     case PETROL = 3;
     case DIESEL = 4;
 
+    public static function getTypes(): array
+    {
+        return [
+            self::ELECTRONIC->value,
+            self::HYBRID->value,
+            self::PETROL->value,
+            self::DIESEL->value,
+        ];
+    }
+
+
     public static function getNames(): array
     {
         return [

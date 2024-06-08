@@ -27,6 +27,7 @@ services:
       - ./car-carich:/var/www/symfony:cached
       - ./logs/symfony:/var/www/symfony/var/log:cached
       - ./car-carich/:/var/www/car-carich/:delegated
+      - ./go/:/var/www/go/:delegated
     depends_on:
       - postgres
     networks:

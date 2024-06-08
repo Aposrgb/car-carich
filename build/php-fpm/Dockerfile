@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
             libxslt-dev \
             libyaml-dev \
             unzip \
-            tig
+            tig \
+            golang-go
 
 RUN pecl install yaml && echo "extension=yaml.so" > /usr/local/etc/php/conf.d/ext-yaml.ini && docker-php-ext-enable yaml
 

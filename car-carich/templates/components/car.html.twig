@@ -157,13 +157,13 @@
                         <div class="flex-row flex-space-between">
                             <div class="flex-column font-gotham-bold mt-1">
                                 <div class="m-33 card-text">Страна</div>
-                                <div class="m-33 card-text">Марка</div>
+                                ${this.stamp?.length > 0 ? `<div class="m-33 card-text">Марка</div>` : ''}
                                 <div class="m-33 card-text">Пробег</div>
                                 <div class="m-33 card-text">Двигатель</div>
                             </div>
                             <div class="flex-column flex-end font-gotham mt-1">
                                 <div class="m-33 card-text">${this.country}</div>
-                                <div class="m-33 card-text">${this.stamp}</div>
+                                ${this.stamp?.length > 0 ? `<div class="m-33 card-text">${this.stamp}</div>` : ''}
                                 <div class="m-33 card-text"><span class="number">${this.mileage}</span> km</div>
                                 <div class="m-33 card-text">${this.typeEngine}</div>
                             </div>
