@@ -8,12 +8,28 @@
     });
 
     function sendMessage(message) {
+        setNotifyCard();
         fetch('{{ path('app_send_tg_message') }}', {
             method: 'POST',
             body: JSON.stringify({
                 message: getBaseText() + message
             })
         });
+        ym(96406175,'reachGoal','lead');
+    }
+
+    function setNotifyCard() {
+        let notifyCard = document.querySelector('#notify-card');
+        if(notifyCard.style.opacity == '0') {
+            notifyCard.style.opacity = '100%';
+            setTimeout(() => {
+                notifyCard.style.opacity = '0';
+            }, 10000);
+        }
+    }
+
+    function closeNotifyCard(){
+        document.querySelector('#notify-card').style.opacity = '0';
     }
 
     function getBaseText() {

@@ -24,7 +24,7 @@
     function getMessagePickUp() {
         let countries = document.querySelector('#country'),
             stamps = document.querySelector('#stamp'),
-            years = document.querySelector('#year'),
+            year = document.querySelector('#year').value,
 
             price = document.querySelector('#mobile-price').value,
             minPrice = document.querySelector('#multi-range-price-min').innerText,
@@ -32,7 +32,6 @@
             phone = document.querySelector('#phone').value,
             name = document.querySelector('#name').value,
             stamp = stamps.options[stamps.selectedIndex].text,
-            year = years.options[years.selectedIndex].text,
             country = countries.options[countries.selectedIndex].text;
 
         if (name.length === 0 || phone.length === 0) {

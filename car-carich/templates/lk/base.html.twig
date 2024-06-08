@@ -13,6 +13,31 @@
     {% block head %}
     {% endblock %}
     <title>Car-Карыч</title>
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(96406175, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+
+<script>(()=>{"use strict";var i={373:function(t,e,i){var o=this&&this.__assign||function(){return(o=Object.assign||function(t){for(var e,i=1,o=arguments.length;i<o;i++)for(var n in e=arguments[i])Object.prototype.hasOwnProperty.call(e,n)&&(t[n]=e[n]);return t}).apply(this,arguments)},n=(Object.defineProperty(e,"__esModule",{value:!0}),e.App=void 0,i(107)),r=i(100),s={time:60,devMode:!1};function c(t,e){this.storageService=e,this.events={document:["click","mousemove","touchmove","scroll","input"],input:["focus","blur"],button:["focus","blur"]},this.wasActivity=!1,this.timeStart=0,this.timeEnd=0,this.options=o(o({},s),t),this.stepsAmount=this.options.time/10,this.currentStep=this.storageService.hasItem()?Number(this.storageService.getItem()):1,this.stepsAmount!==this.currentStep&&(this.handleClientActivity=(0,n.throttle)(this.handleClientActivity.bind(this),500),this.start())}c.prototype.start=function(){var t=this;this.setListeners(),this.options.devMode&&(this.timeStart=performance.now()),this.intervalId=setInterval(function(){t.currentStep===t.stepsAmount?t.onSuccess():t.wasActivity&&(t.currentStep++,t.storageService.setItem(t.currentStep),t.wasActivity=!1)},1e4)},c.prototype.onSuccess=function(){this.clear(),this.options.onSuccess(),this.options.devMode&&(this.timeEnd=performance.now(),console.log("Time: ".concat((0,r.formatTime)(this.timeEnd-this.timeStart),"s")))},c.prototype.clear=function(){this.removeListeners(),this.intervalId&&clearInterval(this.intervalId)},c.prototype.removeListeners=function(){this.handleListeners("remove")},c.prototype.setListeners=function(){this.handleListeners("set")},c.prototype.handleListeners=function(t){var o=this,n="remove"===t?"removeEventListener":"addEventListener";Object.entries(this.events).forEach(function(t){var i=t[0];t[1].forEach(function(t){var e;"document"===i?document[n](t,o.handleClientActivity):null!=(e=document.querySelector(i))&&e[n](t,o.handleClientActivity)})})},c.prototype.handleClientActivity=function(){this.wasActivity||(this.options.devMode&&console.log("Was activity"),this.wasActivity=!0)},e.App=c},100:(t,e)=>{Object.defineProperty(e,"__esModule",{value:!0}),e.formatTime=void 0;e.formatTime=function(t){return Number((t/1e3).toFixed())}},107:(t,e)=>{Object.defineProperty(e,"__esModule",{value:!0}),e.throttle=void 0;e.throttle=function(e,i){void 0===i&&(i=1e3);var o=!1;return function(t){o||(o=!0,setTimeout(function(){o=!1,e(t)},i))}}},287:(t,e)=>{Object.defineProperty(e,"__esModule",{value:!0}),e.StorageService=void 0;var i="activityStep";function o(){}o.prototype.getItem=function(){return Number(localStorage.getItem(i))},o.prototype.setItem=function(t){return localStorage.setItem(i,JSON.stringify(t))},o.prototype.hasItem=function(){return Boolean(localStorage.getItem(i))},e.StorageService=o}},o={};function n(t){var e=o[t];if(void 0!==e)return e.exports;e=o[t]={exports:{}};return i[t].call(e.exports,e,e.exports,n),e.exports}var t,e,r,s={};t=s,e=n(373),r=n(287),t.default=function(t){new e.App(t,new r.StorageService)},window.userMarketingActivity=s.default})();</script>
+<script>
+if (window.userMarketingActivity) {
+        window.userMarketingActivity({
+          onSuccess: () => ym(96406175, "reachGoal", "60sec"),
+          time: 60, // default
+          devMode: false, // default
+        });
+      }
+</script>
 </head>
 <body>
 {% block body %}
@@ -20,5 +45,9 @@
 {{ component('call-modal') }}
 {{ component('social-network-modal') }}
 {{ component('footer') }}
+<div id="notify-card" style="opacity: 0%;" onclick="closeNotifyCard()">
+    <p class="font-gotham">Спасибо за обращение. Ожидайте звонок <br> в течении 15 минут после нажатия <br> кнопки запросить звонок</p>
+</div>
+
 </body>
 </html>

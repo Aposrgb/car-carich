@@ -26,7 +26,7 @@
                 <img src="{{ asset('img/white-logo.svg') }}" class="mobile-none" alt="">
                 <p class="ibm-font m-0 white main-text">Car-Карыч</p>
                 <div class="center-sub-block font-gotham">
-                    <p>Импорт автомобилей в РФ. Авто из Кореи,</p>
+                    <p>Прямой импорт автомобилей в РФ. Авто из Кореи,</p>
                     <p>Китая, Японии, Америки и других стран.</p>
                 </div>
             </div>
@@ -36,6 +36,7 @@
             <a href="#select-car">Подобрать автомобиль</a>
             <a href="{{ path('catalog') }}">Каталог</a>
             <a href="{{ path('about_us') }}">О нас</a>
+            <a href="https://vk.com/topic-204706115_49538532" target="_blank">Отзывы</a>
         </header>
         <div class="block">
             <div class="flex-column">
@@ -73,16 +74,11 @@
                             </select>
                         </li>
                         <li class="flex-column flex-space-between ml-4 li-filter">
-                            <label for="year" class="font-gotham grey">Год выпуска</label>
-                            <select id="year" class="select-filter filter-underline font-gotham">
-                                <option value="all" class="font-gotham">Все</option>
-                                {% for year in LkFilter.yearsFilter %}
-                                    <option value="{{ year }}" class="font-gotham">{{ year }}</option>
-                                {% endfor %}
-                            </select>
+                            <label for="year" class="font-gotham grey">Год выпуска от</label> 
+                                <input id="year" class="filter-underline font-gotham" type="number" min="1900" max="2099" step="1" value="{{"now"|date("Y")}}" />
                         </li>
                         <li class="flex-column flex-space-between ml-4 li-filter mobile-none">
-                            {{ component('filters/multirange', {min: LkFilter.minPriceFilter, max: LkFilter.maxPriceFilter}) }}
+                            {{ component('filters/multirange', {min: 0, max: 20000000}) }}
                         </li>
                     </ul>
                     <ul class="list-style-unset flex-row column-filter">
@@ -168,30 +164,27 @@
                         <div class="flex-j-center mt-4 mb-4">
                             <img src="img/settings.svg" class="seventi-block" alt=""/>
                         </div>
-                        <h4 class="white font-gotham-bold">Огромный бак</h4>
+                        <h4 class="white font-gotham-bold">5 лет успешной работы</h4>
                         <h6 class="font-gotham white">
-                            Самый огромный бак в мире смешариков и кар карычей, которые
-                            бесконечно радуют глаз наших клиентов
+                            Большое количество покупателей из разных регионов
                         </h6>
                     </div>
                     <div class="third-block settings-card mr-2">
                         <div class="flex-j-center mt-4 mb-4">
                             <img src="img/settings.svg" class="seventi-block" alt=""/>
                         </div>
-                        <h4 class="white font-gotham-bold">Огромный бак</h4>
+                        <h4 class="white font-gotham-bold">Более 300 машин импортировано</h4>
                         <h6 class="font-gotham white">
-                            Самый огромный бак в мире смешариков и кар карычей, которые
-                            бесконечно радуют глаз наших клиентов
+                            От маленьких седанов до больших кроссоверов
                         </h6>
                     </div>
                     <div class="third-block settings-card">
                         <div class="flex-j-center mt-4 mb-4">
                             <img src="img/settings.svg" class="seventi-block" alt=""/>
                         </div>
-                        <h4 class="white font-gotham-bold">Огромный бак</h4>
+                        <h4 class="white font-gotham-bold">Поддержка клиентов&#8734</h4>
                         <h6 class="font-gotham white">
-                            Самый огромный бак в мире смешариков и кар карычей, которые
-                            бесконечно радуют глаз наших клиентов
+                            Консультируем на всех этапах покупки, а также после получения машины клиентом
                         </h6>
                     </div>
                 </div>

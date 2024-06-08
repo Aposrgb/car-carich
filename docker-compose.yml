@@ -46,6 +46,6 @@ services:
       - ./build/nginx/local:/etc/nginx/conf.d/
       - ./build/nginx/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf
       - ./car-carich/public:/var/www/car-carich/public:rw,cached
-
+      - /etc/ssl/:/etc/nginx/ssl/
 networks:
   car:
