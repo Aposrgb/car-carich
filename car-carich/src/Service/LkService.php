@@ -63,13 +63,14 @@ final readonly class LkService
 
     private function filterPriceCar(Car $car, FilterLkResponse $lkFilter): void
     {
-        if (!is_null($car->getFullPrice()) and $lkFilter->getMaxPriceFilter() < $car->getFullPrice()) {
-            $lkFilter->setMaxPriceFilter($car->getFullPrice());
-        }
-        if (!is_null($car->getStandardPrice()) and
-            ($lkFilter->getMinPriceFilter() == 0 or $lkFilter->getMinPriceFilter() > $car->getStandardPrice())
-        ) {
-            $lkFilter->setMinPriceFilter($car->getStandardPrice());
+        if (!is_null($car->getFullPrice())) {
+            if($lkFilter->getMaxPriceFilter() < $car->getFullPrice()) {
+                $lkFilter->setMaxPriceFilter($car->getFullPrice());
+            }
+            
+            if($lkFilter->getMinPriceFilter() == 0 or $lkFilter->getMinPriceFilter() > $car->getFullPrice()) {
+                $lkFilter->setMinPriceFilter($car->getFullPrice());
+            }
         }
     }
 }

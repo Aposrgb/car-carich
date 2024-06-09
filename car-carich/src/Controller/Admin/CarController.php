@@ -4,16 +4,17 @@ namespace App\Controller\Admin;
 
 use App\Entity\Car;
 use App\Form\CarType;
-use App\Helper\DTO\Car\CarAdminResponse;
-use App\Helper\Mapper\Mapper;
+use App\Helper\{DTO\Car\CarAdminResponse, Exception\ApiException, Mapper\Mapper};
 use App\Repository\CarRepository;
-use App\Service\FileUploadService;
+use App\Service\{CarService, FileUploadService};
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\{HttpFoundation\File\UploadedFile,
+    HttpFoundation\JsonResponse,
+    HttpFoundation\Request,
+    HttpFoundation\Response,
+    Routing\Annotation\Route
+};
 
 #[Route('/car')]
 class CarController extends AbstractController
@@ -66,7 +67,7 @@ class CarController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_car_show', methods: ['GET'])]
+    #[Route('/{id<\d+>}', name: 'app_car_show', methods: ['GET'])]
     public function show(Car $car): Response
     {
         return $this->render('admin/car/show.html.twig', [
@@ -74,7 +75,7 @@ class CarController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_car_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id<\d+>}/edit', name: 'app_car_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Car $car, EntityManagerInterface $entityManager, FileUploadService $fileUploadService): Response
     {
         $form = $this->createForm(CarType::class, $car);
@@ -104,7 +105,7 @@ class CarController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_car_delete', methods: ['POST'])]
+    #[Route('/{id<\d+>}', name: 'app_car_delete', methods: ['POST'])]
     public function delete(Request $request, Car $car, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $car->getId(), $request->request->get('_token'))) {
@@ -115,7 +116,7 @@ class CarController extends AbstractController
         return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{car<\d+>}', name: 'car_delete_image', methods: ['DELETE'])]
+    #[Route('/delete/{car<\d+>}', name: 'car_delete_image', methods: ['DELETE'])]
     public function deleteFile(Request $request, Car $car, EntityManagerInterface $entityManager, FileUploadService $fileUploadService): JsonResponse
     {
         $query = $request->query->all();
@@ -130,5 +131,26 @@ class CarController extends AbstractController
             $entityManager->flush();
         }
         return $this->json([], status: Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route('/import', name: 'upload_car_page', methods: ['GET'])]
+    public function importExcelPage(): Response
+    {
+        return $this->render('admin/car/import.html.twig');
+    }
+
+    #[Route('/upload', name: 'upload_car', methods: ['POST'])]
+    public function importExcel(Request $request, CarService $carService): Response
+    {
+        /** @var UploadedFile $file */
+        $file = $request->files->get('file');
+        if (!$file) {
+            throw new ApiException('Файл не загружен');
+        }
+        if ($file->getClientOriginalExtension() != 'xlsx') {
+            throw new ApiException('Неверный тип расширения файла');
+        }
+        $carService->importCars($file);
+        return $this->json([]);
     }
 }

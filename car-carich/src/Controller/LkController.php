@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Car;
-use App\Helper\Enum\Type\Settings as EnumSettingsType;
+use App\Helper\Enum\Type\SettingsType as EnumSettingsType;
 use App\Helper\DTO\Car\CarLkResponse;
 use App\Helper\Mapper\Mapper;
 use App\Repository\SettingsRepository;

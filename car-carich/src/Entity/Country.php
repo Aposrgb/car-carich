@@ -15,13 +15,13 @@ class Country
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     #[ORM\OneToMany(mappedBy: 'country', targetEntity: Car::class)]
     private Collection $cars;
 
-    public function __construct()
+    public function __construct(
+        #[ORM\Column(length: 255)]
+        private ?string $name = null,
+    )
     {
         $this->cars = new ArrayCollection();
     }

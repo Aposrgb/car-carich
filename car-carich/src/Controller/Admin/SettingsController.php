@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Settings;
-use App\Helper\Enum\Type\Settings as EnumSettingsType;
+use App\Helper\Enum\Type\SettingsType as EnumSettingsType;
 use App\Form\SettingsType;
 use App\Helper\DTO\Settings\SettingsAdminResponse;
 use App\Helper\Mapper\Mapper;

@@ -2,7 +2,7 @@
 
 namespace App\Helper\Enum\Type;
 
-enum Car: int
+enum CarType: int
 {
     case ELECTRONIC = 1;
     case HYBRID = 2;
@@ -17,6 +17,11 @@ enum Car: int
             self::PETROL->value => 'Бензин',
             self::DIESEL->value => 'Дизель',
         ];
+    }
+
+    public static function getNamesLower(): array
+    {
+        return array_map('mb_strtolower', self::getNames());
     }
 
     public static function getNamesForFormType(): array

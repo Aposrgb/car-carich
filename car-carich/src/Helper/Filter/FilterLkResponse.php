@@ -2,7 +2,7 @@
 
 namespace App\Helper\Filter;
 
-use App\Helper\Enum\Type\Car;
+use App\Helper\Enum\Type\CarType;
 
 class FilterLkResponse
 {
@@ -16,7 +16,7 @@ class FilterLkResponse
         private array $stampFilter = [],
     )
     {
-        $this->carTypes = Car::getNames();
+        $this->carTypes = CarType::getNames();
     }
 
     public function getMaxPriceFilter(): int

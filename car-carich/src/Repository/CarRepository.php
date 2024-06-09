@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Car;
 use App\Helper\Filter\CatalogueFilter;
 use App\Helper\Filter\Pagination;
+use App\Repository\Trait\FindBySelectPropertyNameTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -20,6 +21,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CarRepository extends ServiceEntityRepository
 {
+    use FindBySelectPropertyNameTrait;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Car::class);
@@ -81,7 +83,7 @@ class CarRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Car[] Returns an array of Car objects
+//     * @return CarType[] Returns an array of CarType objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -95,7 +97,7 @@ class CarRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Car
+//    public function findOneBySomeField($value): ?CarType
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

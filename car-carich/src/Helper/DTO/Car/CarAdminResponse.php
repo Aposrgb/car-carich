@@ -3,7 +3,7 @@
 namespace App\Helper\DTO\Car;
 
 use App\Entity\Car;
-use App\Helper\Enum\Type\Car as EnumCarType;
+use App\Helper\Enum\Type\CarType as EnumCarType;
 use App\Helper\Inteface\DTOInterface;
 
 final readonly class CarAdminResponse implements DTOInterface

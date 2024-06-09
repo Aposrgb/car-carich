@@ -2,8 +2,10 @@
 
 namespace App\EventListener;
 
+use App\Helper\Exception\ApiException;
 use Doctrine\DBAL\Driver\Exception as TheDriverException;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -25,6 +27,11 @@ final readonly class ExceptionListener
         $this->logger->error($exception->getMessage(), $exception->getTrace());
         $message = $exception->getMessage();
         $statusCode = $exception->getCode();
+        if ($exception instanceof ApiException) {
+            $errorJsonResponse = new JsonResponse($exception->getResponseBody()['error'], $exception->getStatusCode());
+            $event->setResponse($errorJsonResponse);
+            return;
+        }
         if ($exception instanceof HttpException) {
             $statusCode = $exception->getStatusCode();
         }

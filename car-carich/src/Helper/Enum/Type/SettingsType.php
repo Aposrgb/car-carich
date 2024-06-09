@@ -2,7 +2,7 @@
 
 namespace App\Helper\Enum\Type;
 
-enum Settings: int
+enum SettingsType: int
 {
     case CONTRACT = 1;
     case VK_URL = 2;

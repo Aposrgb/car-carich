@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Car;
 use App\Entity\Country;
 use App\Entity\Stamp;
-use App\Helper\Enum\Type\Car as EnumCarType;
+use App\Helper\Enum\Type\CarType as EnumCarType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

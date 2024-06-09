@@ -3,7 +3,7 @@
 namespace App\Helper\Components;
 
 use App\Entity\Settings;
-use App\Helper\Enum\Type\Settings as SettingsType;
+use App\Helper\Enum\Type\SettingsType as SettingsType;
 use App\Repository\SettingsRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 

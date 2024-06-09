@@ -20,7 +20,7 @@ class Car
     #[ORM\Column]
     private ?int $typeEngine = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cars')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'cars')]
     private ?Country $country = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -53,7 +53,7 @@ class Car
     #[ORM\Column(nullable: true)]
     private ?string $power;
 
-    #[ORM\ManyToOne(inversedBy: 'cars')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'cars')]
     private ?Stamp $stamp = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -197,6 +197,12 @@ class Car
     {
         $this->images = array_values($images);
 
+        return $this;
+    }
+
+    public function addImage(string $image): static
+    {
+        $this->images[] = $image;
         return $this;
     }
 

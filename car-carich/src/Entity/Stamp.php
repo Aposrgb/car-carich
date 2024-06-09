@@ -15,16 +15,16 @@ class Stamp
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $icon = null;
 
     #[ORM\OneToMany(mappedBy: 'stamp', targetEntity: Car::class)]
     private Collection $cars;
 
-    public function __construct()
+    public function __construct(
+        #[ORM\Column(length: 255)]
+        private ?string $name = null,
+    )
     {
         $this->cars = new ArrayCollection();
     }

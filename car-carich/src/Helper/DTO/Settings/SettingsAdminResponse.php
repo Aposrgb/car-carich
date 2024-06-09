@@ -3,7 +3,7 @@
 namespace App\Helper\DTO\Settings;
 
 use App\Entity\Settings;
-use App\Helper\Enum\Type\Settings as EnumSettingsType;
+use App\Helper\Enum\Type\SettingsType as EnumSettingsType;
 use App\Helper\Inteface\DTOInterface;
 
 readonly class SettingsAdminResponse implements DTOInterface
