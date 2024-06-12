@@ -3,10 +3,11 @@
 namespace App\Service;
 
 use App\Entity\{Car, Country, Stamp};
-use App\Helper\{DTO\Car\CarCountryStampDataDTO, DTO\Car\CarImportDTO, Exception\ApiException};
+use App\Helper\{DTO\Car\CarCountryStampDataDTO, DTO\Car\CarImportDTO, Enum\Type\CarType, Exception\ApiException};
 use Doctrine\ORM\EntityManagerInterface;
-use GuzzleHttp\{Client, Exception\GuzzleException};
-use PhpOffice\PhpSpreadsheet\{Reader\Xlsx, Worksheet\Row};
+use GuzzleHttp\{Client, Exception\GuzzleException, Promise\Utils};
+use Psr\Http\Message\ResponseInterface;
+use PhpOffice\PhpSpreadsheet\{Reader\Xlsx, RichText\ITextElement, RichText\RichText, Worksheet\Row};
 use Symfony\Component\{DependencyInjection\Attribute\Autowire,
     HttpFoundation\File\UploadedFile,
     Serializer\SerializerInterface
@@ -20,32 +21,31 @@ class CarService
         private FileUploadService      $fileUploadService,
         private SerializerInterface    $serializer,
         private EntityManagerInterface $entityManager,
+        #[Autowire(env: 'YANDEX_DISK_API')]
+        private string                 $yandexDiskApi,
     )
     {
     }
 
-    public function importCars(UploadedFile $file): void
+    public function importCars($pathXls): void
     {
-        $pathXls = $this->fileUploadService->upload($file, FileUploadService::TEMP_PATH);
-
         $reader = new Xlsx();
         $spreadsheet = $reader->load($this->projectDir . $pathXls);
         $worksheet = $spreadsheet->getActiveSheet();
 
         $importKeys = CarImportDTO::getKeysForImport();
-        $countImportKeys = count($importKeys);
-
         $carsCountryStampDataDTO = $this->getCarCountryStampDataDTO();
 
         $client = new Client();
         foreach ($worksheet->getRowIterator(2) as $row) {
-            $carDTO = $this->getCarImportDTOByRowValues($row, $importKeys, $countImportKeys);
+            $carDTO = $this->getCarImportDTOByRowValues($row, $importKeys);
 
             if (array_key_exists(mb_strtolower($carDTO->getName()), $carsCountryStampDataDTO->getCars())) {
                 continue;
             }
 
             $car = $this->mapCarFromDTO($carDTO);
+            $car->setTypeEngine(CarType::PETROL->value);
 
             if (!empty($carDTO->getCountry())) {
                 $lowerNameCountry = mb_strtolower($carDTO->getCountry());
@@ -73,32 +73,28 @@ class CarService
                 }
             }
 
-            if (!empty($carDTO->getStampLogo()) and !is_null($car->getStamp()) and is_null($car->getStamp()->getIcon())) {
-                try {
-                    $path = $this->saveOutputAndGetPath($client, $carDTO->getStampLogo(), FileUploadService::STAMP_ICON_PATH);
-                    if (is_null($path)) {
-                        $this->fileUploadService->deleteFile($pathXls);
-                        throw new ApiException(
-                            'Изображение логотипа марки полученное по ссылке не поддерживается, поддерживаются: ' . implode(', ', array_values(FileUploadService::MIME_TYPES))
-                        );
-                    }
-                    $car->getStamp()->setIcon($path);
-                } catch (GuzzleException) {
-                    $this->fileUploadService->deleteFile($pathXls);
-                    throw new ApiException('Неверная ссылка на логотип марки машины');
-                }
-            }
+//            if (!empty($carDTO->getStampLogo()) and !is_null($car->getStamp()) and is_null($car->getStamp()->getIcon())) {
+//                try {
+//                    $path = $this->saveOutputAndGetPath($client, $carDTO->getStampLogo(), FileUploadService::STAMP_ICON_PATH);
+//                    if (is_null($path)) {
+//                        $this->fileUploadService->deleteFile($pathXls);
+//                        throw new ApiException(
+//                            'Изображение логотипа марки полученное по ссылке не поддерживается, поддерживаются: ' . implode(', ', array_values(FileUploadService::MIME_TYPES))
+//                        );
+//                    }
+//                    $car->getStamp()->setIcon($path);
+//                } catch (GuzzleException) {
+//                    $this->fileUploadService->deleteFile($pathXls);
+//                    throw new ApiException('Неверная ссылка на логотип марки машины');
+//                }
+//            }
 
             try {
-                foreach ($carDTO->getImages() as $image) {
-                    $path = $this->saveOutputAndGetPath($client, $image, FileUploadService::CAR_IMAGES_PATH);
-                    if (is_null($path)) {
-                        $this->fileUploadService->deleteFile($pathXls);
-                        throw new ApiException(
-                            'Изображение машины полученное по ссылке не поддерживается, поддерживаются: ' . implode(', ', array_values(FileUploadService::MIME_TYPES))
-                        );
+                if (!empty($carDTO->getImages())) {
+                    $path = $this->saveOutputAndGetPath($client, $carDTO->getImages(), FileUploadService::CAR_IMAGES_PATH);
+                    if (!empty($path)) {
+                        $car->setImages($path);
                     }
-                    $car->addImage($path);
                 }
             } catch (GuzzleException) {
                 $this->fileUploadService->deleteFile($pathXls);
@@ -115,7 +111,6 @@ class CarService
     {
         return (new Car())
             ->setName($carDTO->getName())
-            ->setTypeEngine($carDTO->getTypeEngine())
             ->setWeight($carDTO->getWeight())
             ->setSize($carDTO->getSize())
             ->setYear($carDTO->getYear())
@@ -129,7 +124,7 @@ class CarService
             ->setMileageOneCharge($carDTO->getMileageOneCharge());
     }
 
-    private function getCarImportDTOByRowValues(Row $row, array $keys, int $countKeys): CarImportDTO
+    private function getCarImportDTOByRowValues(Row $row, array $keys): CarImportDTO
     {
         $index = 0;
         $data = [];
@@ -138,31 +133,79 @@ class CarService
                 $index++;
                 continue;
             }
-            if ($index >= $countKeys - 1) {
-                $key = $keys[$countKeys - 1];
-                $data[$key][] = $cell->getValue();
+            if (!array_key_exists($index, $keys)) {
+                $index++;
+                continue;
+            }
+            $key = $keys[$index];
+            if (!$key) {
+                $index++;
+                continue;
+            }
+            if ($key == 'name') {
+                $data[$key] = trim($data['stamp']) . ' ' . trim($cell->getValue());
             } else {
-                $key = $keys[$index];
-                $data[$key] = $cell->getValue();
+                $value = $cell->getValue();
+                if ($value instanceof RichText) {
+                    $textElements = $value->getRichTextElements();
+                    /** @var ITextElement $textEl */
+                    $textEl = end($textElements);
+                    if (!$textEl) {
+                        $index++;
+                        continue;
+                    }
+                    $value = trim($textEl->getText());
+                }
+                $data[$key] = $value;
             }
             $index++;
         }
+
         return $this->serializer->deserialize(json_encode($data), CarImportDTO::class, 'json');
     }
 
     /**
      * @throws GuzzleException
      */
-    private function saveOutputAndGetPath(Client $client, string $url, string $targetDir): ?string
+    private function saveOutputAndGetPath(Client $client, string $url, string $targetDir): ?array
     {
-        $response = $client->get($url);
-        $mime = $response->getHeader('Content-Type')[0];
-        $fileName = $this->fileUploadService->getUniqueFileName();
-        if (!array_key_exists($mime, FileUploadService::MIME_TYPES)) {
+        $response = $client->get($this->yandexDiskApi . '?public_key=' . $url);
+        $dataUrl = json_decode($response->getBody()->getContents(), true);
+        $keyEmbedded = '_embedded';
+        $keyItems = 'items';
+        if (!array_key_exists($keyEmbedded, $dataUrl)) {
             return null;
         }
-        $fileName .= '.' . FileUploadService::MIME_TYPES[$mime];
-        return $this->fileUploadService->saveOutput($fileName, $response->getBody()->getContents(), $targetDir);
+
+        if (!array_key_exists($keyItems, $dataUrl[$keyEmbedded])) {
+            return null;
+        }
+        $data = [];
+        $keyFile = 'file';
+        $promises = [];
+        foreach ($dataUrl[$keyEmbedded][$keyItems] as $item) {
+            if (!array_key_exists($keyFile, $item)) {
+                continue;
+            }
+            $promises[] = $client
+                ->getAsync($item[$keyFile])
+                ->then(
+                    onFulfilled: function (ResponseInterface $response) use (&$data, $targetDir) {
+                        $mime = $response->getHeader('Content-Type')[0];
+                        $fileName = $this->fileUploadService->getUniqueFileName();
+                        if (!array_key_exists($mime, FileUploadService::MIME_TYPES)) {
+                            return null;
+                        }
+                        $fileName .= '.' . FileUploadService::MIME_TYPES[$mime];
+                        $data[] = $this->fileUploadService->saveOutput($fileName, $response->getBody()->getContents(), $targetDir);
+                    }
+                );
+
+        }
+        $promise = Utils::settle($promises);
+        $promise->wait();
+
+        return $data;
     }
 
     private function getCarCountryStampDataDTO(): CarCountryStampDataDTO

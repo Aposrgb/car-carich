@@ -11,7 +11,7 @@ class CarImportDTO
     private ?string $country = null;
     private $weight = null;
     private ?string $size = null;
-    private ?int $year = null;
+    private $year = null;
     private ?string $battery = null;
     private ?int $mileage = null;
     private ?int $fullPrice = null;
@@ -21,7 +21,7 @@ class CarImportDTO
     private ?string $stamp = null;
     private ?string $volume = null;
     private ?string $mileageOneCharge = null;
-    private array $images = [];
+    private ?string $images = null;
     private ?string $stampLogo = null;
 
     /**
@@ -112,19 +112,12 @@ class CarImportDTO
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getYear(): ?int
+    public function getYear()
     {
         return $this->year;
     }
 
-    /**
-     * @param int|null $year
-     * @return CarImportDTO
-     */
-    public function setYear(?int $year): CarImportDTO
+    public function setYear($year): CarImportDTO
     {
         $this->year = $year;
         return $this;
@@ -289,19 +282,12 @@ class CarImportDTO
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getImages(): array
+    public function getImages()
     {
         return $this->images;
     }
 
-    /**
-     * @param array $images
-     * @return CarImportDTO
-     */
-    public function setImages(array $images): CarImportDTO
+    public function setImages($images): CarImportDTO
     {
         $this->images = $images;
         return $this;
@@ -328,23 +314,16 @@ class CarImportDTO
     public static function getKeysForImport(): array
     {
         return [
-            'name',
-            'typeEngine',
-            'country',
-            'weight',
-            'size',
-            'year',
-            'battery',
-            'mileage',
-            'fullPrice',
-            'standardPrice',
-            'isPopular',
-            'power',
             'stamp',
-            'volume',
-            'mileageOneCharge',
-            'stampLogo',
+            'name',
+            'power',
+            null,
+            null,
+            null,
+            'fullPrice',
+            'year',
             'images',
+            'mileage',
         ];
     }
 }

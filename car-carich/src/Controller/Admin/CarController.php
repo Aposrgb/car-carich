@@ -140,7 +140,7 @@ class CarController extends AbstractController
     }
 
     #[Route('/upload', name: 'upload_car', methods: ['POST'])]
-    public function importExcel(Request $request, CarService $carService): Response
+    public function importExcel(Request $request, FileUploadService $fileUploadService): Response
     {
         /** @var UploadedFile $file */
         $file = $request->files->get('file');
@@ -150,7 +150,10 @@ class CarController extends AbstractController
         if ($file->getClientOriginalExtension() != 'xlsx') {
             throw new ApiException('Неверный тип расширения файла');
         }
-        $carService->importCars($file);
+
+        $pathXls = $fileUploadService->upload($file, FileUploadService::TEMP_PATH);
+        shell_exec("php bin/console car:import .$pathXls > /dev/null & ");
+        shell_exec("php ../bin/console car:import .$pathXls > /dev/null & ");
         return $this->json([]);
     }
 }
