@@ -152,8 +152,8 @@ class CarController extends AbstractController
         }
 
         $pathXls = $fileUploadService->upload($file, FileUploadService::TEMP_PATH);
-        shell_exec("php bin/console car:import .$pathXls > /dev/null & ");
-        shell_exec("php ../bin/console car:import .$pathXls > /dev/null & ");
+        shell_exec("php bin/console car:import $pathXls > /dev/null & ");
+        shell_exec("php ../bin/console car:import $pathXls > /dev/null & ");
         return $this->json([]);
     }
 }
