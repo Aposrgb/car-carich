@@ -43,8 +43,11 @@ class CarService
             if (array_key_exists(mb_strtolower($carDTO->getName()), $carsCountryStampDataDTO->getCars())) {
                 continue;
             }
-
+            if (is_null($carDTO->getName()) or is_null($carDTO->getYear()) or is_null($carDTO->getFullPrice())) {
+                continue;
+            }
             $car = $this->mapCarFromDTO($carDTO);
+
             $car->setTypeEngine(CarType::PETROL->value);
 
             if (!empty($carDTO->getCountry())) {
