@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="{{ asset('styles/base.css') }}"/>
+    {{ component('styles/lk/base') }}
+    {{ component('styles/lk/header') }}
+    {{ component('styles/lk/footer') }}
 
     {{ component('format_number') }}
     {{ component('scripts/base') }}
@@ -43,9 +45,8 @@ if (window.userMarketingActivity) {
 {% block body %}
 {% endblock %}
 {{ component('call-modal') }}
-{{ component('social-network-modal') }}
 {{ component('footer') }}
-<div id="notify-card" style="opacity: 0%;" onclick="closeNotifyCard()">
+<div id="notify-card" style="opacity: 0%;display: none" onclick="closeNotifyCard()">
     <p class="font-gotham">Спасибо за обращение. Ожидайте звонок <br> в течении 15 минут после нажатия <br> кнопки запросить звонок</p>
 </div>
 

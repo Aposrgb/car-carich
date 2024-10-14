@@ -1,73 +1,102 @@
 {{ component('owl_carousel_func') }}
 <script>
     document.addEventListener("DOMContentLoaded", async () => {
-        let popCarsDiv = document.querySelector(".pop-cars");
-        let carsCardsDiv = document.querySelector(".cars-cards");
-        let mobileCarsCardsDiv = document.querySelector(".cars-cards-mobile");
+        {#let popCarsDiv = document.querySelector(".pop-cars");#}
+        {#let carsCardsDiv = document.querySelector(".cars-cards");#}
+        {#let mobileCarsCardsDiv = document.querySelector(".cars-cards-mobile");#}
 
-        let popCarsData = await Car.fetchCars(POPULAR_CARS, {page: 1, limit: 10});
-        let catalogueCarsData = await Car.fetchCars(CATALOGUE, {page: 1, limit: 10});
+        {#let popCarsData = await Car.fetchCars(POPULAR_CARS, {page: 1, limit: 10});#}
+        {#let catalogueCarsData = await Car.fetchCars(CATALOGUE, {page: 1, limit: 10});#}
 
-        for (let car of popCarsData.data) {
-            popCarsDiv.innerHTML += car.createHtmlForBigSlider();
-        }
-        let cardHtml = '';
-        for (let car of catalogueCarsData.data) {
-            cardHtml+= car.createHtmlForCarCard({overflowImg: true});
-        }
-        mobileCarsCardsDiv.innerHTML = cardHtml;
-        carsCardsDiv.innerHTML = cardHtml;
+        {#for (let car of popCarsData.data) {#}
+        {#    popCarsDiv.innerHTML += car.createHtmlForBigSlider();#}
+        {#}#}
+        {#let cardHtml = '';#}
+        {#for (let car of catalogueCarsData.data) {#}
+        {#    cardHtml+= car.createHtmlForCarCard({overflowImg: true});#}
+        {#}#}
+        {#mobileCarsCardsDiv.innerHTML = cardHtml;#}
+        {#carsCardsDiv.innerHTML = cardHtml;#}
 
-        setOwlCarousel();
+        {#setOwlCarousel();#}
 
-        let header = document.querySelector(".header-block"),
-            headerHidden = document.querySelector(".header-hidden");
+        {#IMask(document.getElementById('phone'), { mask: '+{7} (000) 000-00-00'});#}
+        {#IMask(document.getElementById('mobile-price'), {#}
+        {#    mask: `num ₽`,#}
+        {#    blocks: {#}
+        {#        num: {#}
+        {#            mask: Number,#}
+        {#            thousandsSeparator: ' ',#}
+        {#            min: 0,#}
+        {#            max: {{ maxPrice }},#}
+        {#        }#}
+        {#    }#}
+        {#});#}
 
-        window.onscroll = () => {
-            if (window.scrollY >= header.offsetHeight) {
-                headerHidden.classList.remove("d-none");
-            } else {
-                headerHidden.classList.add("d-none");
-            }
-        };
 
-        IMask(document.getElementById('phone'), { mask: '+{7} (000) 000-00-00'});
-        IMask(document.getElementById('mobile-price'), {
-            mask: `num ₽`,
-            blocks: {
-                num: {
-                    mask: Number,
-                    thousandsSeparator: ' ',
-                    min: 0,
-                    max: {{ maxPrice }},
-                }
-            }
+        createMask(['.free-consultation-tel', '.banner-tel']);
+
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+            },
+            on: {
+                slideChange: function () {
+                    updateCustomPagination(swiper);
+                },
+            },
         });
 
-        formatAllNumber();
+        var customBullets = document.querySelectorAll('.custom-bullet');
+        customBullets.forEach(function (bullet, index) {
+            bullet.addEventListener('click', function () {
+                swiper.slideToLoop(index);  // Переход к нужному слайду
+            });
+        });
+
+        function updateCustomPagination(swiper) {
+            var bullets = document.querySelectorAll('.custom-bullet');
+            bullets.forEach(function (bullet, index) {
+                var loader = bullet.querySelector('.loader');
+
+                // Сбрасываем ширину лоадера
+                loader.style.width = '0';
+                loader.style.animation = 'none';
+
+                // Запускаем лоадер только для активного буллета
+                if (index === swiper.realIndex) {
+                    loader.style.animation = 'load 3s linear forwards'; // Анимация для активного буллета
+                }
+                bullet.classList.toggle('active', index === swiper.realIndex);
+            });
+        }
+
+        updateCustomPagination(swiper);
+
     });
 
 
 
-    function setOwlCarousel(){
-        createOwlCarousel({
-            selectorName: '.pop-cars',
-            nextArrow: 'right-arrow',
-            prevArrow: 'left-arrow'
-        });
-        createOwlCarousel({
-            selectorName: '.cars-cards',
-            nextArrow: 'card-arrow-right',
-            prevArrow: 'card-arrow-left',
-            item: 3,
-            margin: 5
-        });
-        createOwlCarousel({
-            selectorName: '.cars-cards-mobile',
-            nextArrow: 'card-arrow-right-mobile',
-            prevArrow: 'card-arrow-left-mobile',
-            item: 1,
-            margin: 0
-        })
-    }
+    // function setOwlCarousel(){
+        // createOwlCarousel({
+        //     selectorName: '.pop-cars',
+        //     nextArrow: 'right-arrow',
+        //     prevArrow: 'left-arrow'
+        // });
+        // createOwlCarousel({
+        //     selectorName: '.cars-cards',
+        //     nextArrow: 'card-arrow-right',
+        //     prevArrow: 'card-arrow-left',
+        //     item: 3,
+        //     margin: 5
+        // });
+        // createOwlCarousel({
+        //     selectorName: '.cars-cards-mobile',
+        //     nextArrow: 'card-arrow-right-mobile',
+        //     prevArrow: 'card-arrow-left-mobile',
+        //     item: 1,
+        //     margin: 0
+        // })
+    // }
 </script>

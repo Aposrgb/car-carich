@@ -1,0 +1,21 @@
+<div class="mt-4 grid-4 g-6">
+    {% for car in ["Honda ENs1", "Honda CIVIC", "Toyota Camry", "Toyota Camry", "Toyota Camry", "Toyota Camry", "Toyota Camry", "Toyota Camry"] %}
+        <div class="white-color flex-column">
+            <img class="width-100" src="{{ asset('img/index/example-car.svg') }}" alt=""/>
+            <div class="mlr-4 mt-2">
+                <strong class="fs-20 text-montserrat black">{{ car }}</strong>
+                <div class="mt-05 list-price fs-13 font-weight-avg text-montserrat white width-max"><span class="number">3300000</span> ₽</div>
+                <div class="fs-12 text-montserrat flex-column mt-1 mb-2">
+                    <div class="g-1 flex-row">
+                        <strong>2024</strong>
+                        <div class="mini-divider bg-black"></div>
+                        <div>Китай</div>
+                        <div class="mini-divider bg-black"></div>
+                        <div>Пробег - <strong>69 000 км</strong></div>
+                    </div>
+                    <span class="mt-05">Двигатель - <strong>Электро</strong></span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

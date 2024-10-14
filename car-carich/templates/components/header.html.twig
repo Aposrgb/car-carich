@@ -1,41 +1,31 @@
-<header class="header header-hidden header-fixed bg-white black font-gotham z4 bt-0 width-100
-    {% if isDisplayNone %}
-    d-none
-    {% endif %}
-">
-
-    <div class="ml-2 absolute flex height-100 mobile-logo">
-        <img src="{{ asset('img/logo.svg') }}" alt="" class="header-logo"/>
-        {% if nameHidden %}
-        {% else %}
-            <a href="{{ path('index') }}" class="ibm-font p-0-pl-1-margin-auto">Car-Карыч</a>
-        {% endif %}
-    </div>
-    <div class="header-text flex-j-center flex-end width-100">
-        <a href="{{ path('index') }}" class="{% if mainHidden %}mobile-none{% endif %}">Главная</a>
-        <a href="{{ path('index') }}#select-car">Подобрать автомобиль</a>
-        <a href="{{ path('catalog') }}" class="{% if catalogHidden %}mobile-none{% endif %}">Каталог</a>
-        <a href="{{ path('about_us') }}" class="{% if aboutUsHidden %}mobile-none{% endif %}">О нас</a>
-        <a href="https://vk.com/topic-204706115_49538532" target="_blank">Отзывы</a>
-    </div>
-    <div class="absolute right-0 flex-center height-100 mr-2 mobile-logo">
-        <div class="grid-gap-social">
-            {% set settingsImg = {
-                2:{
-                    img: 'img/vk.svg',
-                    class: 'img-vk',
-                }, 3:{
-                    img: 'img/instagram.svg',
-                    class: 'img-instagram',
-                }, 4:{
-                    img: 'img/youtube.svg',
-                    class: 'img-youtube',
-                }} %}
-            {% for setting in settings|filter(setting => setting.type in [2,3,4]) -%}
-                <div class="white font-gotham container-img-soc {{ settingsImg[setting.type].class }} flex-center">
-                    <a class="p-0-im" href="{{ setting.value }}"><img src="{{ asset(settingsImg[setting.type].img) }}" alt=""/></a>
-                </div>
-            {% endfor %}
+<header class="header header-color black font-gotham">
+    <div class="flex-row flex-space-between header-block header-color g-1">
+        <a href="{{ path('index') }}" class="ibm-font header-base-btn header-avg-btn header-btn-accent g-4">
+            <img src="{{ asset('img/logo.svg') }}" alt="" class="header-logo"/>
+            <span class="header-logo-text">Car-Карыч</span>
+        </a>
+        <div class="header-base-btn header-small-btn header-secondary-text g-2">
+            <img src="{{ asset('img/header/search.svg') }}" alt="" class="header-img"/>
+            <span>Поиск</span>
+        </div>
+        <div class="header-base-btn header-btn header-secondary-text text-montserrat g-6">
+            <a href="{{ path('index') }}">Главная</a>
+            <a href="{{ path('catalog') }}">Каталог</a>
+            <a href="{{ path('about_us') }}">О нас</a>
+        </div>
+        <div class="header-base-btn header-avg-btn header-secondary-text text-montserrat g-6">
+            <a href="{{ path('index') }}" class="g-2 flex-center">
+                <img src="{{ asset('img/header/navigation.svg') }}" alt="" class="header-img"/>
+                Москва
+            </a>
+            <a href="{{ path('catalog') }}" class="g-2 flex-center">
+                <img src="{{ asset('img/header/phone.svg') }}" alt="" class="header-img"/>
+                +7 999 000 99 00
+            </a>
+        </div>
+        <div class="header-base-btn header-small-btn header-btn-accent text-montserrat header-signin g-2">
+            <img src="{{ asset('img/header/signin.svg') }}" alt="" class="header-img"/>
+            <span>Вход</span>
         </div>
     </div>
 </header>

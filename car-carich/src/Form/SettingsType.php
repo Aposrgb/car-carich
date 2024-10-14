@@ -17,7 +17,7 @@ class SettingsType extends AbstractType
         $builder
             ->add('value', TextType::class, [
                 'required' => false,
-                'label' => 'Ссылка',
+                'label' => 'Ссылка / Значение',
             ])
             ->add('img', FileType::class, [
                 'mapped' => false,

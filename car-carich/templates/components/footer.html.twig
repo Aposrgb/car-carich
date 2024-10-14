@@ -1,62 +1,79 @@
-<footer>
+<footer class="mb-3">
     <div class="footer">
-        <div class="footer-main-block">
-            <h2 class="white ibm-font">Car-Карыч</h2>
-            <h5 class="white font-gotham weight-0">
+        <div class="footer-main-block width-100 height-100">
+            <div class="flex-row">
+                <img src="{{ asset('img/footer/logo.svg') }}" class="footer-logo" alt=""/>
+                <h2 class="white ibm-font m-0">Car-Карыч</h2>
+            </div>
+            <h5 class="white font-gotham weight-0 m-0">
                 {% for setting in settings|filter(setting => setting.type in [6]) -%}
                     {{ setting.value }}
                 {% endfor %}
             </h5>
         </div>
-        <div class="flex-column footer-soc-network-block">
-            <div class="grid-gap-social">
-                {% set settingsImg = {
-                    2:{
-                        img: 'img/vk.svg',
-                        class: 'img-vk',
-                    }, 3:{
-                        img: 'img/instagram.svg',
-                        class: 'img-instagram',
-                    }, 4:{
-                        img: 'img/youtube.svg',
-                        class: 'img-youtube',
-                    }} %}
-                {% for setting in settings|filter(setting => setting.type in [2,3,4]) -%}
-                    <div class="white font-gotham container-img-soc {{ settingsImg[setting.type].class }} flex-center">
-                        <a class="p-0-im" href="{{ setting.value }}"><img src="{{ asset(settingsImg[setting.type].img) }}" alt=""/></a>
-                    </div>
-                {% endfor %}
-            </div>
-            <h5 class="white font-gotham weight-0 m-0 pt-2">
-                Импорт автомобилей в РФ. Авто из Кореи, Китая, Японии, Америки и
-                других стран.
-            </h5>
-        </div>
-        <div class="mobile-footer-block">
-            <h4 class="white font-gotham-bold m-0">Навигация</h4>
-            <div class="white footer-block">
-                <a href="{{ path('index') }}"><h5 class="font-gotham">Главная</h5></a>
-                <a href="{{ path('index') }}#select-car"><h5 class="font-gotham">Подобрать автомобиль</h5></a>
-                <a href="{{ path('catalog') }}"><h5 class="font-gotham">Каталог</h5></a>
-                <a href="{{ path('about_us') }}"><h5 class="font-gotham">О нас</h5></a>
+
+        <div class="mobile-footer-block width-100 height-100">
+            <h4 class="fs-15 grey font-gotham-bold m-0">Навигация</h4>
+            <div class="white g-4 footer-block mt-2">
+                <a href="{{ path('index') }}" class="fs-12 m-0 font-gotham fit-content">Главная</a>
+                <a href="{{ path('index') }}" class="fs-12 m-0 font-gotham fit-content">Личный кабинет</a>
+                <a href="{{ path('catalog') }}" class="fs-12 m-0 font-gotham fit-content">Каталог</a>
+                <a href="{{ path('about_us') }}" class="fs-12 m-0 font-gotham fit-content">О нас</a>
             </div>
         </div>
-        <div class="mobile-footer-block">
-            <h4 class="font-gotham-bold m-0 white">Контакты</h4>
-            <div class="white footer-last-block">
+
+        <div class="mobile-footer-block width-100 height-100">
+            <h4 class="fs-15 grey font-gotham-bold m-0">Контакты</h4>
+            <div class="white footer-last-block mt-2">
                 {% for setting in settings|filter(setting => setting.type in [7]) -%}
-                    <a href="tel:{{ setting.value }}"><h5 class="font-gotham">{{ setting.value }}</h5></a>
+                    <a href="tel:{{ setting.value }}" class="fs-12 font-gotham">
+                        {{ setting.value }}
+                    </a>
                 {% endfor %}
                 {% for setting in settings|filter(setting => setting.type in [8]) -%}
-                    <a href="mailto:{{ setting.value }}"><h5 class="font-gotham email-footer">{{ setting.value }}</h5></a>
+                    <a href="mailto:{{ setting.value }}" class="fs-12 font-gotham email-footer">
+                        {{ setting.value }}
+                    </a>
                 {% endfor %}
-                <button class="btn btn-transparent border-white mobile-none" onclick="toggleModal()">
-                    Заказать звонок
-                </button>
             </div>
         </div>
-        <button class="btn btn-transparent border-white mobile-block" onclick="toggleModal()">
-            Заказать звонок
-        </button>
+
+        <div class="mobile-footer-block width-100 height-100">
+            <h4 class="fs-15 grey font-gotham-bold m-0">Мы в соцсетях</h4>
+            <div class="flex-column footer-soc-network-block">
+                <div class="grid-gap-social mt-1">
+                    {% set settingsImg = {
+                        2:{
+                            img: 'img/vk.svg',
+                        },
+                        3:{
+                            img: 'img/instagram.svg',
+                        },
+                        4:{
+                            img: 'img/youtube.svg',
+                        },
+                        9: {
+                            img: 'img/footer/telegram.svg',
+                        }
+                    } %}
+                    {% for setting in settings|filter(setting => setting.type in [2,3,4,9]) %}
+                        <a class="p-0-im" href="{{ setting.value }}">
+                            <img class="footer-soc-network-img" src="{{ asset(settingsImg[setting.type].img) }}"
+                                 alt=""/>
+                        </a>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <div class="footer-divider"></div>
+    </div>
+
+    <div class="flex-center flex-row flex-space-between white text-montserrat fs-13 mlr-6 height-100">
+        <div>Импорт автомобилей в РФ. Авто из Кореи, Китая, Японии, Америки и других стран.</div>
+        <div>{{ 'now' | date('Y') }} Car-карыч</div>
     </div>
 </footer>

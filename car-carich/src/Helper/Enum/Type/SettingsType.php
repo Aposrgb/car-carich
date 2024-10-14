@@ -12,6 +12,7 @@ enum SettingsType: int
     case ADDRESS = 6;
     case PHONE = 7;
     case EMAIL = 8;
+    case TELEGRAM = 9;
 
     public static function getNamesForFormType(): array
     {
@@ -34,6 +35,7 @@ enum SettingsType: int
             self::ADDRESS => 'Адрес',
             self::PHONE => 'Телефон',
             self::EMAIL => 'Почта',
+            self::TELEGRAM => 'Телеграм',
         };
     }
 }

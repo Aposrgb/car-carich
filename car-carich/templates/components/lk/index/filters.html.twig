@@ -1,0 +1,91 @@
+<div>
+    <div class="filter mt-3">
+        <div class="filter-item filter-border">
+            <select id="brand" class="text-montserrat">
+                <option value="">Марка</option>
+            </select>
+        </div>
+        <div class="filter-item filter-border">
+            <select id="model" class="text-montserrat">
+                <option value="">Модель</option>
+            </select>
+        </div>
+        <div class="filter-item filter-border">
+            <input type="number" class="text-center text-montserrat" id="price-from" placeholder="Цена от">
+        </div>
+        <div class="filter-item filter-border">
+            <input type="number" class="text-center text-montserrat" id="price-to" placeholder="Цена до">
+        </div>
+        <div class="filter-item"></div>
+        <div class="filter-finish-item">
+            <div class="filter-finnish-border">
+                <img src="{{ asset('img/index/search.svg') }}" class="filter-img"/>
+            </div>
+            <span class="text-montserrat fs-15">Показать все авто</span>
+        </div>
+    </div>
+
+    {#   След. блок     #}
+
+    <div class="mt-2 pt-3 pb-3 white-color">
+        <div class="mlr-7">
+            <div class="filter-buttons">
+                <div class="filter-mileage">
+                    <div class="relative f-btn">
+                        <button class="filter-button filter-button-active filter-border">Все</button>
+                    </div>
+                    <div class="relative f-btn">
+                        <button class="filter-button filter-button-inactive filter-border">Новые<img alt=""
+                                                                                                     src="{{ asset('img/index/icon-new.svg') }}"/>
+                        </button>
+                        <div class="divider"></div>
+                    </div>
+                    <div class="relative f-btn">
+                        <button class="filter-button filter-button-inactive filter-border">С пробегом</button>
+                        <div class="divider"></div>
+                    </div>
+                </div>
+                <div class="filter-engine">
+                    <div class="relative f-btn">
+                        <button class="filter-button filter-button-active">Любые</button>
+                    </div>
+                    <div class="relative f-btn">
+                        <button class="filter-button filter-button-inactive">Дизельные</button>
+                        <div class="divider"></div>
+                    </div>
+                    <div class="relative f-btn">
+                        <button class="filter-button filter-button-inactive">Электро</button>
+                        <div class="divider"></div>
+                    </div>
+                    <div class="relative f-btn">
+                        <button class="filter-button filter-button-inactive">Гибрид</button>
+                        <div class="divider"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-stamps mt-4">
+                {% for item in ['Audi', 'Opel', 'BMW', 'Mazda', 'Mercedez', 'Volkswagen', 'Renault', 'Fiat', 'Hyundai', 'Kia', 'Mitsubishi' ] %}
+                    <div>{{ item }}</div>
+                {% endfor %}
+                <div>Все марки &#8681;</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="mt-4 grid-7 width-100 g-6">
+    {% for item in ['Россия', 'США', 'Германия', 'Франция', 'Австралия', 'Англия', 'Испания'] %}
+        <button class="plr-5 white-color p-1 border-none fs-15 text-montserrat">{{ item }}</button>
+    {% endfor %}
+</div>
+
+<div class="mt-4 grid-6 g-6">
+    {% for item in ['Подешевле', 'Подороже','Подороже','Подороже','Подороже','Грузовые'] %}
+        <div class="flex-column flex-center pt-4 pb-2 plr-4 white-color p-1 border-none ">
+            <img width="100" alt="" src="{{ asset('img/index/example-mini-car.svg') }}">
+            <a class="mt-2 fs-15 text-montserrat">{{ item }}</a>
+        </div>
+    {% endfor %}
+</div>

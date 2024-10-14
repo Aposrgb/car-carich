@@ -1,0 +1,135 @@
+<style>
+    .filter {
+        display: grid;
+        grid-template-columns: 20% 20% 13% 13% 12% 22%;
+        border-right: 2px black;
+        height: 80px;
+    }
+
+    .filter-item {
+        height: inherit;
+        background-color: var(--default-white-color);
+    }
+
+    .filter-finish-item {
+        background-color: var(--default-accent-color);
+        display: grid;
+        grid-template-columns: 25% 75%;
+        align-items: center;
+        justify-items: center;
+        height: inherit;
+    }
+
+    .filter-img {
+        width: 25px;
+        padding: 20px;
+    }
+
+    .filter-item select {
+        margin: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        border: unset;
+        height: inherit;
+        width: 100%;
+        font-size: 15px;
+        color: gray;
+        padding: 0 40px;
+
+        background-size: 1.1em;
+        background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxNiAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEgMUw4IDhMMTUgMSIgc3Ryb2tlPSIjNzU3NTc1IiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+Cg==") no-repeat calc(100% - 2em) center;
+    }
+
+    .filter-item input {
+        border: unset;
+        font-size: 15px;
+        width: 98%;
+        color: gray;
+        height: inherit;
+        padding: 0;
+
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
+    .filter-item input::-webkit-outer-spin-button,
+    .filter-item input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    .filter-item input:focus {
+        outline: none;
+    }
+
+    .filter-item select:focus {
+        outline: none;
+    }
+
+    .filter-border {
+        border: unset;
+        border-right-width: 2px;
+        border-right-style: solid;
+        border-color: #dbdbdb;
+    }
+
+    .filter-finnish-border {
+        border-right-width: 1.5px;
+        border-right-style: solid;
+        border-color: black;
+        height: inherit;
+        display: flex;
+    }
+
+    .filter-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .filter-buttons div {
+        display: flex;
+        align-items: center;
+    }
+
+    .filter-button {
+        font-family: 'Montserrat', sans-serif;
+        width: 160px;
+        padding: 12px 0;
+        font-size: 15px;
+        border: unset;
+    }
+
+    .f-btn:hover {
+        scale: 90%;
+    }
+
+    .filter-button-inactive {
+        background-color: var(--default-page-color);
+        color: var(--default-primary-text-color);
+    }
+
+    .filter-button-active {
+        background-color: black;
+        color: var(--default-white-color);
+        /*scale: 110%;*/
+    }
+
+    .divider {
+        width: 2px;
+        height: 20px;
+        background-color: #cfcfcf63;
+        position: absolute;
+    }
+
+    .filter-stamps {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        gap: 25px;
+    }
+
+</style>

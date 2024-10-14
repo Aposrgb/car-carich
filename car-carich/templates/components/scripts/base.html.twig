@@ -1,11 +1,17 @@
 <script>
     const MOBILE = 768, DEFAULT_CALL_TYPE = 1, CAR_DETAIL_TYPE = 2, PICK_UP_TYPE = 3;
+
     document.addEventListener('DOMContentLoaded', () => {
         formatAllNumber();
-        IMask(document.getElementById('phone-modal'), {
-            mask: '+{7} (000) 000-00-00'
-        });
     });
+
+    function createMask(classArr) {
+        for(let inClass of classArr) {
+            IMask(document.querySelector(inClass), {
+                mask: '+{7} (000) 000-00-00'
+            });
+        }
+    }
 
     function sendMessage(message) {
         setNotifyCard();
@@ -22,8 +28,10 @@
         let notifyCard = document.querySelector('#notify-card');
         if(notifyCard.style.opacity == '0') {
             notifyCard.style.opacity = '100%';
+            notifyCard.style.display = 'block';
             setTimeout(() => {
                 notifyCard.style.opacity = '0';
+                notifyCard.style.display = 'none';
             }, 10000);
         }
     }

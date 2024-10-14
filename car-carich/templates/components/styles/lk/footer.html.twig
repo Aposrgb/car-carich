@@ -1,0 +1,152 @@
+<style>
+    footer {
+        background-color: #212121;
+        padding-top: 65px;
+        --footer-primary-text-color: #dedede;
+        display: flex;
+        flex-direction: column;
+        height: 200px;
+    }
+
+    .footer{
+        display: grid;
+        grid-template-columns: 15% 15% 15% 15%;
+        align-items: center;
+        justify-items: center;
+        justify-content: space-evenly;
+        gap: 35px;
+    }
+
+    .footer-logo{
+        transform: translateY(-25px);
+    }
+
+    .footer-main-block {
+    }
+
+    .footer-main-block > h5 {
+        color: var(--footer-primary-text-color);
+    }
+
+    .footer-main-block > h2 {
+        margin: 0;
+    }
+
+    .footer-block {
+        display: grid;
+        grid-template-columns: 30% 70%;
+    }
+
+    .footer-block > h4 {
+        margin: 0;
+    }
+
+    .footer-block > h5 {
+        color: var(--footer-primary-text-color);
+    }
+
+    .footer-soc-network-block > h5 {
+        line-height: 20px;
+        margin: 0;
+        color: var(--footer-primary-text-color);
+    }
+
+    .footer-last-block {
+        display: grid;
+        grid-template-columns: repeat(1, 0fr);
+        grid-gap: 15px;
+    }
+
+    .footer-divider {
+        background-color: rgba(128, 128, 128, 0.27);
+        width: 100%;
+        height: 2px;
+    }
+
+    .container-img-soc {
+        border-radius: 2px;
+        padding: 6px;
+    }
+
+    .img-instagram:hover {
+        background: linear-gradient(#CC00FF, #FF9900);
+    }
+
+    .img-vk:hover {
+        background: #1E7EF4;
+    }
+
+    .img-youtube:hover {
+        background: #FF0000;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        .footer {
+            margin: 0 100px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .footer{
+            margin: 0 50px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .footer{
+            margin: 0;
+            padding: 0 40px;
+            flex-direction: column;
+        }
+
+        .footer-main-block {
+            width: 100%;
+        }
+
+        .footer-main-block > h5{
+            margin-top: 5px;
+        }
+
+        .footer-soc-network-img{
+            height: 8px;
+        }
+
+        .footer-block{
+            width: 100%;
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: 80px 190px 80px;
+            grid-gap: 15px;
+        }
+
+        .footer-block > a{
+            width: fit-content;
+        }
+
+        .footer-block > a > h5{
+            margin: 0;
+        }
+
+        .footer-last-block{
+            display: flex;
+            flex-direction:row;
+            width: 100%;
+        }
+
+        .email-footer{
+            margin-left: 30px;
+        }
+
+        .mobile-footer-block{
+            margin-top:40px;
+        }
+    }
+
+    @media only screen and (max-width: 400px) {
+        .footer-block{
+            font-size: 13px;
+            grid-template-columns: 60px 150px 60px;
+            grid-gap: 15px;
+        }
+    }
+</style>

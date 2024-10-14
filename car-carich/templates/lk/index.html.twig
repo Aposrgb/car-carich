@@ -2,194 +2,36 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ asset('styles/styles.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('styles/card.css') }}"/>
     <link rel="stylesheet" href="{{ asset('libs/owlcarousel/owl.carousel.min.css') }}"/>
 
     {{ component('car') }}
     {{ component('slider_factory') }}
-    <script src="{{ asset('https://code.jquery.com/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('libs/jquery.min.js') }}"></script>
     <script src="{{ asset('libs/owlcarousel/owl.carousel.min.js') }}"></script>
     {{ component('scripts/index', { maxPrice: LkFilter.maxPriceFilter }) }}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    {{ component('styles/lk/index/banner') }}
+    {{ component('styles/lk/index/filters') }}
+    {{ component('styles/lk/index/free-consultation') }}
+    {{ component('styles/lk/index/list-car') }}
+    {{ component('styles/lk/index/index') }}
 {% endblock %}
 
 {% block body %}
-    {{ component('header', {nameHidden: true, isDisplayNone: true}) }}
-    <div>
-        <div class="block main-block z-1">
-            <div class="img-container">
-                <img
-                        class="block img-block"
-                        src="{{ asset('img/main-img.svg') }}"
-                />
-            </div>
-            <div class="block center-block">
-                <img src="{{ asset('img/white-logo.svg') }}" class="mobile-none" alt="">
-                <p class="ibm-font m-0 white main-text">Car-Карыч</p>
-                <div class="center-sub-block font-gotham">
-                    <p>Прямой импорт автомобилей в РФ. Авто из Кореи,</p>
-                    <p>Китая, Японии, Америки и других стран.</p>
-                </div>
-            </div>
-        </div>
-        <header class="fs-13 block header header-block header-text white bottom-2 flex-j-center flex-end">
-            <a href="{{ path('index') }}" class="mobile-none">Главная</a>
-            <a href="#select-car">Подобрать автомобиль</a>
-            <a href="{{ path('catalog') }}">Каталог</a>
-            <a href="{{ path('about_us') }}">О нас</a>
-            <a href="https://vk.com/topic-204706115_49538532" target="_blank">Отзывы</a>
-        </header>
-        <div class="block">
-            <div class="flex-column">
-                <div class="pop-models text-center font-gotham-bold mt-6">
-                    Популярные модели
-                </div>
-                <div class="mt-100 relative card-pop-cars">
-                    <div class="mt-7 z2 absolute full-width flex-space-between arrows">
-                        <img
-                                id="left-arrow"
-                                src="img/arrow.svg"
-                                class="arrow ml-2 transform-mirror"
-                         alt=""/>
-                        <img id="right-arrow" src="img/arrow.svg" class="arrow mr-2" alt=""/>
-                    </div>
-                    <div class="pop-cars owl-carousel owl-theme"></div>
-                </div>
-            </div>
-        </div>
-        <div class="filters pb-5">
-            <div id="select-car" class="select-car flex-column fit-content margin-auto">
-                <h2 class="font-gotham-bold mb-4 mt-6">Подобрать автомобиль</h2>
-                <div class="flex-column all-filters">
-                    <ul class="list-style-unset flex-row column-filter">
-                        <li class="flex-column flex-space-between li-filter">
-                            {{ component('filters/country') }}
-                        </li>
-                        <li class="flex-column flex-space-between ml-4 li-filter">
-                            <label for="stamp" class="font-gotham grey">Марка</label>
-                            <select id="stamp" class="select-filter filter-underline font-gotham">
-                                <option class="font-gotham" value="">Все марки</option>
-                                {% for id, stamp in LkFilter.stampFilter %}
-                                    <option class="font-gotham" value="{{ id }}">{{ stamp }}</option>
-                                {% endfor %}
-                            </select>
-                        </li>
-                        <li class="flex-column flex-space-between ml-4 li-filter">
-                            <label for="year" class="font-gotham grey">Год выпуска от</label> 
-                                <input id="year" class="filter-underline font-gotham" type="number" min="1900" max="2099" step="1" value="{{"now"|date("Y")}}" />
-                        </li>
-                        <li class="flex-column flex-space-between ml-4 li-filter mobile-none">
-                            {{ component('filters/multirange', {min: 0, max: 20000000}) }}
-                        </li>
-                    </ul>
-                    <ul class="list-style-unset flex-row column-filter">
-                        <li class="flex-column flex-space-between li-filter">
-                            <label for="name" class="font-gotham grey">Ваше имя</label>
-                            <input
-                                    type="text"
-                                    id="name"
-                                    placeholder="Имя"
-                                    class="input-filter filter-underline"
-                            />
-                        </li>
-                        <li class="flex-column flex-space-between ml-4 li-filter">
-                            <label for="phone" class="font-gotham grey"
-                            >Номер телефона</label
-                            >
-                            <input
-                                    type="text"
-                                    id="phone"
-                                    placeholder="+7 (000) 000 00-00"
-                                    class="input-filter filter-underline"
-                            />
-                        </li>
-                        <li class="mobile-block li-filter">
-                            <label for="mobile-price" class="font-gotham grey">Ценовой диапозон</label>
-                            <input
-                                    type="text"
-                                    id="mobile-price"
-                                    placeholder="До {{ LkFilter.maxPriceFilter|number_format(0, ',', ' ') }}₽"
-                                    class="input-filter filter-underline"
-                            />
-                        </li>
-                        <li class="ml-4">
-                            <button class="btn btn-black btn-w-large mobile-none font-gotham" onclick="callModalPickUp()">
-                                Заказать звонок
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <button class="btn btn-black btn-w-large call-btn mobile-btn mobile-block font-gotham" onclick="callModalPickUp()">
-                    Заказать звонок
-                </button>
-            </div>
-        </div>
-        <div class="width-100 pb-4">
-            <div class="flex-row flex-center mt-7 mobile-mt-2">
-                <div>
-                    <img
-                            id="card-arrow-left"
-                            src="img/arrow.svg"
-                            class="arrow ml-2 transform-mirror mobile-none-im"
-                     alt=""/>
-                    <img
-                            id="card-arrow-left-mobile"
-                            src="img/arrow.svg"
-                            class="arrow pr-2 transform-mirror mobile-block-im"
-                     alt=""/>
-                </div>
+    {{ component('header') }}
+    {{ component('lk/index/banner') }}
+    {{ component('lk/index/filters') }}
+    {{ component('lk/index/banner-consultation') }}
+    {{ component('lk/index/list-car') }}
 
-
-                <div class="cars-cards mobile-none-im flex-row owl-carousel owl-theme over-auto">
-
-                </div>
-                <div class="cars-cards-mobile mobile-block-im flex-row owl-carousel owl-theme over-auto">
-
-                </div>
-                <div>
-                    <img id="card-arrow-right" src="img/arrow.svg" class="arrow mr-2 mobile-none-im" alt=""/>
-                    <img id="card-arrow-right-mobile" src="img/arrow.svg" class="arrow pr-2 mobile-block-im" alt=""/>
-                </div>
-            </div>
-            <div class="flex-j-center mt-4 mb-2">
-                <button class="btn btn-black btn-full all-catalog font-gotham" onclick="location.href='/catalog'">
-                    Смотреть весь каталог
-                </button>
-            </div>
+    <div class="call-btn-catalog-container g-6 text-montserrat mt-3 mb-3">
+        <div class="call-btn-accent flex-center flex-j-center g-2">
+            <img alt="" src="{{ asset('img/index/black-phone.svg') }}"/>
+            <span class="fs-14">Заказать звонок</span>
         </div>
-        <div class="last-block flex-column">
-            <div class="width-100 flex-center flex-column mt-6 pb-4">
-                <h2 class="font-gotham-bold white">Наши преимущества</h2>
-                <div class="flex-row flex-j-center width-75 our-advantages">
-                    <div class="third-block settings-card mr-2">
-                        <div class="flex-j-center mt-4 mb-4">
-                            <img src="img/settings.svg" class="seventi-block" alt=""/>
-                        </div>
-                        <h4 class="white font-gotham-bold">5 лет успешной работы</h4>
-                        <h6 class="font-gotham white">
-                            Большое количество покупателей из разных регионов
-                        </h6>
-                    </div>
-                    <div class="third-block settings-card mr-2">
-                        <div class="flex-j-center mt-4 mb-4">
-                            <img src="img/settings.svg" class="seventi-block" alt=""/>
-                        </div>
-                        <h4 class="white font-gotham-bold">Более 300 машин импортировано</h4>
-                        <h6 class="font-gotham white">
-                            От маленьких седанов до больших кроссоверов
-                        </h6>
-                    </div>
-                    <div class="third-block settings-card">
-                        <div class="flex-j-center mt-4 mb-4">
-                            <img src="img/settings.svg" class="seventi-block" alt=""/>
-                        </div>
-                        <h4 class="white font-gotham-bold">Поддержка клиентов&#8734</h4>
-                        <h6 class="font-gotham white">
-                            Консультируем на всех этапах покупки, а также после получения машины клиентом
-                        </h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-4 bg-white"></div>
+        <button class="btn btn-black text-montserrat">Перейти в каталог</button>
     </div>
 {% endblock %}

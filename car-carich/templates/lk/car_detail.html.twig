@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('styles/car_detail.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/owlcarousel/owl.carousel.min.css') }}"/>
 
-    <script src="{{ asset('https://code.jquery.com/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('libs/jquery.min.js') }}"></script>
     <script src="{{ asset('libs/owlcarousel/owl.carousel.min.js') }}"></script>
     {{ component('owl_carousel', {selectorName: '.car-img', classNameNextArrow: 'right-arrow', classNamePrevArrow: 'left-arrow'}) }}
     {{ component('owl_carousel', {selectorName: '.car-img-mobile', classNameNextArrow: null, classNamePrevArrow: null, loop: true}) }}

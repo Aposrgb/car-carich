@@ -10,11 +10,10 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class Footer
 {
     public function __construct(
-        public SettingsRepository $settingsRepository,
-        public array              $settings = [],
-    )
-    {
-        $this->settings = $this->settingsRepository->findBy([], ['type' => 'ASC']);
+        SettingsRepository $settingsRepository,
+        public array $settings = [],
+    ) {
+        $this->settings = $settingsRepository->findBy([], ['type' => 'ASC']);
     }
 
 }

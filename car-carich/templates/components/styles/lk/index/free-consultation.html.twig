@@ -1,0 +1,60 @@
+<style>
+
+
+    .free-consultation-banner {
+        display: grid;
+        grid-template-columns: 33% 67%;
+    }
+
+    .free-consultation-banner div > img {
+        height: inherit;
+        scale: 100% 110%;
+        transform: translateY(-10px);
+    }
+
+    .free-consultation-banner-img{
+        width: 100%;
+    }
+
+    .free-consultation-block {
+        background-color: var(--default-gray-color);
+        height: inherit;
+        display: grid;
+        grid-template-columns: 55% 45%;
+        align-items: center;
+    }
+
+    .free-consultation-text-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .free-consultation-button-block {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        margin-top: 5px;
+    }
+
+    .free-consultation-tel {
+        background: unset;
+        border: solid 0.5px gray;
+        padding: 10px 40px;
+        margin-top: 15px;
+
+        background-image: url('{{ asset('/img/index/country-code-flag.svg') }}');
+        background-repeat: no-repeat, repeat;
+        background-position-x: 10px;
+        background-position-y: 17.5px;
+    }
+
+    .free-consultation-car {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .free-consultation-call {
+        padding: 15px 10px;
+        background: var(--default-accent-color);
+    }
+</style>
