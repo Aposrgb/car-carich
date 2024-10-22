@@ -1,0 +1,33 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Список моделей{% endblock %}
+
+{% block body %}
+    <h1>Список моделей</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for model in models %}
+            <tr>
+                <td>{{ model.name }}</td>
+                <td>
+                    <a href="{{ path('app_model_show', {'id': model.id}) }}" class="btn btn-light">Посмотреть</a>
+                    <a href="{{ path('app_model_edit', {'id': model.id}) }}" class="btn btn-light">Редактировать</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Не найдено машин</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_model_new') }}" class="btn btn-black">Создать</a>
+{% endblock %}

@@ -5,8 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\{PasswordAuthenticatedUserInterface, UserInterface};
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -16,15 +15,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $login = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $password = null;
-
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $phone = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $telegramId = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $telegramUsername = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $vkId = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -76,11 +93,98 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-
     }
 
     public function getUserIdentifier(): string
     {
-        return $this->login;
+        return $this->id;
+    }
+
+    public function getTelegramId(): ?string
+    {
+        return $this->telegramId;
+    }
+
+    public function setTelegramId(?string $telegramId): User
+    {
+        $this->telegramId = $telegramId;
+        return $this;
+    }
+
+    public function getTelegramUsername(): ?string
+    {
+        return $this->telegramUsername;
+    }
+
+    public function setTelegramUsername(?string $telegramUsername): User
+    {
+        $this->telegramUsername = $telegramUsername;
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): User
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): User
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function getPhone(): ?int
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?int $phone): User
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): User
+    {
+        $this->photo = $photo;
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): User
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getVkId(): ?int
+    {
+        return $this->vkId;
+    }
+
+    public function setVkId(?int $vkId): User
+    {
+        $this->vkId = $vkId;
+        return $this;
     }
 }

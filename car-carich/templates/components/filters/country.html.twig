@@ -1,7 +1,7 @@
-<label for="country" class="font-gotham grey">Страна производителя</label>
-<select id="country" class="select-filter filter-underline font-gotham">
-    <option class="font-gotham" value="">Все страны</option>
+<label for="country" class="text-montserrat">Страна производитель</label>
+<select id="country" class="select-filter">
+    <option class="" value="">Все страны</option>
     {% for country in countries %}
-        <option class="font-gotham" value="{{ country.id }}">{{ country.name }}</option>
+        <option class="" value="{{ country['id'] }}">{{ country['name'] }}</option>
     {% endfor %}
 </select>

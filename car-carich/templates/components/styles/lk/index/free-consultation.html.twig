@@ -32,14 +32,14 @@
 
     .free-consultation-button-block {
         display: grid;
-        grid-template-columns: 40% 60%;
+        grid-template-columns: 40% calc(60% - 30px);
         margin-top: 5px;
     }
 
     .free-consultation-tel {
         background: unset;
         border: solid 0.5px gray;
-        padding: 10px 40px;
+        padding: 15px 40px;
         margin-top: 15px;
 
         background-image: url('{{ asset('/img/index/country-code-flag.svg') }}');

@@ -1,0 +1,57 @@
+{% extends 'lk/base.html.twig' %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/profile.css') }}"/>
+{% endblock %}
+
+{% block body %}
+
+    <div class="width-100 bg-white" style="height: 300px">
+        <div class="height-100 profile-container">
+            {% if app.user.photo is empty %}
+                <img class="width-100" alt="" src="{{ asset('img/profile/empty_photo.svg') }}"/>
+            {% else %}
+                {#                    <img alt="" src="{{ asset('') }}"/> #}
+            {% endif %}
+            <div class="flex-column width-100 profile-info-block">
+                <div class="profile-info-container">
+                    <div class="profile-info">
+                        <span>Добро пожаловать</span>
+                        <div>{{ app.user.name }}</div>
+                    </div>
+
+                    <div class="profile-info">
+                        <span>E-mail</span>
+                        <div>{{ app.user.email }}</div>
+                    </div>
+
+                </div>
+                <div class="profile-info-container">
+                    <div class="profile-info">
+                        <span>Номер телефона</span>
+                        <div>{{ app.user.phone ?? '+7 (___) ___ __-__' }}</div>
+                    </div>
+
+                    <div class="profile-info">
+                        <span>Пароль</span>
+                        <div>**********</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-column g-6">
+                <a class="btn btn-grey border-none"><img alt="" src="{{ asset('img/profile/setting.svg') }}" />Настройки</a>
+                <a href="{{ path('app_lk_logout') }}" class="btn btn-exit border-none"><img alt="" src="{{ asset('img/profile/exit.svg') }}" />Выйти</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="width-100 bg-white mt-3" style="height: 50px">
+        <h3 class="height-100 font-500">
+            Ваше избранное
+        </h3>
+    </div>
+
+{% endblock %}

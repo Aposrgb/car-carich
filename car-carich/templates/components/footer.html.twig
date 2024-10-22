@@ -5,7 +5,7 @@
                 <img src="{{ asset('img/footer/logo.svg') }}" class="footer-logo" alt=""/>
                 <h2 class="white ibm-font m-0">Car-Карыч</h2>
             </div>
-            <h5 class="white font-gotham weight-0 m-0">
+            <h5 class="fs-15 white text-montserrat weight-0 m-0">
                 {% for setting in settings|filter(setting => setting.type in [6]) -%}
                     {{ setting.value }}
                 {% endfor %}
@@ -13,25 +13,25 @@
         </div>
 
         <div class="mobile-footer-block width-100 height-100">
-            <h4 class="fs-15 grey font-gotham-bold m-0">Навигация</h4>
+            <h4 class="fs-16 grey font-gotham-bold m-0">Навигация</h4>
             <div class="white g-4 footer-block mt-2">
-                <a href="{{ path('index') }}" class="fs-12 m-0 font-gotham fit-content">Главная</a>
-                <a href="{{ path('index') }}" class="fs-12 m-0 font-gotham fit-content">Личный кабинет</a>
-                <a href="{{ path('catalog') }}" class="fs-12 m-0 font-gotham fit-content">Каталог</a>
-                <a href="{{ path('about_us') }}" class="fs-12 m-0 font-gotham fit-content">О нас</a>
+                <a href="{{ path('index') }}" class="fs-14 m-0 text-montserrat fit-content">Главная</a>
+                <a href="{{ path('index') }}" class="fs-14 m-0 text-montserrat fit-content">Личный кабинет</a>
+                <a href="{{ path('catalog') }}" class="fs-14 m-0 text-montserrat fit-content">Каталог</a>
+                <a href="{{ path('about_us') }}" class="fs-14 m-0 text-montserrat fit-content">О нас</a>
             </div>
         </div>
 
         <div class="mobile-footer-block width-100 height-100">
-            <h4 class="fs-15 grey font-gotham-bold m-0">Контакты</h4>
+            <h4 class="fs-16 grey font-gotham-bold m-0">Контакты</h4>
             <div class="white footer-last-block mt-2">
                 {% for setting in settings|filter(setting => setting.type in [7]) -%}
-                    <a href="tel:{{ setting.value }}" class="fs-12 font-gotham">
+                    <a href="tel:{{ setting.value }}" class="fs-14 text-montserrat">
                         {{ setting.value }}
                     </a>
                 {% endfor %}
                 {% for setting in settings|filter(setting => setting.type in [8]) -%}
-                    <a href="mailto:{{ setting.value }}" class="fs-12 font-gotham email-footer">
+                    <a href="mailto:{{ setting.value }}" class="fs-14 text-montserrat email-footer">
                         {{ setting.value }}
                     </a>
                 {% endfor %}
@@ -39,9 +39,9 @@
         </div>
 
         <div class="mobile-footer-block width-100 height-100">
-            <h4 class="fs-15 grey font-gotham-bold m-0">Мы в соцсетях</h4>
+            <h4 class="fs-16 grey font-gotham-bold m-0">Мы в соцсетях</h4>
             <div class="flex-column footer-soc-network-block">
-                <div class="grid-gap-social mt-1">
+                <div class="grid-gap-social mt-2">
                     {% set settingsImg = {
                         2:{
                             img: 'img/vk.svg',
@@ -72,7 +72,7 @@
         <div class="footer-divider"></div>
     </div>
 
-    <div class="flex-center flex-row flex-space-between white text-montserrat fs-13 mlr-6 height-100">
+    <div class="flex-center flex-row flex-space-between white text-montserrat fs-15 mlr-6 height-100">
         <div>Импорт автомобилей в РФ. Авто из Кореи, Китая, Японии, Америки и других стран.</div>
         <div>{{ 'now' | date('Y') }} Car-карыч</div>
     </div>

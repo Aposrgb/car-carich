@@ -23,16 +23,16 @@
 
 
     <div class="consultation h-inherit pt-2">
-        <h1 class="free-consultation montserrat mlr-5" style="color: #212121;">Бесплатная консультация</h1>
-        <p style="font-weight: normal" class="montserrat mlr-5 fs-15">Поможем подобрать автомобиль и расскажем как его
+        <h1 class="free-consultation montserrat" style="color: #212121;">Бесплатная консультация</h1>
+        <p style="font-weight: normal" class="montserrat fs-15">Поможем подобрать автомобиль и расскажем как его
             получить</p>
-        <div class="grid mlr-5">
+        <div class="grid">
             <label>
-                <input type="text" placeholder="+7" class="banner-tel fs-15 underline text-montserrat"/>
+                <input type="text" placeholder="+7" class="banner-tel-in banner-tel fs-15 underline text-montserrat"/>
             </label>
-            <span style="color: #757575;" class="text-montserrat mt-05 fs-12">Номер телефона</span>
+            <span style="color: #757575;" class="text-montserrat mt-1 fs-14">Номер телефона</span>
         </div>
-        <p class="flex-j-center banner-call-btn mlr-5 g-2 mt-3">
+        <p onclick="orderCall('.banner-tel-in')" class="btn border-none flex-j-center text-montserrat fs-16 banner-call-btn g-2 mt-3">
             <img alt="" src="{{ asset('img/index/black-phone.svg') }}"/>
             <span>Заказать звонок</span>
         </p>

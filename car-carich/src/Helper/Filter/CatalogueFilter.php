@@ -11,6 +11,8 @@ readonly class CatalogueFilter
         public string $maxPrice = '',
         public string $minMileage = '',
         public string $maxMileage = '',
+        public string $text = '',
+        public string $sort = '',
     )
     {
     }

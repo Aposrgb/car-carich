@@ -62,4 +62,11 @@ class LkController extends AbstractController
             'socialNetworks' => $socialNetworks
         ]);
     }
+
+    #[Route('/profile', name: "app_lk_profile", methods: ['GET'])]
+    public function getProfile(): Response
+    {
+
+        return $this->render('lk/profile/profile.html.twig');
+    }
 }

@@ -1,51 +1,12 @@
 <script>
     let currentTypeModal = DEFAULT_CALL_TYPE, carName = null;
     document.addEventListener('DOMContentLoaded', () => {
-        let form = document.querySelector('#call-modal-form');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (currentTypeModal === CAR_DETAIL_TYPE && carName !== null) {
-                sendMessage(getMessageByCarName(carName) + getMessageFromModal());
-            } else if (currentTypeModal === DEFAULT_CALL_TYPE) {
-                sendMessage(getMessageFromModal());
+        document.querySelector('.modal-window').addEventListener('click', (e) => {
+            if (e.target === this) {
+                toggleModal();
             }
-            toggleModal();
         })
     })
-
-    function callModalPickUp() {
-        let message = getMessagePickUp();
-        if (message === null) {
-            return;
-        }
-        sendMessage(message);
-    }
-
-    function getMessagePickUp() {
-        let countries = document.querySelector('#country'),
-            stamps = document.querySelector('#stamp'),
-            year = document.querySelector('#year').value,
-
-            price = document.querySelector('#mobile-price').value,
-            minPrice = document.querySelector('#multi-range-price-min').innerText,
-            maxPrice = document.querySelector('#multi-range-price-max').innerText,
-            phone = document.querySelector('#phone').value,
-            name = document.querySelector('#name').value,
-            stamp = stamps.options[stamps.selectedIndex].text,
-            country = countries.options[countries.selectedIndex].text;
-
-        if (name.length === 0 || phone.length === 0) {
-            return null;
-        }
-        let priceMessage = `Цена: ${minPrice} - ${maxPrice}`;
-        if (window.screen.width <= MOBILE) {
-            if (price.length === 0) {
-                return null;
-            }
-            priceMessage = `Цена: ${price}`;
-        }
-        return `Страна производителя: ${country}\nМарка: ${stamp}\nГод выпуска: ${year}\n${priceMessage}\nТелефон: ${phone}\nИмя: ${name}\n`;
-    }
 
     function toggleModal(type = DEFAULT_CALL_TYPE, carNamePage = null) {
         currentTypeModal = type;
@@ -60,7 +21,16 @@
     function getMessageFromModal() {
         let name = document.querySelector('#name-modal').value;
         let phone = document.querySelector('#phone-modal').value;
-        return `Имя: ${name}\nТелефон: ${phone}`
+        return getMessageFromTelName(phone, name)
+    }
+
+    function getMessageFromTelName(tel, name) {
+        return `Имя: ${name}\nТелефон: ${tel}`
+    }
+
+    function getMessageByPhone(el) {
+        let phone = document.querySelector(el).value;
+        return `Телефон: ${phone}`
     }
 
 </script>

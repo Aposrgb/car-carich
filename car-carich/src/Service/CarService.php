@@ -51,6 +51,7 @@ class CarService
             $car->setTypeEngine(CarType::PETROL->value);
 
             if (!empty($carDTO->getCountry())) {
+                $carDTO->setCountry(trim($carDTO->getCountry()));
                 $lowerNameCountry = mb_strtolower($carDTO->getCountry());
                 $countries = $carsCountryStampDataDTO->getCountries();
                 if (array_key_exists($lowerNameCountry, $countries)) {
@@ -64,6 +65,7 @@ class CarService
             }
 
             if (!empty($carDTO->getStamp())) {
+                $carDTO->setStamp(trim($carDTO->getStamp()));
                 $lowerNameStamp = mb_strtolower($carDTO->getStamp());
                 $stamps = $carsCountryStampDataDTO->getStamps();
                 if (array_key_exists($lowerNameStamp, $stamps)) {

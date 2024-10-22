@@ -10,10 +10,12 @@ class FilterLkResponse
         private int $maxPriceFilter = 0,
         private int $minPriceFilter = 0,
         private array $yearsFilter = [],
-        private int $maxMileAge = 0,
-        private int $minMileAge = -1,
         private array $carTypes = [],
         private array $stampFilter = [],
+        private array $countryFilter = [],
+        private array $modelFilter = [],
+        private int $maxYear = 0,
+        private int $minYear = 0,
     )
     {
         $this->carTypes = CarType::getNames();
@@ -52,35 +54,6 @@ class FilterLkResponse
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getMaxMileAge(): int
-    {
-        return $this->maxMileAge;
-    }
-
-    /**
-     * @param int $maxMileAge
-     * @return FilterLkResponse
-     */
-    public function setMaxMileAge(int $maxMileAge): FilterLkResponse
-    {
-        $this->maxMileAge = $maxMileAge;
-        return $this;
-    }
-
-    public function getMinMileAge(): int
-    {
-        return $this->minMileAge;
-    }
-
-    public function setMinMileAge(int $minMileAge): FilterLkResponse
-    {
-        $this->minMileAge = $minMileAge;
-        return $this;
-    }
-
     public function getCarTypes(): array
     {
         return $this->carTypes;
@@ -100,6 +73,50 @@ class FilterLkResponse
     public function setStampFilter(array $stampFilter): FilterLkResponse
     {
         $this->stampFilter = $stampFilter;
+        return $this;
+    }
+
+    public function getCountryFilter(): array
+    {
+        return $this->countryFilter;
+    }
+
+    public function setCountryFilter(array $countryFilter): FilterLkResponse
+    {
+        $this->countryFilter = $countryFilter;
+        return $this;
+    }
+
+    public function getModelFilter(): array
+    {
+        return $this->modelFilter;
+    }
+
+    public function setModelFilter(array $modelFilter): FilterLkResponse
+    {
+        $this->modelFilter = $modelFilter;
+        return $this;
+    }
+
+    public function getMaxYear(): int
+    {
+        return $this->maxYear;
+    }
+
+    public function setMaxYear(int $maxYear): FilterLkResponse
+    {
+        $this->maxYear = $maxYear;
+        return $this;
+    }
+
+    public function getMinYear(): int
+    {
+        return $this->minYear;
+    }
+
+    public function setMinYear(int $minYear): FilterLkResponse
+    {
+        $this->minYear = $minYear;
         return $this;
     }
 

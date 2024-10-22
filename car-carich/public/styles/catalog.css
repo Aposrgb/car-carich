@@ -1,18 +1,186 @@
-.cars-cards {
+.filter-search {
+    width: 88%;
+    padding: 2% 6%;
+    border: none;
+    background: var(--default-white-color) url("../img/header/search.svg") no-repeat 2% center;
+    border-radius: 2px;
+}
+
+.search-container {
     display: grid;
+    grid-template-columns: 86% 6% 6%;
+    gap: 1%;
+    font-weight: 600;
+}
+
+.container-btn-sort {
     gap: 20px;
+    margin-top: 1.5%;
+}
+
+.container-btn-sort input {
+    border: none;
+    font-size: 15px;
+    background: none;
+    font-weight: 600;
+}
+
+.container-btn-sort input:not(.btn-sort-active):hover {
+    color: black;
+    scale: 105%;
+}
+
+.btn-sort {
+    color: gray;
+}
+
+.btn-sort-active {
+    color: black;
+}
+
+
+.btn-icon {
+    border: none;
+    transition: all 0.6s;
+}
+
+.btn-icon:hover {
+    scale: 105%;
+    box-shadow: 0 0 5px #cbcbcb;
+}
+
+.btn-icon-active {
+    filter: invert(0.9);
+    scale: 95%;
+}
+
+.btn-icon-square {
+    background: var(--default-white-color) url("../img/icon/square-grid.svg") no-repeat center;
+}
+
+.btn-icon-rectangle {
+    background: var(--default-white-color) url("../img/icon/rectangle-row.svg") no-repeat center;
+}
+
+.btn-filter {
+    border: none;
+    padding: 10px 40px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-filter:hover {
+    transform: scale(0.9);
+}
+
+.all-filters {
+    gap: 10px;
+}
+
+.cards-filters {
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
+
+.li-filter:not(:first-child) {
+    margin-top: 30px;
+}
+
+.li-filter label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.li-filter input {
+    padding: 15px;
+    border: none;
+    background-color: var(--default-white-color);
+}
+
+.li-filter select {
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    border: unset;
+    height: 50px;
+    width: 100%;
+    font-size: 14px;
+    color: gray;
+    padding: 0 20px;
+    margin-top: 10px;
+
+    background-size: 1.1em;
+    background: var(--default-white-color) url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxNiAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEgMUw4IDhMMTUgMSIgc3Ryb2tlPSIjNzU3NTc1IiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+Cg==") no-repeat calc(100% - 2em) center;
+}
+
+.li-filter select:focus {
+    outline: none;
+}
+
+.cars-cards {
+    gap: 20px;
+}
+
+.cars-cards.grid-car {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cars-cards.grid-car > div > span {
+    display: none;
+}
+
+.cars-cards.grid-car > div {
+
+}
+
+.cars-cards.grid-col-car {
+    display: flex;
+    flex-direction: column;
+}
+
+.cars-cards.grid-col-car > div > span {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cars-cards.grid-col-car > div > span > button {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 15px 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.cars-cards.grid-col-car > div {
+    display: grid;
+    grid-template-columns:33% 29% 33%;
+    gap: 10px;
+    align-items: center;
+}
+
+.cars-cards.grid-col-car > div > img {
+    width: 100%;
 }
 
 .filters {
     background: unset;
 }
 
-.main-block{
+.main-block {
     width: 66%;
 }
 
 @media only screen and (max-width: 1100px) {
-    .main-block{
+    .main-block {
         width: 90%;
     }
 }
@@ -45,10 +213,6 @@
         justify-content: center;
     }
 
-    .car-card {
-        margin-left: 0;
-    }
-
     .li-filter {
         width: 100%;
     }
@@ -66,21 +230,21 @@
         color: black;
     }
 
-    .toggle-filters:hover{
+    .toggle-filters:hover {
         background-color: white;
         color: black;
     }
 
-    .toggle-filters.btn-selectable{
+    .toggle-filters.btn-selectable {
         transform: unset;
     }
 
-    .toggle-filters.btn-selected{
+    .toggle-filters.btn-selected {
         background: black;
         color: white;
     }
 
-    .toggle-filters.btn-selected:hover{
+    .toggle-filters.btn-selected:hover {
         transform: unset;
     }
 

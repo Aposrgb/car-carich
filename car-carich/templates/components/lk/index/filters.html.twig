@@ -3,25 +3,33 @@
         <div class="filter-item filter-border">
             <select id="brand" class="text-montserrat">
                 <option value="">Марка</option>
+                {% for item in LkFilter.stampFilter %}
+                    <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="filter-item filter-border">
             <select id="model" class="text-montserrat">
                 <option value="">Модель</option>
+                {% for item in LkFilter.modelFilter %}
+                    <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="filter-item filter-border">
-            <input type="number" class="text-center text-montserrat" id="price-from" placeholder="Цена от">
+            <input type="number" min="{{ LkFilter.minPriceFilter }}" max="{{ LkFilter.maxPriceFilter }}"
+                   class="text-center text-montserrat" id="price-from" placeholder="Цена от">
         </div>
         <div class="filter-item filter-border">
-            <input type="number" class="text-center text-montserrat" id="price-to" placeholder="Цена до">
+            <input type="number" min="{{ LkFilter.minPriceFilter }}" max="{{ LkFilter.maxPriceFilter }}"
+                   class="text-center text-montserrat" id="price-to" placeholder="Цена до">
         </div>
         <div class="filter-item"></div>
-        <div class="filter-finish-item">
+        <div class="filter-finish-item btn btn-accent" style="padding: 0" onclick="redirectToCatalog()">
             <div class="filter-finnish-border">
                 <img src="{{ asset('img/index/search.svg') }}" class="filter-img"/>
             </div>
-            <span class="text-montserrat fs-15">Показать все авто</span>
+            <span class="width-100 text-center text-montserrat fs-18">Показать все авто</span>
         </div>
     </div>
 
@@ -32,43 +40,49 @@
             <div class="filter-buttons">
                 <div class="filter-mileage">
                     <div class="relative f-btn">
-                        <button class="filter-button filter-button-active filter-border">Все</button>
+                        <a href="{{ path('catalog') }}" class="car-is-new filter-button filter-button-active filter-button-inactive filter-border">
+                            Все
+                        </a>
                     </div>
                     <div class="relative f-btn">
-                        <button class="filter-button filter-button-inactive filter-border">Новые<img alt=""
-                                                                                                     src="{{ asset('img/index/icon-new.svg') }}"/>
-                        </button>
+                        <a href="{{ path('catalog') }}?is_new=true"  class="car-is-new filter-button filter-button-inactive filter-border">
+                            Новые<img alt=""
+                                      src="{{ asset('img/index/icon-new.svg') }}"/>
+                        </a>
                         <div class="divider"></div>
                     </div>
                     <div class="relative f-btn">
-                        <button class="filter-button filter-button-inactive filter-border">С пробегом</button>
+                        <a href="{{ path('catalog') }}?is_new=false"
+                                class="car-is-new filter-button filter-button-inactive filter-border">С пробегом
+                        </a>
                         <div class="divider"></div>
                     </div>
                 </div>
                 <div class="filter-engine">
                     <div class="relative f-btn">
-                        <button class="filter-button filter-button-active">Любые</button>
+                        <a href="{{ path('catalog') }}"
+                                class="car-type filter-button filter-button-active filter-button-inactive">Любые
+                        </a>
                     </div>
-                    <div class="relative f-btn">
-                        <button class="filter-button filter-button-inactive">Дизельные</button>
-                        <div class="divider"></div>
-                    </div>
-                    <div class="relative f-btn">
-                        <button class="filter-button filter-button-inactive">Электро</button>
-                        <div class="divider"></div>
-                    </div>
-                    <div class="relative f-btn">
-                        <button class="filter-button filter-button-inactive">Гибрид</button>
-                        <div class="divider"></div>
-                    </div>
+                    {% for value, type in LkFilter.carTypes %}
+                        <div class="relative f-btn">
+                            <a href="{{ path('catalog') }}?engine={{ value }}"
+                                    class="car-type filter-button filter-button-inactive">{{ type }}</a>
+                            <div class="divider"></div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 
             <div class="filter-stamps mt-4">
-                {% for item in ['Audi', 'Opel', 'BMW', 'Mazda', 'Mercedez', 'Volkswagen', 'Renault', 'Fiat', 'Hyundai', 'Kia', 'Mitsubishi' ] %}
-                    <div>{{ item }}</div>
+                {% for item in LkFilter.stampFilter|slice(0, 15) %}
+                    <div>
+                        <a href="{{ path('catalog') }}?stamp={{ item['id'] }}">{{ item['name'] }}<span
+                                    class="ml-1 grey">{{ item['count'] }}</span></a>
+                    </div>
                 {% endfor %}
-                <div>Все марки &#8681;</div>
+                <a href="{{ path('catalog') }}">Все марки <img alt="" class="ml-1"
+                                                               src="{{ asset('/img/icon/arrow-down.svg') }}"/></a>
             </div>
         </div>
     </div>
@@ -76,12 +90,17 @@
 </div>
 
 <div class="mt-4 grid-7 width-100 g-6">
-    {% for item in ['Россия', 'США', 'Германия', 'Франция', 'Австралия', 'Англия', 'Испания'] %}
-        <button class="plr-5 white-color p-1 border-none fs-15 text-montserrat">{{ item }}</button>
+    {% for item in LkFilter.countryFilter|slice(0,6) %}
+        <a href="{{ path('catalog') }}?country={{ item['id'] }}"
+           class="flex-j-center plr-5 white-color p-1 border-none fs-15 text-montserrat">{{ item['name'] }}</a>
     {% endfor %}
+    <a href="{{ path('catalog') }}" class="flex-j-center plr-5 white-color p-1 border-none fs-15 text-montserrat">Все
+        страны <img
+                style="transform: rotate(-90deg);" alt="" class="ml-1" src="{{ asset('/img/icon/arrow-down.svg') }}"/>
+    </a>
 </div>
 
-<div class="mt-4 grid-6 g-6">
+<div class="mt-4 d-none grid-6 g-6">
     {% for item in ['Подешевле', 'Подороже','Подороже','Подороже','Подороже','Грузовые'] %}
         <div class="flex-column flex-center pt-4 pb-2 plr-4 white-color p-1 border-none ">
             <img width="100" alt="" src="{{ asset('img/index/example-mini-car.svg') }}">

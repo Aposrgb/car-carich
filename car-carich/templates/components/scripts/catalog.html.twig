@@ -1,82 +1,67 @@
 <script>
     const MAX_PRICE = {{ maxPrice }},
-        MIN_PRICE = {{ minPrice }},
-        MAX_MILEAGE = {{ maxMileage }},
-        MIN_MILEAGE = {{ minMileage }};
+        MIN_PRICE = {{ minPrice }};
+
+    const NEW_SORT = '', POPULAR_SORT = 2, CHEAPER_SORT = 3, EXPENSIVE_SORT = 4;
+
+    const COLOR_TYPE = 1, BUTTON_TYPE = 2;
+    let selectableClasses = {
+        [COLOR_TYPE]: {
+            selected: "color-selected",
+            selectable: "color-selectable",
+        },
+        [BUTTON_TYPE]: {
+            selected: "btn-selected",
+            selectable: "btn-selectable"
+        }
+    };
 
     class Filter {
         constructor({
                         typeEnginesSelected = [],
                         country = '',
-                        priceRange = {min: 0, max: 0},
-                        mileageRange = {min: 0, max: 0},
+                        stamp = '',
+                        model = '',
+                        minYear = 0,
+                        maxYear = 0,
+                        minPrice = MIN_PRICE,
+                        maxPrice = MAX_PRICE,
                         page = 1,
-                        limit = 10,
+                        limit = 12,
+                        sortType = NEW_SORT,
+                        text = '',
                     }) {
             this.typeEnginesSelected = typeEnginesSelected;
             this.country = country;
-            this.priceRange = priceRange;
-            this.mileageRange = mileageRange;
+            this.stamp = stamp;
+            this.model = model;
+            this.minYear = minYear;
+            this.maxYear = maxYear;
+            this.minPrice = minPrice;
+            this.maxPrice = maxPrice;
             this.page = page;
             this.limit = limit;
+            this.sortType = sortType;
+            this.text = text;
         }
     }
 
-    let filter = new Filter({
-        priceRange: {
-            min: MIN_PRICE,
-            max: MAX_PRICE,
-        },
-        mileageRange: {
-            min: MIN_MILEAGE,
-            max: MAX_MILEAGE,
-        }
-    });
+    const filter = new Filter({});
 
     document.addEventListener("DOMContentLoaded", async () => {
-        let selectElement = document.getElementById('country');
-        selectElement.addEventListener("change", (e) => setCountry(e.target.value));
+        addFilterSelectWithTimeout('.filter-search', 'text')
 
-        setMultiRangeInput({
-            label: 'multi',
-            symbol: '₽',
-            min: filter.priceRange.min,
-            max: filter.priceRange.max,
-        });
-        setMultiRangeInput({
-            label: 'mileage',
-            symbol: 'km',
-            min: filter.mileageRange.min,
-            max: filter.mileageRange.max,
-        });
+        addFilterSelect('#country', 'country')
+        addFilterSelect('#model', 'model')
+        addFilterSelect('#stamp', 'stamp')
 
-        let priceRangeElement = document.getElementById('multi-range-price');
-        priceRangeElement.noUiSlider.on('change', (e) => {
-            filter.priceRange = getMultiRangeValueByValues(e);
-            setCarsCard(filter)
-        });
+        addMinValueInput('minYear', 'maxYear')
+        addMaxValueInput('maxYear', 'minYear')
 
-        let mileageRangeElement = document.getElementById('mileage-range-price');
-        mileageRangeElement.noUiSlider.on('change', (e) => {
-            filter.mileageRange = getMultiRangeValueByValues(e);
-            setCarsCard(filter)
-        });
+        addMinValueInput('minPrice', 'maxPrice')
+        addMaxValueInput('maxPrice', 'minPrice')
 
-        let mobileMaxPrice = document.getElementById('mobile-max-price');
-        setMobileInput({
-            mobileElement: mobileMaxPrice,
-            maxValue: MAX_PRICE,
-            filterKeyName: "priceRange",
-            symbol: " ₽",
-        });
-
-        let mobileMaxMileage = document.getElementById('mobile-max-mileage');
-        setMobileInput({
-            mobileElement: mobileMaxMileage,
-            maxValue: MAX_MILEAGE,
-            filterKeyName: "mileageRange",
-            symbol: ' km',
-        });
+        prepareFilter()
 
         await setCarsCard(filter);
     });
@@ -94,24 +79,59 @@
             {
                 type: filter.typeEnginesSelected.join(),
                 country: filter.country,
-                minPrice: filter.priceRange.min,
-                maxPrice: filter.priceRange.max,
-                minMileage: filter.mileageRange.min,
-                maxMileage: filter.mileageRange.max,
+                stamp: filter.stamp,
+                model: filter.model,
+                minPrice: filter.minPrice,
+                maxPrice: filter.maxPrice,
+                maxYear: filter.maxYear,
+                minYear: filter.minYear,
                 page: filter.page,
-                limit: filter.limit
+                limit: filter.limit,
+                sort: filter.sortType,
+                text: filter.text,
             }
         );
         for (let car of data.data) {
-            html += car.createHtmlForCarCard({hasButtonDetail: true, overflowImg: false});
+            html += car.createHtmlForCarCard();
         }
-        if(isAddPage){
+        if (isAddPage) {
             carsCardsDiv.innerHTML += html;
         } else {
             carsCardsDiv.innerHTML = html;
         }
         formatAllNumber();
         setButtonMoreCars(data.pageCount > filter.page);
+    }
+
+    function setView(el) {
+        if (el && !el.classList.contains('btn-icon-active')) {
+            for (let item of document.querySelectorAll('.btn-icon')) {
+                item.classList.remove('btn-icon-active')
+            }
+
+            el.classList.add('btn-icon-active')
+
+            let list = document.querySelector('.cars-cards')
+
+            list.classList.toggle('grid-col-car')
+            list.classList.toggle('grid-car')
+
+            localStorage.setItem('view', el.getAttribute('id'))
+        }
+    }
+
+    function setSort(el, type) {
+        filter.sortType = type
+
+        for (let item of document.querySelectorAll('.btn-sort-active')) {
+            item.classList.remove('btn-sort-active')
+            item.classList.add('btn-sort')
+
+        }
+
+        el.classList.add('btn-sort-active')
+        filter.page = 1
+        setCarsCard(filter)
     }
 
     function setMobileInput({mobileElement, maxValue, filterKeyName, symbol}) {
@@ -133,34 +153,29 @@
         });
     }
 
-    function setMultiRangeInput({label, min, max, symbol}) {
-        createSlider({id: `${label}-range-price`, min: min, max: max}).on("update", (values) => {
-            document.getElementById(`${label}-range-price-min`).innerText =
-                formatNumber(values[0]) + ` ${symbol}`;
-            document.getElementById(`${label}-range-price-max`).innerText =
-                formatNumber(values[1]) + ` ${symbol}`;
-        });
+    function resetElementTypes() {
+        for (let item of document.querySelectorAll('.filter-engine')) {
+            item.classList.remove('btn-selected')
+            item.classList.add('btn-select')
+        }
+        document.querySelector('.btn-all').classList.add(selectableClasses[BUTTON_TYPE].selected)
+        filter.typeEnginesSelected = []
+        filter.page = 1
+        setCarsCard(filter)
     }
 
-    const COLOR_TYPE = 1, BUTTON_TYPE = 2;
-    let selectableClasses = {
-        [COLOR_TYPE]: {
-            selected: "color-selected",
-            selectable: "color-selectable",
-        },
-        [BUTTON_TYPE]: {
-            selected: "btn-selected",
-            selectable: "btn-selectable"
-        }
-    };
-
-
-    function elementSelectable(el, type, funcAfterSelected = () => {
-    }) {
+    function elementSelectable(el, type, funcAfterSelected) {
         let selectableClass = selectableClasses[type];
         el.classList.toggle(selectableClass.selected);
         el.classList.toggle(selectableClass.selectable);
+
         funcAfterSelected();
+
+        if (filter.typeEnginesSelected.length > 0) {
+            document.querySelector('.btn-all').classList.remove(selectableClass.selected)
+        } else if (filter.typeEnginesSelected.length === 0) {
+            document.querySelector('.btn-all').classList.add(selectableClass.selected)
+        }
     }
 
     function toggleFilters() {
@@ -177,7 +192,7 @@
         }
     }
 
-    async function setTypeEngine() {
+    function setTypeEngine() {
         let collectionEngineFilters = document.getElementsByClassName('filter-engine');
         for (let engineFilter of collectionEngineFilters) {
             let filterIndex = filter.typeEnginesSelected.findIndex(el => el === engineFilter.value);
@@ -187,11 +202,13 @@
                 filter.typeEnginesSelected.splice(filterIndex, 1);
             }
         }
-        await setCarsCard(filter);
+        filter.page = 1
+        setCarsCard(filter);
     }
 
     async function setCountry(value) {
         filter.country = value;
+        filter.page = 1;
         await setCarsCard(filter);
     }
 
@@ -216,5 +233,79 @@
         } else {
             document.getElementById('loader').classList.add('d-none')
         }
+    }
+
+    function addMinValueInput(min, max) {
+        addNumberInput(min, (el, index) => {
+            let maxPrice = document.querySelector('#' + max)
+            if (maxPrice && parseInt(maxPrice.value) < parseInt(el.value)) {
+                maxPrice.value = el.value
+            }
+            filter[index] = el.value
+            filter.page = 1;
+            setCarsCard(filter)
+        })
+    }
+
+    function addMaxValueInput(max, min) {
+        addNumberInput(max, (el, index) => {
+            let minPrice = document.querySelector(`#${min}`)
+            if (minPrice && parseInt(minPrice.value) > parseInt(el.value)) {
+                minPrice.value = el.value
+            }
+            filter[index] = el.value
+            filter.page = 1;
+            setCarsCard(filter)
+        })
+    }
+
+    function addFilterSelectWithTimeout(el, index, typeListener = 'input', timeout = 0.75) {
+        let timeoutId;
+
+        let doc = document.querySelector(el)
+        doc.addEventListener(typeListener, () => {
+            clearTimeout(timeoutId);
+
+            filter[index] = doc.value
+            filter.page = 1;
+            timeoutId = setTimeout(() => setCarsCard(filter), timeout * 1000);
+        });
+    }
+
+    function addFilterSelect(el, index, typeClick = 'change') {
+        let doc = document.querySelector(el);
+        doc.addEventListener(typeClick, (e) => {
+            filter[index] = doc.value;
+            filter.page = 1;
+            setCarsCard(filter)
+        });
+    }
+
+    function prepareFilter() {
+        const keys = Object.keys(filter);
+        const params = getQueryParams()
+
+        for (const param of params) {
+            if (param.name === 'engine') {
+                const el = document.querySelector(`.car-type-${param.value}`)
+                if (!el) {
+                    continue;
+                }
+                filter.typeEnginesSelected.push(param.value)
+                elementSelectable(el, BUTTON_TYPE, setTypeEngine)
+                continue;
+            }
+
+            if (keys.includes(param.name)) {
+                const element = document.querySelector(`#${param.name}`)
+                if (!element) {
+                    continue;
+                }
+                filter[param.name] = param.value
+                element.value = param.value
+            }
+        }
+
+
     }
 </script>

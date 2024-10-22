@@ -1,42 +1,122 @@
 {{ component('owl_carousel_func') }}
 <script>
+    const values = {
+        stamp: '',
+        minPrice: '',
+        maxPrice: '',
+        model: '',
+    };
     document.addEventListener("DOMContentLoaded", async () => {
-        {#let popCarsDiv = document.querySelector(".pop-cars");#}
-        {#let carsCardsDiv = document.querySelector(".cars-cards");#}
-        {#let mobileCarsCardsDiv = document.querySelector(".cars-cards-mobile");#}
+        const popCarsDiv = document.querySelector(".popular-cars");
+        const popCarsData = await Car.fetchCars(POPULAR_CARS, {page: 1, limit: 8});
 
-        {#let popCarsData = await Car.fetchCars(POPULAR_CARS, {page: 1, limit: 10});#}
-        {#let catalogueCarsData = await Car.fetchCars(CATALOGUE, {page: 1, limit: 10});#}
+        let cardHtml = ``;
+        for (let car of popCarsData.data) {
+            cardHtml += car.createHtmlForCarCard();
+        }
+        popCarsDiv.innerHTML = cardHtml;
 
-        {#for (let car of popCarsData.data) {#}
-        {#    popCarsDiv.innerHTML += car.createHtmlForBigSlider();#}
-        {#}#}
-        {#let cardHtml = '';#}
-        {#for (let car of catalogueCarsData.data) {#}
-        {#    cardHtml+= car.createHtmlForCarCard({overflowImg: true});#}
-        {#}#}
-        {#mobileCarsCardsDiv.innerHTML = cardHtml;#}
-        {#carsCardsDiv.innerHTML = cardHtml;#}
+        addNumberInputPrice('price-from', 'minPrice')
+        addNumberInputPrice('price-to', 'maxPrice')
 
-        {#setOwlCarousel();#}
+        addOnChange('#brand', 'stamp')
+        addOnChange('#model', 'model')
 
-        {#IMask(document.getElementById('phone'), { mask: '+{7} (000) 000-00-00'});#}
-        {#IMask(document.getElementById('mobile-price'), {#}
-        {#    mask: `num ₽`,#}
-        {#    blocks: {#}
-        {#        num: {#}
-        {#            mask: Number,#}
-        {#            thousandsSeparator: ' ',#}
-        {#            min: 0,#}
-        {#            max: {{ maxPrice }},#}
-        {#        }#}
-        {#    }#}
-        {#});#}
-
+        setButtonFilter('.car-type')
+        setButtonFilter('.car-is-new')
 
         createMask(['.free-consultation-tel', '.banner-tel']);
 
-        var swiper = new Swiper('.swiper-container', {
+        addSliderImg();
+
+        formatAllNumber();
+    });
+
+    function orderCall(elClass, nameClass = null, checkBox = null) {
+        const el = document.querySelector(elClass)
+
+        if (nameClass !== null) {
+            const name = document.querySelector(nameClass).value
+            if (name.length === 0) {
+                setNotifyCard({text: 'Для заказа звонка введите корректное имя', notifyClass: NOTIFY_WARNING})
+                return;
+            }
+        }
+
+        if (el.value.length < 18) {
+            setNotifyCard({text: 'Для заказа звонка введите корректный номер телефона', notifyClass: NOTIFY_WARNING})
+            return;
+        }
+
+        if (checkBox !== null) {
+            const checkbox = document.querySelector(checkBox)
+            if (!checkbox.checked) {
+                setNotifyCard({
+                    text: 'Для заказа звонка согласитесь с политикой конфиденциальности',
+                    notifyClass: NOTIFY_WARNING
+                })
+                return;
+            }
+        }
+
+        document.querySelector('.modal').classList.add('d-none')
+
+        let message = ``
+        if (nameClass !== null) {
+            const name = document.querySelector(nameClass).value
+            message = getMessageFromTelName(el.value, name)
+        } else {
+            message = getMessageByPhone(elClass)
+        }
+
+        sendMessage(message)
+    }
+
+    function addOnChange(el, index) {
+        const docEl = document.querySelector(el)
+        docEl.addEventListener('change', () => {
+            setValue(index, docEl)
+        })
+    }
+
+    function setValue(index, doc) {
+        values[index] = doc.value
+    }
+
+    function addNumberInputPrice(el, index) {
+        let input = document.querySelector(`#${el}`);
+        input.addEventListener('blur', function () {
+            const value = parseInt(this.value);
+            const min = parseInt(this.getAttribute('min'));
+            const max = parseInt(this.getAttribute('max'));
+
+            if (value < min) {
+                this.value = min;
+            } else if (value > max) {
+                this.value = max;
+            }
+
+            values[index] = this.value
+        });
+    }
+
+    function setButtonFilter(el) {
+        for (let doc of document.querySelectorAll(el)) {
+            doc.addEventListener('click', () => {
+                for (let item of document.querySelectorAll(el)) {
+                    item.classList.remove('filter-button-active');
+                }
+                doc.classList.add('filter-button-active');
+            })
+        }
+    }
+
+    function redirectToCatalog() {
+        window.location.href = "{{ path('catalog') }}?" + Object.entries(values).map(([key, value]) => `${key}=${value}`).join('&');
+    }
+
+    function addSliderImg() {
+        const swiper = new Swiper('.swiper-container', {
             loop: true,
             autoplay: {
                 delay: 3000,
@@ -48,7 +128,7 @@
             },
         });
 
-        var customBullets = document.querySelectorAll('.custom-bullet');
+        const customBullets = document.querySelectorAll('.custom-bullet');
         customBullets.forEach(function (bullet, index) {
             bullet.addEventListener('click', function () {
                 swiper.slideToLoop(index);  // Переход к нужному слайду
@@ -56,47 +136,20 @@
         });
 
         function updateCustomPagination(swiper) {
-            var bullets = document.querySelectorAll('.custom-bullet');
+            const bullets = document.querySelectorAll('.custom-bullet');
             bullets.forEach(function (bullet, index) {
-                var loader = bullet.querySelector('.loader');
+                const loader = bullet.querySelector('.loader');
 
-                // Сбрасываем ширину лоадера
                 loader.style.width = '0';
                 loader.style.animation = 'none';
 
-                // Запускаем лоадер только для активного буллета
                 if (index === swiper.realIndex) {
-                    loader.style.animation = 'load 3s linear forwards'; // Анимация для активного буллета
+                    loader.style.animation = 'load 3s linear forwards';
                 }
                 bullet.classList.toggle('active', index === swiper.realIndex);
             });
         }
 
         updateCustomPagination(swiper);
-
-    });
-
-
-
-    // function setOwlCarousel(){
-        // createOwlCarousel({
-        //     selectorName: '.pop-cars',
-        //     nextArrow: 'right-arrow',
-        //     prevArrow: 'left-arrow'
-        // });
-        // createOwlCarousel({
-        //     selectorName: '.cars-cards',
-        //     nextArrow: 'card-arrow-right',
-        //     prevArrow: 'card-arrow-left',
-        //     item: 3,
-        //     margin: 5
-        // });
-        // createOwlCarousel({
-        //     selectorName: '.cars-cards-mobile',
-        //     nextArrow: 'card-arrow-right-mobile',
-        //     prevArrow: 'card-arrow-left-mobile',
-        //     item: 1,
-        //     margin: 0
-        // })
-    // }
+    }
 </script>

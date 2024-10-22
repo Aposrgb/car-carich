@@ -1,0 +1,46 @@
+{% extends 'lk/base.html.twig' %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="flex-j-center">
+        <div style="" class="white-color reg-container mt-6 mb-6">
+            <img class="img-log" alt="" src="{{ asset('img/security/girl-reg.svg') }}" />
+            <div style="width: 300px;" class=" flex-column mr-1 mt-4">
+                <h2 class="m-0 font-weight-avg">
+                    Регистрация
+                </h2>
+                <div class="flex-column mt-2 font-500">
+                    <label for="name">Имя и фамилия<span class="required">*</span></label>
+                    <input placeholder="Иван Иванович" id="name" type="text" class="mt-1 login-input" />
+                </div>
+                <div class="flex-column mt-4 font-500">
+                    <label for="phone">Номер телефона<span class="required">*</span></label>
+                    <input placeholder="+7 (__) ___ __ - __" id="phone" type="text" class="mt-1 login-input" />
+                </div>
+                <div class="flex-column mt-4 font-500">
+                    <label for="email">E-mail</label>
+                    <input placeholder="car-carich@yandex.ru" id="email" type="text" class="mt-1 login-input" />
+                </div>
+                <div class="flex-column mt-4 font-500">
+                    <label for="password">Пароль<span class="required">*</span></label>
+                    <input placeholder="Введите пароль" id="password" type="password" class="mt-1 login-input"/>
+                </div>
+                <div class="flex mt-2 g-2">
+                    <input id="agree-data-processing" class="check-log" type="checkbox" />
+                    <label class="fs-13 grey" for="agree-data-processing">Ознакомился(-ась) с <a class="black">политикой конфиденциальности</a> и даю согласие
+                        на обработку <a class="black">персональных данных</a></label>
+                </div>
+                <div class="mt-2 pb-2 fs-15 flex-column">
+                    <button class="btn btn-accent font-weight-avg">Регистрация</button>
+                    <button onclick="window.location.href = `{{ path('app_lk_login') }}`" class="mt-2 btn border-none">Назад</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

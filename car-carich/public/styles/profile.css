@@ -1,0 +1,63 @@
+.profile-container {
+    display: grid;
+    grid-template-columns: 10% 60% 20%;
+    align-items: center;
+    margin: 0 5%;
+    width: auto;
+    gap: 5%;
+    justify-items: center;
+}
+
+.profile-info-block {
+    display: flex;
+    justify-content: space-evenly;
+    height: auto;
+    gap: 30px;
+}
+
+.profile-info-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-around;
+    height: auto;
+    align-content: space-evenly;
+    justify-items: start;
+    align-items: start;
+}
+
+.profile-info {
+    gap: 10px;
+}
+
+.profile-info > span {
+    font-size: 17px;
+    color: grey;
+    font-weight: 500;
+}
+
+.profile-info > div {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.btn-grey {
+    background-color: grey;
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-exit {
+    background-color: #FF5757;
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}

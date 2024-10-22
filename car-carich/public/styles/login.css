@@ -1,0 +1,125 @@
+.login-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.img-log{
+    height: 700px;
+}
+
+.check-log {
+    position: relative;
+    width: 52px;
+    height: 20px;
+    border-radius: 2px;
+    appearance: none;
+    background-color: #bbb;
+    transition: all .3s;
+}
+
+.check-log::before {
+    content: '';
+    position: absolute;
+    border: solid #fff;
+    display: block;
+    width: .3em;
+    height: .6em;
+    border-width: 0 .2em .2em 0;
+    z-index: 1;
+    opacity: 0;
+    right: calc(50% - .3em);
+    top: calc(50% - .6em);
+    transform: rotate(0deg);
+    transition: all .3s;
+    transform-origin: center center;
+}
+
+.check-log:checked {
+    animation: a .3s ease-in forwards;
+    background-color: rgb(120, 190, 120);
+}
+
+.check-log:checked::before {
+    opacity: 1;
+    transform: rotate(405deg);
+}
+
+@keyframes a {
+    0% {
+        opacity: 1;
+        transform: scale(1) rotateY(0deg);
+    }
+
+    50% {
+        opacity: 0;
+        transform: scale(.8) rotateY(180deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateY(360deg);
+    }
+}
+
+.reg-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.login-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #e2e2e2;
+    border-radius: 1px;
+    outline: none;
+    color: #333;
+}
+
+.login-input::placeholder {
+    color: #b3b3b3;
+}
+
+.login-input:focus {
+    border-color: #ccc;
+}
+
+.telegram-widget-container {
+    background-color: #54a9eb;
+    padding: 15px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vk-login-button {
+    background-color: #0076FE;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vk-login-button img {
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.divider {
+    width: 2px;
+    height: 20px;
+    background-color: #cfcfcf63;
+}

@@ -1,0 +1,7 @@
+<label for="stamp" class="text-montserrat">Марка</label>
+<select id="stamp" class="select-filter text-montserrat">
+    <option class="text-montserrat" value="">Все марки</option>
+    {% for stamp in stamps %}
+        <option class="text-montserrat" value="{{ stamp['id'] }}">{{ stamp['name'] }}</option>
+    {% endfor %}
+</select>

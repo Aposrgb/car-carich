@@ -2,15 +2,12 @@
 
 namespace App\Controller\Api;
 
-use App\Helper\DTO\Car\CarLkResponse;
-use App\Helper\DTO\PaginationDTO;
-use App\Helper\Filter\CatalogueFilter;
-use App\Helper\Filter\Pagination;
-use App\Helper\Mapper\Mapper;
+use App\Helper\DTO\{Car\CarLkResponse, PaginationDTO};
+use App\Helper\Filter\{CatalogueFilter, Pagination};
+use App\Helper\Mapper\{Mapper};
 use App\Repository\CarRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\{JsonResponse, Request};
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 

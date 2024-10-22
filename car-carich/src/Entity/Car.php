@@ -62,6 +62,9 @@ class Car
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mileageOneCharge;
 
+    #[ORM\ManyToOne(inversedBy: 'cars')]
+    private ?Model $model = null;
+
 
     public function getId(): ?int
     {
@@ -273,6 +276,18 @@ class Car
     public function setMileageOneCharge(?string $mileageOneCharge): Car
     {
         $this->mileageOneCharge = $mileageOneCharge;
+        return $this;
+    }
+
+    public function getModel(): ?Model
+    {
+        return $this->model;
+    }
+
+    public function setModel(?Model $model): static
+    {
+        $this->model = $model;
+
         return $this;
     }
 

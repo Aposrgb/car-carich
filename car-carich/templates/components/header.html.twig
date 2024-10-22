@@ -1,31 +1,39 @@
 <header class="header header-color black font-gotham">
-    <div class="flex-row flex-space-between header-block header-color g-1">
-        <a href="{{ path('index') }}" class="ibm-font header-base-btn header-avg-btn header-btn-accent g-4">
+    <div class="header-block header-color">
+        <a href="{{ path('index') }}"
+           class="btn border-none flex-j-center ibm-font header-base-btn flex-center header-avg-btn header-btn-accent g-4">
             <img src="{{ asset('img/logo.svg') }}" alt="" class="header-logo"/>
             <span class="header-logo-text">Car-Карыч</span>
         </a>
-        <div class="header-base-btn header-small-btn header-secondary-text g-2">
+        <a href="{{ path('catalog') }}#search-input" class="flex-j-center header-base-btn flex-center header-small-btn header-secondary-text g-2">
             <img src="{{ asset('img/header/search.svg') }}" alt="" class="header-img"/>
-            <span>Поиск</span>
+            <span class="fs-17 grey">Поиск</span>
+        </a>
+        <div class="header-base-btn flex-center flex-space-between header-btn header-secondary-text text-montserrat g-6">
+            <a class="fs-17" href="{{ path('index') }}">Главная</a>
+            <a class="fs-17" href="{{ path('catalog') }}">Каталог</a>
+            <a class="fs-17" href="{{ path('about_us') }}">О нас</a>
         </div>
-        <div class="header-base-btn header-btn header-secondary-text text-montserrat g-6">
-            <a href="{{ path('index') }}">Главная</a>
-            <a href="{{ path('catalog') }}">Каталог</a>
-            <a href="{{ path('about_us') }}">О нас</a>
-        </div>
-        <div class="header-base-btn header-avg-btn header-secondary-text text-montserrat g-6">
-            <a href="{{ path('index') }}" class="g-2 flex-center">
+        <div class="flex-j-center flex-space-evenly header-base-btn flex-center header-avg-btn header-secondary-text text-montserrat g-6">
+            <a href="{{ path('index') }}" class="g-2 flex-center fs-17">
                 <img src="{{ asset('img/header/navigation.svg') }}" alt="" class="header-img"/>
                 Москва
             </a>
-            <a href="{{ path('catalog') }}" class="g-2 flex-center">
+            <a href="{{ path('catalog') }}" class="g-2 flex-center fs-17">
                 <img src="{{ asset('img/header/phone.svg') }}" alt="" class="header-img"/>
                 +7 999 000 99 00
             </a>
         </div>
-        <div class="header-base-btn header-small-btn header-btn-accent text-montserrat header-signin g-2">
-            <img src="{{ asset('img/header/signin.svg') }}" alt="" class="header-img"/>
-            <span>Вход</span>
-        </div>
+        {% if app.user %}
+            <a href="{{ path('app_lk_profile') }}" class="btn border-none flex-j-center header-secondary-text  header-base-btn flex-center header-small-btn text-montserrat header-signin g-4">
+                <img src="{{ asset('img/header/profile_authorized.svg') }}" alt="" class="header-img"/>
+                <span class="fs-16 grey">Профиль</span>
+            </a>
+        {% else %}
+            <a href="{{ path('app_lk_login') }}" class="btn border-none flex-j-center header-secondary-text  header-base-btn flex-center header-small-btn header-btn-accent text-montserrat header-signin g-2">
+                <img src="{{ asset('img/header/signin.svg') }}" alt="" class="header-img"/>
+                <span class="fs-16">Вход</span>
+            </a>
+        {% endif %}
     </div>
 </header>

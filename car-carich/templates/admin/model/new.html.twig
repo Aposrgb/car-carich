@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Создание модели{% endblock %}
+
+{% block body %}
+    <h1>Создание модели</h1>
+
+    {{ include('admin/model/_form.html.twig') }}
+
+    <a href="{{ path('app_model_index') }}" class="btn btn-light">Вернуться к списку</a>
+{% endblock %}

@@ -9,11 +9,9 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class CountryFilter
 {
     public function __construct(
-        private readonly CountryRepository $countryRepository,
-        public array                       $countries = [],
-    )
-    {
-        $this->countries = $this->countryRepository->findAll();
+        CountryRepository $countryRepository,
+        public array $countries = [],
+    ) {
+        $this->countries = $countryRepository->findIdNameArray();
     }
-
 }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Car;
 use App\Entity\Country;
+use App\Entity\Model;
 use App\Entity\Stamp;
 use App\Helper\Enum\Type\CarType as EnumCarType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -97,6 +98,11 @@ class CarType extends AbstractType
                 'class' => Country::class,
                 'choice_label' => 'name',
                 'label' => 'Страна',
+            ])
+            ->add('model', EntityType::class, [
+                'class' => Model::class,
+                'choice_label' => 'name',
+                'label' => 'Модель',
             ])
             ->add('stamp', EntityType::class, [
                 'class' => Stamp::class,

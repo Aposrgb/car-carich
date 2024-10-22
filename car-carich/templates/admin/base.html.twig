@@ -46,6 +46,13 @@
                     <li><a class="dropdown-item" href="{{ path('app_country_new') }}">Добавить</a></li>
                 </ul>
             </li>
+            <li onclick="openTab(this)" class="nav-item dropdown">
+                <a class="fs-15" href="#">Модель</a>
+                <ul class="dropdown-menu mt-2">
+                    <li><a class="dropdown-item" href="{{ path('app_model_index') }}">Список</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_model_new') }}">Добавить</a></li>
+                </ul>
+            </li>
             <li class="nav-item dropdown">
                 <a class="fs-15" href="{{ path('app_settings_index') }}">Настройки</a>
             </li>

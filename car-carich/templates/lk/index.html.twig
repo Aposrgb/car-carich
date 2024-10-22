@@ -2,36 +2,42 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ asset('styles/styles.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('libs/owlcarousel/owl.carousel.min.css') }}"/>
 
     {{ component('car') }}
     {{ component('slider_factory') }}
     <script src="{{ asset('libs/jquery.min.js') }}"></script>
+
     <script src="{{ asset('libs/owlcarousel/owl.carousel.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('libs/owlcarousel/owl.carousel.min.css') }}"/>
+
+    <script src="{{ asset('libs/swiper/swiper.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('libs/swiper/swiper.min.css') }}"/>
+
+
     {{ component('scripts/index', { maxPrice: LkFilter.maxPriceFilter }) }}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
     {{ component('styles/lk/index/banner') }}
     {{ component('styles/lk/index/filters') }}
     {{ component('styles/lk/index/free-consultation') }}
-    {{ component('styles/lk/index/list-car') }}
     {{ component('styles/lk/index/index') }}
 {% endblock %}
 
 {% block body %}
-    {{ component('header') }}
     {{ component('lk/index/banner') }}
-    {{ component('lk/index/filters') }}
+    {{ component('lk/index/filters', { LkFilter: LkFilter }) }}
     {{ component('lk/index/banner-consultation') }}
-    {{ component('lk/index/list-car') }}
+
+    <div class="mt-4 grid-4 g-6 popular-cars grid-pop">
+
+    </div>
 
     <div class="call-btn-catalog-container g-6 text-montserrat mt-3 mb-3">
-        <div class="call-btn-accent flex-center flex-j-center g-2">
+        <div onclick="toggleModal()" class="btn border-none call-btn-accent flex-center flex-j-center g-2">
             <img alt="" src="{{ asset('img/index/black-phone.svg') }}"/>
             <span class="fs-14">Заказать звонок</span>
         </div>
-        <button class="btn btn-black text-montserrat">Перейти в каталог</button>
+        <a href="{{ path('catalog') }}" class="btn btn-black flex-center flex-j-center text-montserrat">Перейти в каталог</a>
     </div>
+
 {% endblock %}

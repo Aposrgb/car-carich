@@ -14,6 +14,9 @@
 
     .header-block{
         padding: 30px 0;
+        display: grid;
+        gap: 20px;
+        grid-template-columns: calc(20% - 16px) calc(15% - 16px) calc(27.5% - 16px) calc(27.5% - 16px) calc(10% - 16px);
     }
 
     .header-img{
@@ -24,22 +27,20 @@
         color: unset;
     }
 
+    .header-logo-text{
+        font-size: 25px;
+        font-weight: bold;
+    }
+
     .header-secondary-text{
-        font-size: 15.5px;
+        font-size: 16px;
         color: var(--secondary-text-color);
     }
 
     .header-logo{
         width: 50px;
     }
-
-    .header-logo-text{
-        font-size: 23px;
-        font-weight: bold;
-    }
-
     .header-signin{
-        font-size: 14px;
         font-weight: 600;
         color: #212121;
     }
@@ -47,8 +48,6 @@
     .header-base-btn {
         height: 62px;
         background: var(--default-white-color);
-        display: flex;
-        align-items: center;
         border-radius: 2px;
     }
 

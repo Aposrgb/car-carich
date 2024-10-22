@@ -5,13 +5,13 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
-        admin_provider:
+        user_provider:
             entity:
                 class: App\Entity\User
-                property: login
+                property: id
     firewalls:
         admin:
-            provider: admin_provider
+            provider: user_provider
             pattern: ^/admin
             custom_authenticator: App\Security\AdminAuthenticator
             logout:
@@ -26,8 +26,15 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            lazy: true
-            provider: users_in_memory
+            provider: user_provider
+            custom_authenticators:
+                - App\Security\TelegramAuthenticator
+                - App\Security\VkAuthenticator
+                - App\Security\DevAuthenticator
+            logout:
+                path: app_lk_logout
+                target: index
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

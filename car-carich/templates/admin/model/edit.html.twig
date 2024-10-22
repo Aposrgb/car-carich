@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Редактирование модели{% endblock %}
+
+{% block body %}
+    <h1>Редактирование модели</h1>
+
+    {{ include('admin/model/_form.html.twig', {'button_label': 'Обновить'}) }}
+
+    <a href="{{ path('app_model_index') }}" class="btn btn-light">Вернуться к списку</a>
+
+    {{ include('admin/model/_delete_form.html.twig') }}
+{% endblock %}

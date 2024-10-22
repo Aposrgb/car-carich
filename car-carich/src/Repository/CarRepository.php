@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Car;
+use App\Helper\Enum\Type\CatalogueSortType;
 use App\Helper\Filter\CatalogueFilter;
 use App\Helper\Filter\Pagination;
 use App\Repository\Trait\FindBySelectPropertyNameTrait;
@@ -22,6 +23,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class CarRepository extends ServiceEntityRepository
 {
     use FindBySelectPropertyNameTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Car::class);
@@ -60,6 +62,30 @@ class CarRepository extends ServiceEntityRepository
                 ->andWhere('c.mileage >= :minMileage')
                 ->setParameter('minMileage', $catalogueFilter->minMileage);
         }
+
+        if (!empty($catalogueFilter->text)) {
+            $qb
+                ->andWhere($qb->expr()->like('LOWER(c.name)', ':name'))
+                ->setParameter('name', '%' . mb_strtolower($catalogueFilter->text) . '%');
+        }
+
+        if (empty($catalogueFilter->sort)) {
+            $qb->orderBy('c.mileage', 'DESC');
+        } elseif ($catalogueFilter->sort == CatalogueSortType::POPULAR->value) {
+            $qb->addSelect(
+                '
+                (
+                    CASE WHEN c.isPopular = true THEN 0
+                    ELSE 1 END
+                ) AS HIDDEN popular
+           '
+            )->orderBy('popular', 'ASc');
+        } elseif ($catalogueFilter->sort == CatalogueSortType::CHEAPER->value) {
+            $qb->orderBy('c.fullPrice', 'ASC');
+        } elseif ($catalogueFilter->sort == CatalogueSortType::EXPENSIVE->value) {
+            $qb->orderBy('c.fullPrice', 'DESC');
+        }
+
         return $this->getPaginatorByQueryBuilder($qb, $pagination);
     }
 
@@ -81,29 +107,4 @@ class CarRepository extends ServiceEntityRepository
                 ->setMaxResults($pagination->getLimit())
         );
     }
-
-//    /**
-//     * @return CarType[] Returns an array of CarType objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?CarType
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

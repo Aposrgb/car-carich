@@ -8,99 +8,91 @@
 {% endblock %}
 
 {% block body %}
-    {{ component('header', {nameHidden: false, aboutUsHidden: true}) }}
     <div class="mt-6"></div>
     <div class="width-100 flex-column flex-center">
-        <div class="main-block width-66">
-            <div class="flex-column">
-                <h2 class="black font-gotham-bold m-0">О нас</h2>
-                <h5 class="font-gotham">
-                    Мы занимаемся импортом автомобилей в РФ. <br>
-                    Возим авто из Кореи, Китая, Японии, Америки и других стран.<br>
-                    Работаем по договору: гарантии, сроки, ответственность-все в нем прописано.
-                </h5>
+        <div class="main-block">
+            <div class="container-about-us white-color overflow-hidden relative p-3">
+                <div class="flex-column">
+                    <h1 class="black m-0 container-about-us-text">О нас</h1>
+                    <h4 class="font-weight-normal m-0 container-about-us-text">
+                        Мы занимаемся импортом автомобилей в РФ. <br>
+                        Возим авто из Кореи, Китая, Японии, Америки и других стран.<br>
+                        Работаем по договору: гарантии, сроки, ответственность-все в нем прописано.
+                    </h4>
+                </div>
+                <img alt="" class="absolute height-100 right-0" src="{{ asset('img/about_us/about_us_car.svg') }}">
             </div>
             <div class="width-100 mt-4">
-                <img src="{{ asset('img/deadline-receiving.svg') }}" class="mobile-none width-100" alt=""/>
+                <img src="{{ asset('img/about_us/deadline-receiving.svg') }}" class="width-100" alt=""/>
                 <img src="{{ asset('img/mobile-delivery.svg') }}" class="width-66 mobile-block" alt=""/>
                 <img src="{{ asset('img/mobile-period.svg') }}" class="width-66 mt-3 mobile-block" alt=""/>
             </div>
-            <div class="blocks-description mt-5">
-                <div class="btn btn-light btn-selectable width-30 block-description">
-                    <div class="block mlr-2 mt-2">
-                        <h4 class="black font-gotham-bold m-0">30%<br> Выгоды</h4>
-                        <h5 class="font-gotham black">
-                            В среднем выгода заказа авто составляет 30 процентов от цены по наличию в городах РФ. (в
-                            некоторых случаях до 50 процентов).</h5>
-                    </div>
+            <div class="blocks-description mt-4">
+                <div class="btn-description btn-light btn-selectable block-description">
+                    <h2 class="title-desc m-0">30%<br> Выгоды</h2>
+                    <h3 class="text-desc font-weight-normal">
+                        В среднем выгода заказа авто составляет 30 процентов от цены по наличию в городах РФ. (в
+                        некоторых случаях до 50 процентов).</h3>
                 </div>
-                <div class="btn btn-light btn-selectable width-30 ml-2 block-description">
-                    <div class="mlr-2 mt-2">
-                        <h4 class="black font-gotham-bold m-0">До 2 месяцев<br> ожидания</h4>
-                        <h5 class="font-gotham black">
-                            Сроки ожидания достигает 1.5-2 месяца с момента выкупа авто в салоне или аукционе.</h5>
-                    </div>
+                <div class="btn-description btn-light btn-selectable block-description">
+                    <h2 class="title-desc m-0">До 2 месяцев<br> ожидания</h2>
+                    <h3 class="text-desc font-weight-normal">
+                        Сроки ожидания достигает 1.5-2 месяца с момента выкупа авто в салоне или аукционе.</h3>
                 </div>
-                <div class="btn btn-light btn-selectable width-30 ml-2 block-description">
-                    <div class="mlr-2 mt-2">
-                        <h4 class="black font-gotham-bold m-0">Вы - первый<br> владелец</h4>
-                        <h5 class="font-gotham black">
-                            Растаможиваем авто сразу на клиента, вы первый собственник в РФ.
-                        </h5>
-                    </div>
+                <div class="btn-description btn-light btn-selectable block-description">
+                    <h2 class="title-desc m-0">Вы - первый<br> владелец</h2>
+                    <h3 class="text-desc font-weight-normal">
+                        Растаможиваем авто сразу на клиента, вы первый собственник в РФ.
+                    </h3>
                 </div>
             </div>
-            <div class="work-contract flex-row flex-space-between mt-6">
-                <div class="flex-column flex-j-center">
-                    <h4 class="black font-gotham-bold m-0">Работаем по договору</h4>
-                    <h6 class="font-gotham m-0">гарантии, сроки, ответственность - все в нем прописано.</h6>
+            <div class="work-contract mt-4 white-color">
+                <div class="flex-column flex-j-center p-3">
+                    <h3 class="m-0">Работаем по договору</h3>
+                    <h4 class="font-weight-normal m-0">гарантии, сроки, ответственность - все в нем прописано.</h4>
                 </div>
-                <a href="{{ contract }}" class="btn btn-black width-40 text-center font-gotham">Скачать договор</a>
+                <a href="{{ contract }}" class="btn btn-accent flex-center flex-j-center g-4">
+                    <img alt="" src="{{ asset('img/about_us/download.svg') }}">
+                    <h3 class="m-0 font-weight-avg">Открыть договор</h3>
+                </a>
             </div>
-            {#            <div class="mt-6"> #}
-            {#                <h2 class="black font-gotham-bold m-0 text-center">Где нас можно найти?</h2> #}
-            {#                <div id="map" class="width-100 mt-4 map"></div> #}
-            {#                <div class="mt-4"> #}
-            {#                    <img src="{{ asset('img/address-phone-worktime.svg') }}"  alt="" class="width-100 mobile-none"/> #}
-            {#                    <img src="{{ asset('img/mobile-address-phone.svg') }}"  alt="" class="width-100 mobile-block"/> #}
-            {#                </div> #}
-            {#            </div> #}
+
             <div class="mt-3 flex-column">
-                <div class="button-social-network">
+                <div class="flex-column">
+                    <h2 class="m-0">Где нас можно найти?</h2>
+                    <div class="">
+                        <div class="map-block mt-4">
+                            <div id="map" class="width-100 map"></div>
+                            <img src="{{ asset('img/about_us/address-phone-worktime.svg') }}"  alt="" class="width-100"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-social-network mt-4 mb-4">
                     {% for socialNetwork in socialNetworks %}
                         {% if socialNetwork.type == 2 %}
-                            <a href="{{ socialNetwork.value }}" class="flex-row btn btn-light btn-transparent btn-mobile width-50 flex-j-center mr-1">
-                                <img src="{{ asset('img/vk.svg') }}" alt="" class="invert-img mr-1"/>
-                                <h5 class="font-gotham black m-0">Группа в ВК</h5>
+                            <a href="{{ socialNetwork.value }}"
+                               class="flex-row btn bg-white flex-j-center g-2">
+                                <img src="{{ asset('img/about_us/vk.svg') }}" alt="" class="vk-color"/>
+                                <h3 class="m-0 vk-color">Группа в ВК</h3>
                             </a>
                         {% elseif socialNetwork.type == 3 %}
-                            <a href="{{ socialNetwork.value }}" class="flex-row btn btn-light btn-transparent btn-mobile width-50 flex-j-center ml-1">
-                                <img src="{{ asset('img/instagram.svg') }}" alt="" class="invert-img mr-1"/>
-                                <h5 class="font-gotham black m-0">Instagram</h5>
+                            <a href="{{ socialNetwork.value }}"
+                               class="flex-row btn bg-white flex-j-center g-2">
+                                <img src="{{ asset('img/about_us/instagram.svg') }}" alt="" class="inst-color"/>
+                                <h3 class="m-0 inst-color">Instagram</h3>
+                            </a>
+                        {% elseif socialNetwork.type == 4 %}
+                            <a href="{{ socialNetwork.value }}"
+                               class="flex-row btn bg-white flex-j-center g-2">
+                                <img src="{{ asset('img/about_us/youtube.svg') }}" alt="" class="youtube-color"/>
+                                <h3 class="m-0 youtube-color">YouTube</h3>
                             </a>
                         {% endif %}
+
                     {% endfor %}
                 </div>
-                <div>
-                    {% for socialNetwork in socialNetworks %}
-                        {% if socialNetwork.type == 4 %}
-                            <a href="{{ socialNetwork.value }}" class="flex-row btn btn-light btn-transparent mt-2 flex-j-center">
-                                <img src="{{ asset('img/youtube.svg') }}" alt="" class="invert-img mr-1"/>
-                                <h5 class="font-gotham black m-0">YouTube</h5>
-                            </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="mt-4">
-                    <img src="{{ asset('img/last-video.svg') }}" class="width-100"/>
-                </div>
-                <div class="mt-4">
-                    <h2 class="black font-gotham-bold m-0 text-center">Остались вопросы?</h2>
-                </div>
-                <div class="mt-3">
-                    <button class="btn btn-black width-100 font-gotham" onclick="toggleModal()">Заказать звонок</button>
-                </div>
-                <div class="mt-3"></div>
+
             </div>
         </div>
     </div>

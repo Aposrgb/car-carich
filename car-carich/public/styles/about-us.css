@@ -1,5 +1,20 @@
 .map {
-    height: 350px;
+}
+
+.map-block {
+    display: grid;
+    grid-template-columns: 70% calc(30% - 30px);
+    gap: 30px;
+}
+
+.container-about-us {
+    display: grid;
+    grid-template-columns: 75% 25%;
+}
+
+.container-about-us-text {
+    margin: 10px 0;
+    line-height: 25px;
 }
 
 .img-mobile-delivery {
@@ -7,17 +22,66 @@
 }
 
 .blocks-description {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.block-description.btn-description {
+    padding: 40px;
+}
+
+.title-desc {
+}
+
+.text-desc {
+    line-height: 30px;
 }
 
 .button-social-network {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
+.button-social-network img {
+    height: 100%;
+}
+
+.button-social-network a {
+    border: none;
+    padding: 30px 0;
+}
+
+.btn-description {
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-description:hover {
+    transform: scale(0.9);
+}
+
+.work-contract {
+    display: grid;
+    grid-template-columns: 55% 45%;
+}
+
+.vk-color {
+    color: var(--vk-color);
+}
+
+.inst-color {
+    color: var(--instagram-color);
+}
+
+.youtube-color {
+    color: var(--youtube-clor);
+}
+
+
 @media only screen and (max-width: 768px) {
-    .main-block{
+    .main-block {
         width: 85%;
     }
 
@@ -26,7 +90,7 @@
         margin-top: 30px;
     }
 
-    .block{
+    .block {
         width: fit-content;
     }
 
@@ -34,13 +98,13 @@
         margin-left: 0;
         width: fit-content;
         margin-top: 20px;
-        padding:0;
+        padding: 0 !important;
     }
 
     .btn-mobile {
         margin-top: 20px;
-        margin-left:0;
-        margin-right:0;
+        margin-left: 0;
+        margin-right: 0;
         width: auto;
     }
 
@@ -49,12 +113,11 @@
         width: 100%;
     }
 
-    .work-contract{
-        flex-direction: column;
-        margin-top: 35px;
+    .work-contract {
+
     }
 
-    .work-contract .btn{
+    .work-contract .btn {
         width: 100%;
         margin-top: 20px;
         padding-left: 0;

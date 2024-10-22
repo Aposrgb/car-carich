@@ -1,0 +1,56 @@
+{% extends 'lk/base.html.twig' %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="flex-j-center">
+        <div style="" class="white-color login-container mt-6 mb-6">
+            <img class="img-log" alt="" src="{{ asset('img/security/girl.svg') }}" />
+            <div class="flex-column ml-4 mr-4 mt-4">
+                <h2 class="m-0 font-weight-avg">
+                    Войти в профиль
+                </h2>
+                <div class="flex-column mt-4 font-500">
+                    <label for="phone">Номер телефона</label>
+                    <input placeholder="+7 (__) ___ __ - __" id="phone" type="text" class="mt-1 login-input" />
+                </div>
+                <div class="flex-column mt-4 font-500">
+                    <label for="password">Пароль</label>
+                    <input placeholder="Введите пароль" id="password" type="password" class="mt-1 login-input"/>
+                </div>
+                {% if app.environment == 'dev' %}
+                    <button onclick="window.location.href='{{ path('app_lk_dev_login') }}'" class="mt-4 btn btn-accent fs-18 font-weight-avg">Войти</button>
+                {% else %}
+                    <button class="mt-4 btn btn-accent fs-18 font-weight-avg">Войти</button>
+                {% endif %}
+                <p class="text-center grey mt-2 mb-2">или войти с помощью</p>
+                <div class="grid-2 g-4">
+                    <div class="telegram-widget-container">
+                        <script async src="https://telegram.org/js/telegram-widget.js?22"
+                                data-telegram-login="CarCariychBot"
+                                data-size="large"
+                                data-radius="10"
+                                data-auth-url="/security/login/telegram"
+                                data-request-access="write"></script>
+                    </div>
+                    <div class="flex">
+                        <a href="{{ path('login_vk') }}" class="vk-login-button">
+                            <img src="{{ asset('img/security/vk.svg') }}" alt="VK Logo">
+                            ВКонтакте
+                        </a>
+                    </div>
+                </div>
+                <div class="flex-row g-4 flex-j-center mt-3 mb-3 font-500">
+                    <a>Забыли пароль</a>
+                    <div class="divider"></div>
+                    <a href="{{ path('app_lk_register') }}">Создать профиль</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
